@@ -1,0 +1,24 @@
+
+GRAPHICS:
+Glew (OpenGL)
+
+GUI_EDITOR: 
+// GTK+
+// Glade (designer)
+Qt
+
+GUI_GAME:
+SDL
+SDL_ttf
+
+TESTS:
+gtest (Google test)
+
+COMPILER:
+msvc  (Windows)
+MinGW (Windows)
+XCode (macOS)
+GCC   (Linux)
+
+OTHERS:
+SFML (Simple and Fast Multimedia Library) ??
