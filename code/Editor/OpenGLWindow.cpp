@@ -105,7 +105,7 @@ void OpenGLWindow::initializeGL()
 	errorCode = glGetError();
 	assert(errorCode == 0);
 
-	//installShaders();
+	installShaders();
 
 	//----------------------------------------------------------------------------------------
 
