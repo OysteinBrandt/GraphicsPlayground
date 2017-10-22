@@ -89,6 +89,12 @@ TEST(Profiler, ExcludeIncompleteFrames)
 	checkSamples();
 }
 
+TEST(Profiler, NewFrameBeforeAddEntry)
+{
+	Profiler profiler(profilerFileName);
+	ASSERT_DEATH(profiler.newFrame(), "Assertion failed.*");
+}
+
 TEST(Profiler, SmallAmountOfSamplesNonCircular)
 {
 	{
@@ -115,11 +121,5 @@ TEST(Profiler, CirculatingOneBufferPlusSome)
 
 TEST(Profiler, CirculatingMultipleBuffers)
 {
-
-}
-
-TEST(Profiler, NewFrameBeforeAddEntry)
-{
-	Profiler profiler(profilerFileName);
-	ASSERT_DEATH(profiler.newFrame(), "Assertion failed.*");
+	GTEST_MESSAGE_("Not implemented", testing::TestPartResult::Type::kNonFatalFailure);
 }
