@@ -15,10 +15,16 @@
     <ClCompile Include="Math\Mat3Test.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="DebugToolsTest\ProfilerTest.cpp">
+      <Filter>DebugToolsTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
       <UniqueIdentifier>{e2d177a6-7bea-4845-a6a2-88fbf476e48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugToolsTest">
+      <UniqueIdentifier>{810009de-5f53-4d76-90e7-7e988d05847c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -82,6 +82,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\Engine;$(ProjectDir)..\..\3rdParty\gtest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -95,6 +96,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\Engine;$(ProjectDir)..\..\3rdParty\gtest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,6 +112,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\Engine;$(ProjectDir)..\..\3rdParty\gtest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,6 +130,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\Engine;$(ProjectDir)..\..\3rdParty\gtest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -136,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rdParty\gtest\src\gtest-all.cc" />
+    <ClCompile Include="DebugToolsTest\ProfilerTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Mat2Test.cpp" />
     <ClCompile Include="Math\Mat3Test.cpp" />
