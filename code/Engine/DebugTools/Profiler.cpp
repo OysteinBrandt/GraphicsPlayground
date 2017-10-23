@@ -1,41 +1,29 @@
+#include "DebugTools.h"
+
+#ifdef PROFILING
 #include "Profiler.h"
 #include <fstream>
 #include <cassert> // TODO: Replace with our own assert
 
 namespace debug {
 
-Profiler::Profiler(const std::string &filePath) : m_filePath(filePath), m_frameIndex(0), m_categoryIndex(0), m_numUsedCategories(0)
+static std::ofstream s_stream;	// Not thread safe
+
+Profiler::Profiler(const std::string &filePath) : m_filePath(filePath), m_frameIndex(-1), m_categoryIndex(0), m_numUsedCategories(0)
 {
 }
 
 Profiler::~Profiler()
 {
-	std::ofstream stream(m_filePath, std::ios::trunc);
-
-	for (unsigned int i = 0; i < m_numUsedCategories; ++i)
-	{
-		stream << m_categories[i].name;
-		stream << getDelimiter(i);
-	}
-
-	for (unsigned int frame = 0; frame < m_frameIndex; ++frame)
-	{
-		for (unsigned int category = 0; category < m_numUsedCategories; ++category)
-		{
-			stream << m_categories[category].samples[frame].count();
-			stream << getDelimiter(category);
-		}
-	}
+	writeData();
 }
 
 void Profiler::newFrame()
 {
-	if (m_frameIndex <= 0)
-		assert(m_categoryIndex > 0);										// Entries should be added before newFrame is called
-	else
+	if (m_frameIndex > 0)
 		assert(m_categoryIndex == m_numUsedCategories);	// Make sure we are in sync with categories created in frame 0
+
 	++m_frameIndex;
-	assert(m_frameIndex < MAX_FRAME_SAMPLES);					// Exceeded maximum amout of frames we can track
 	m_categoryIndex = 0;
 }
 
@@ -54,8 +42,69 @@ void Profiler::addEntry(const std::string &category, const std::chrono::duration
 		assert(category == pc.name);											// Unknown category
 		assert(m_categoryIndex < m_numUsedCategories);		// Category was not added at frame index 0
 	}
-	pc.samples[m_frameIndex] = time;
 	++m_categoryIndex;
+	pc.samples[m_frameIndex % MAX_FRAME_SAMPLES] = time;
 }
 
+
+bool Profiler::currentFrameComplete() const
+{
+	return m_categoryIndex == m_numUsedCategories;
 }
+
+void Profiler::writeData() const
+{
+	s_stream.open(m_filePath, std::ios::trunc);
+
+	for (unsigned int c = 0; c < m_numUsedCategories; ++c)
+	{
+		s_stream << m_categories[c].name;
+		s_stream << getDelimiter(c);
+	}
+
+	int endIndex{ 0 };
+	int startIndex{ 0 };
+
+	if (wrapped())
+	{
+		endIndex = m_frameIndex % MAX_FRAME_SAMPLES;
+		startIndex = (endIndex + 1) % MAX_FRAME_SAMPLES;
+
+		while (startIndex != endIndex)
+		{
+			writeFrame(startIndex);
+			startIndex = (startIndex + 1) % MAX_FRAME_SAMPLES;
+		}
+		if (currentFrameComplete())
+			writeFrame(startIndex);
+	}
+	else
+	{
+		auto actualFrames = m_frameIndex;
+		if (currentFrameComplete())
+			actualFrames++;
+
+		endIndex = actualFrames;
+		while (startIndex < endIndex)
+			writeFrame(startIndex++);
+	}
+	s_stream.close();
+}
+
+void Profiler::writeFrame(int frameNumber) const
+{
+	for (unsigned int category = 0; category < m_numUsedCategories; ++category)
+	{
+		s_stream << m_categories[category].samples[frameNumber].count();
+		s_stream << getDelimiter(category);
+	}
+}
+
+bool Profiler::wrapped() const
+{
+	return m_frameIndex >= MAX_FRAME_SAMPLES && m_frameIndex != -1;
+}
+
+} // namespace
+
+#endif // PROFILING

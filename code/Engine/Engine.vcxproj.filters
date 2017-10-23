@@ -36,6 +36,9 @@
     <ClInclude Include="DebugTools\Profiler.h">
       <Filter>DebugTools</Filter>
     </ClInclude>
+    <ClInclude Include="DebugTools\DebugTools.h">
+      <Filter>DebugTools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
