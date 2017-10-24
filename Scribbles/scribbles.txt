@@ -1,0 +1,91 @@
+Add glm to Engine project?
+
+
+Gameplay
+Engine ==> Editor
+Graphic
+Core
+
+
+Concepts:			 
+GameObjects	}
+		 } => not suitable for a lot of objects ?
+GameComponents	}
+
+Broadcasting, Direct Delivery, Observers
+
+PhysicsComponent
+Message System
+ * Record input, play back
+ * Logging
+ * Stats
+ * Profiling
+ * Object destroyed
+ * Activate message
+
+BaseEngine
+ PhysicsEngine
+ GraphicsEngine
+ GameObjectFactory
+ GameEngine?
+
+********* Message Dispatch ****************
+
+class Message {
+ MessageType type;
+};
+
+class KeyMessage : public Message {
+ KeyCode keyKode;
+};
+
+class MouseMessage : public Message {
+ vec2 position;
+};
+
+
+// -----------------------------------------
+
+virtual void HandleMessage(const Message& msg)
+{
+switch(msg.type)
+{
+	case MSG_KEY_DOWN:
+	{
+	const KeyMessage& key_msg = 
+	 static_cast<const KeyMessage&>(msg);
+	// Handle key message
+	break;
+	}
+}
+}
+
+// -----------------------------------------
+// -- Double Dispatch ----------------------
+// -----------------------------------------
+
+class MessageHandlerInterface
+{
+public:
+	virtual void handleMessage(const Message& msg) {}
+	virtual void handleMessage(const KeyMessage& msg) {}
+	virtual void handleMessage(const MouseMessage& msg) {}
+	// etc.
+}
+
+class Message {
+	virtual void dispatch(MessageHandlerInterface& handler) const = 0;
+};
+
+class KeyMessage {
+	void dispatch(MessageHandlerInterface& handler) const override
+	{
+		handler.handleMessage(*this);
+	}
+};
+
+GameObject* receiver_object = dog; // Derrives from MessageHandlerInterface
+KeyMessage msg;
+msg.type = MSG_KEY_DOWN;
+msg.keyCode = KEY_CODE_UP_ARROW;
+msg.dispatch(*receiver_object);
