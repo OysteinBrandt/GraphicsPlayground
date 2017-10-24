@@ -1,11 +1,11 @@
 #include <GL/glew.h>
 #include <QtGui/qevent.h>
-#include "DebugTools/Profile.h"
+
 #include "OpenGLWindow.h"
 #include "Math/Vec2.h"
 #include "Math/Vec3.h"
 #include "Math/Mat3.h"
-
+#include "DebugTools/Profile.h"
 
 // TODO: Refactor
 #include <cassert>
@@ -161,6 +161,7 @@ void OpenGLWindow::paintGL()
 
 	std::array<math::Vec3, 6> translatedVerts;
 	{
+		PROFILE("Vector Transformation");
 		for (size_t i = 0; i < verts.size(); ++i)
 		{
 			if (i % 2 == 0)
