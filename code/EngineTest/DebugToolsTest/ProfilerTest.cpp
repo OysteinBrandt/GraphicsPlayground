@@ -3,7 +3,7 @@
 #include "DebugTools/Profiler.h"
 #include <fstream>
 
-using debug::Profiler;
+using debug::details::Profiler;
 
 namespace
 {

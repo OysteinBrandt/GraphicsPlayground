@@ -1,11 +1,20 @@
-#include "DebugTools.h"
+#include "Profiler.h"
+
+namespace debug{
+
+	details::Profiler& ProfilerSingleton::instance()
+	{
+		static details::Profiler inst("profiling_result.csv");
+		return inst;
+	}
+
+}
 
 #ifdef PROFILING
-#include "Profiler.h"
 #include <fstream>
 #include <cassert> // TODO: Replace with our own assert
 
-namespace debug {
+namespace debug::details {
 
 static std::ofstream s_stream;	// Not thread safe
 
@@ -56,7 +65,7 @@ void Profiler::writeData() const
 {
 	s_stream.open(m_filePath, std::ios::trunc);
 
-	for (unsigned int c = 0; c < m_numUsedCategories; ++c)
+	for (int c = 0; c < m_numUsedCategories; ++c)
 	{
 		s_stream << m_categories[c].name;
 		s_stream << getDelimiter(c);
@@ -93,7 +102,7 @@ void Profiler::writeData() const
 
 void Profiler::writeFrame(int frameNumber) const
 {
-	for (unsigned int category = 0; category < m_numUsedCategories; ++category)
+	for (int category = 0; category < m_numUsedCategories; ++category)
 	{
 		s_stream << m_categories[category].samples[frameNumber].count();
 		s_stream << getDelimiter(category);

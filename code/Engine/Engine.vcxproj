@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugTools\DebugTools.h" />
+    <ClInclude Include="DebugTools\Profile.h" />
     <ClInclude Include="DebugTools\Profiler.h" />
     <ClInclude Include="DllHelper.h" />
     <ClInclude Include="Engine.h" />

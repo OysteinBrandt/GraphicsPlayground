@@ -1,6 +1,6 @@
 #include <GL/glew.h>
 #include <QtGui/qevent.h>
-
+#include "DebugTools/Profile.h"
 #include "OpenGLWindow.h"
 #include "Math/Vec2.h"
 #include "Math/Vec3.h"
@@ -117,22 +117,59 @@ void OpenGLWindow::initializeGL()
 static float orientation{ 0 };
 void OpenGLWindow::paintGL()
 {
+	NEW_PROFILING_FRAME();
+
+	// Update
+	auto now = std::chrono::high_resolution_clock::now();
+	const std::chrono::duration<float> deltaT = now - m_frameTimer;
+	const float delta = deltaT.count();
+	m_frameTimer = now;
+
+	//static int counter{ 0 };
+	//++counter;
+	//if (counter % 10000 == 0)
+	//{
+	//	std::cout << "delta time: " << delta << std::endl;
+	//	std::cout << "Fps: " << 1.0f / delta << std::endl;
+	//	std::cout << "-------------------" << std::endl;
+	//}
+
+	//static int frameStopper{ 1 };
+	//if (frameStopper++ % 30 == 0)
+	//	for (int i = 0; i < 20000; ++i)
+	//		std::cout << "awd";
+
+	math::Vec3 upVector(0, 1);
+	auto op = math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
+	auto directionToAccel = op * upVector;
+	const float acceleration{ 0.2f };
+
+	position += directionToAccel * acceleration * delta;
+
+	//-------------------------------------------------------------------
+
+	// Render
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	orientation += 0.0005f;
-	auto matrix = 
-		math::Mat3::translate(math::Vec2(position.x, position.y)) *
-		math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
+	math::Mat3 matrix;
+	{
+		PROFILE("Matrix Multiplication");
+		matrix = math::Mat3::translate(math::Vec2(position.x, position.y)) *
+			math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
+	}
 
 	std::array<math::Vec3, 6> translatedVerts;
-	for (size_t i = 0; i < verts.size(); ++i)
 	{
-		if (i % 2 == 0)
+		for (size_t i = 0; i < verts.size(); ++i)
 		{
-			translatedVerts[i] = matrix * verts[i];
+			if (i % 2 == 0)
+			{
+				translatedVerts[i] = matrix * verts[i];
+			}
+			else
+				translatedVerts[i] = verts[i];
 		}
-		else
-			translatedVerts[i] = verts[i];
 	}
 
 	// Replace buffer with new vertices
@@ -228,31 +265,5 @@ void OpenGLWindow::installShaders()
 
 void OpenGLWindow::update()
 {
-	auto now = std::chrono::high_resolution_clock::now();
-	const std::chrono::duration<float> deltaT = now - m_frameTimer;
-	const float delta = deltaT.count();
-	m_frameTimer = now;
-
-	//static int counter{ 0 };
-	//++counter;
-	//if (counter % 10000 == 0)
-	//{
-	//	std::cout << "delta time: " << delta << std::endl;
-	//	std::cout << "Fps: " << 1.0f / delta << std::endl;
-	//	std::cout << "-------------------" << std::endl;
-	//}
-
-	//static int frameStopper{ 1 };
-	//if (frameStopper++ % 30 == 0)
-	//	for (int i = 0; i < 20000; ++i)
-	//		std::cout << "awd";
-
-	math::Vec3 upVector(0, 1);
-	auto op = math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
-	auto directionToAccel = op * upVector;
-	const float acceleration{ 0.2f };
-
-	position += directionToAccel * acceleration * delta;
-
 	repaint();
 }

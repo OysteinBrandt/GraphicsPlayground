@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _DLLHELPER_H_
-#define _DLLHELPER_H_
+#ifndef _ENGINE_DLLHELPER_H_
+#define _ENGINE_DLLHELPER_H_
 
 #if defined _WIN32 || defined __CYGWIN__
 	#define OBR_HELPER_DLL_IMPORT __declspec(dllimport)
@@ -32,4 +32,4 @@
 	#define OBR_LOCAL
 #endif
 
-#endif // !_DLLHELPER_H_
+#endif	//_ENGINE_DLLHELPER_H_
