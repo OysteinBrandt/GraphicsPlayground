@@ -179,7 +179,6 @@ TEST(Profiler, EmptyCategory)
 
 TEST(Profiler, NewCategoryAfterFirstFrame)
 {
-
 	const int frames{ 5 };
 	Profiler profiler(profilerFileName);
 	writeSamples(profiler, frames);
