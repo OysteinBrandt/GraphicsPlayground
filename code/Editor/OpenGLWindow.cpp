@@ -119,6 +119,8 @@ void OpenGLWindow::paintGL()
 {
 	NEW_PROFILING_FRAME();
 
+	PROFILE_NAMED_VAR("Update and Render Total", p_updateAndRender);
+
 	// Update
 	auto now = std::chrono::high_resolution_clock::now();
 	const std::chrono::duration<float> deltaT = now - m_frameTimer;
@@ -127,7 +129,7 @@ void OpenGLWindow::paintGL()
 
 	//static int counter{ 0 };
 	//++counter;
-	//if (counter % 10000 == 0)
+	//if (counter % 10 == 0)
 	//{
 	//	std::cout << "delta time: " << delta << std::endl;
 	//	std::cout << "Fps: " << 1.0f / delta << std::endl;
@@ -152,11 +154,15 @@ void OpenGLWindow::paintGL()
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	orientation += 0.0005f;
+	float aspectRatio = static_cast<float>(width() / height());
+	const auto aspectScale = (aspectRatio > 1) ? math::Vec2{ 1.0f / aspectRatio, 1.0f } : math::Vec2{ 1.0f, aspectRatio };
+
 	math::Mat3 matrix;
 	{
 		PROFILE("Matrix Multiplication");
 		matrix = math::Mat3::translate(math::Vec2(position.x, position.y)) *
-			math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
+						 math::Mat3::scale(aspectScale.x, aspectScale.y) *
+						 math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
 	}
 
 	std::array<math::Vec3, 6> translatedVerts;
