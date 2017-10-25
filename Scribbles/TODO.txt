@@ -1,0 +1,5 @@
+Optimize Matrix class
+ * Mat2H ==> Homogeneous ==> can remove last row of a Mat3
+[a b c]
+[d e f]
+[0 0 1] <- remove this
