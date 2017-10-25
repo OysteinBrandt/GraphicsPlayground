@@ -42,6 +42,12 @@ namespace math {
 										0, 1, position.y,
 										0, 0, 1};
 		}
+
+		inline static Mat3 scale(float x, float y) {
+			return Mat3{ x, 0, 0,
+									 0, y, 0,
+									 0, 0, 1 };
+		}
 	};
 
 	inline Mat3 operator*(const Mat3 &lhs, const Mat3 &rhs) {

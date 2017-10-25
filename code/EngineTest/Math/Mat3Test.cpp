@@ -132,3 +132,31 @@ TEST(Mat3, MatrixMatrixMultiply)
 	EXPECT_FLOAT_EQ(126.f, result.y3);
 	EXPECT_FLOAT_EQ(150.f, result.z3);
 }
+
+TEST(Mat3, Scale)
+{
+	Mat3 mat = Mat3::scale(0.5f, 2.0f);
+	EXPECT_FLOAT_EQ(0.5f, mat.x1);
+	EXPECT_FLOAT_EQ(0.0f, mat.x2);
+	EXPECT_FLOAT_EQ(0.0f, mat.x3);
+
+	EXPECT_FLOAT_EQ(0.0f, mat.y1);
+	EXPECT_FLOAT_EQ(2.0f, mat.y2);
+	EXPECT_FLOAT_EQ(0.0f, mat.y3);
+
+	EXPECT_FLOAT_EQ(0.0f, mat.z1);
+	EXPECT_FLOAT_EQ(0.0f, mat.z2);
+	EXPECT_FLOAT_EQ(1.0f, mat.z3);
+
+	Vec3 vec{ 6.0f, 5.0f };
+	auto result = mat * vec;
+	EXPECT_FLOAT_EQ(3.0f, result.x);
+	EXPECT_FLOAT_EQ(10.0f, result.y);
+	EXPECT_FLOAT_EQ(0.0f, result.z);
+
+	mat = Mat3::scale(-2.0f, -0.5f);
+	auto result2 = mat * vec;
+	EXPECT_FLOAT_EQ(-12.0f, result2.x);
+	EXPECT_FLOAT_EQ(-2.5f, result2.y);
+	EXPECT_FLOAT_EQ(0.0f, result2.z);
+}
