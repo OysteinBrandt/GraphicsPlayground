@@ -19,7 +19,7 @@ namespace debug { namespace details {
 		struct ProfileCategory
 		{
 			std::string name;
-			std::array<std::chrono::duration<float>, MAX_FRAME_SAMPLES> samples{ std::chrono::seconds(0) };
+			std::array<std::chrono::milliseconds, MAX_FRAME_SAMPLES> samples{ std::chrono::milliseconds(0) };
 		} m_categories[MAX_PROFILE_CATEGORIES];
 
 		std::string m_filePath;
@@ -34,7 +34,7 @@ namespace debug { namespace details {
 		~Profiler();
 
 		void newFrame();
-		void addEntry(const std::string &category, const std::chrono::duration<float> &time);
+		void addEntry(const std::string &category, const std::chrono::milliseconds &time);
 
 	private:
 
@@ -54,7 +54,7 @@ namespace debug { namespace details {
 		~Profiler() {}
 
 		void newFrame() {}
-		void addEntry(const std::string &category, const std::chrono::duration<float> &time) {}
+		void addEntry(const std::string &category, const std::chrono::milliseconds &time) {}
 #endif	//PROFILING
 	};
 } }

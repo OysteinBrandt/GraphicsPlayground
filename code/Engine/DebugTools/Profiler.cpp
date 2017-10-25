@@ -36,7 +36,7 @@ void Profiler::newFrame()
 	m_categoryIndex = 0;
 }
 
-void Profiler::addEntry(const std::string &category, const std::chrono::duration<float> &time)
+void Profiler::addEntry(const std::string &category, const std::chrono::milliseconds &time)
 {
 	assert(!category.empty());
 	assert(m_categoryIndex < MAX_PROFILE_CATEGORIES);		// Exceeded maximum amount of categories we can track

@@ -15,7 +15,7 @@ using namespace std::chrono_literals;
 
 void writeSamples(Profiler &profiler, int numFrames)
 {
-	std::chrono::seconds sampleTime{ 0s };
+	std::chrono::milliseconds sampleTime{ 0ms };
 
 	for (int frame = 0; frame < numFrames; ++frame)
 	{
