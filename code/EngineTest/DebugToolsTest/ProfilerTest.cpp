@@ -121,22 +121,6 @@ TEST(Profiler, ExcludeIncompleteFrames)
 	writeIncompleteFrames(Profiler::MAX_FRAME_SAMPLES + 2); // Wrap
 }
 
-// TODO: Consider supporting newFrame() called both before and after addEntry() if possible
-TEST(Profiler, AddEntryBeforeNewFrame)
-{
-	{
-		Profiler profiler(profilerFileName);
-		ASSERT_DEATH(profiler.addEntry(categories[0], 15s), "Assertion failed.*");
-	}
-
-	{
-		const int frames{ 5 };
-		Profiler profiler(profilerFileName);
-		writeSamples(profiler, frames);
-		ASSERT_DEATH(profiler.addEntry(categories[0], 15s), "Assertion failed.*");
-	}
-}
-
 TEST(Profiler, SmallAmountOfFramesNonCircular)
 {
 	const int frames{ 5 };
@@ -170,7 +154,35 @@ TEST(Profiler, CirculatingMultipleBuffers)
 	runTestOnFrames(frames);
 }
 
-TEST(Profiler, AssertTests)
+// TODO: Consider supporting newFrame() called both before and after addEntry() if possible
+TEST(Profiler, AddEntryBeforeNewFrame)
 {
-	GTEST_MESSAGE_("Not implemented tests!", testing::TestPartResult::Type::kNonFatalFailure);
+	{
+		Profiler profiler(profilerFileName);
+		ASSERT_DEATH(profiler.addEntry(categories[0], 15s), "Assertion failed.*");
+	}
+
+	{
+		const int frames{ 5 };
+		Profiler profiler(profilerFileName);
+		writeSamples(profiler, frames);
+		ASSERT_DEATH(profiler.addEntry(categories[0], 15s), "Assertion failed.*");
+	}
+}
+
+TEST(Profiler, EmptyCategory)
+{
+	Profiler profiler(profilerFileName);
+	profiler.newFrame();
+	ASSERT_DEATH(profiler.addEntry("", 15s), "Assertion failed.*");
+}
+
+TEST(Profiler, NewCategoryAfterFirstFrame)
+{
+
+	const int frames{ 5 };
+	Profiler profiler(profilerFileName);
+	writeSamples(profiler, frames);
+	profiler.newFrame();
+	ASSERT_DEATH(profiler.addEntry("A new Category appears!", 15s), "Assertion failed.*");
 }
