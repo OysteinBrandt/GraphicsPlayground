@@ -1,5 +1,6 @@
 #pragma once
 #include <math.h>
+#include <cassert> // TODO: Replace
 
 namespace math {
 
@@ -49,6 +50,8 @@ namespace math {
 		inline float length() const {
 			return sqrtf( x * x + y * y + z * z);
 		}
+
+		inline Vec3 normalize() const;
 	};
 
 	/***********************************************************/
@@ -67,6 +70,25 @@ namespace math {
 
 	inline Vec3 operator*(const Vec3 &vec, float scale) {
 		return Vec3(vec.x * scale, vec.y * scale, vec.z * scale);
+	}
+
+	inline Vec3 operator/(const Vec3 &vec, float scale) {
+		return Vec3(vec.x/scale, vec.y/scale, vec.z/scale);
+	}
+
+	inline Vec3 operator/(float scale, const Vec3 &vec) {
+		return Vec3(scale/vec.x, scale/vec.y, scale/vec.z);
+	}
+
+	inline Vec3 Vec3::normalize() const {
+		const float magnitude = length();
+		const bool isValidLength = isnormal(magnitude);
+		assert(isValidLength);
+		if (!isValidLength)
+			return Vec3{};
+
+		const float inversLength = 1.0f / magnitude;
+		return inversLength * (*this);
 	}
 
 }

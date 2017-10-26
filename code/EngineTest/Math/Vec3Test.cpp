@@ -97,16 +97,30 @@ TEST(Vec3, VectorSubtractionAssignment)
 
 TEST(Vec3, ScalarMultiplication)
 {
-	Vec3 first(1.0f, 2.f, 3.f);
-	Vec3 result1 = 2 * first;
+	Vec3 vec(1.0f, 2.f, 3.f);
+	Vec3 result1 = 2 * vec;
 	EXPECT_FLOAT_EQ(2.f, result1.x);
 	EXPECT_FLOAT_EQ(4.f, result1.y);
 	EXPECT_FLOAT_EQ(6.f, result1.z);
 
-	Vec3 result2 = first * (-3);
+	Vec3 result2 = vec * (-3);
 	EXPECT_FLOAT_EQ(-3.f, result2.x);
 	EXPECT_FLOAT_EQ(-6.f, result2.y);
 	EXPECT_FLOAT_EQ(-9.f, result2.z);
+}
+
+TEST(Vec3, ScalarDivision)
+{
+	Vec3 vec(1.0f, 2.f, 3.f);
+	Vec3 result1 = 2 / vec;
+	EXPECT_FLOAT_EQ(2.f, result1.x);
+	EXPECT_FLOAT_EQ(1.f, result1.y);
+	EXPECT_FLOAT_EQ(2.f/3.f, result1.z);
+
+	Vec3 result2 = vec / (-3);
+	EXPECT_FLOAT_EQ(-(1.f/3.f), result2.x);
+	EXPECT_FLOAT_EQ(-(2.f/3.f), result2.y);
+	EXPECT_FLOAT_EQ(-1.f, result2.z);
 }
 
 TEST(Vec3, ScalarMultiplicationAssignment)
@@ -164,4 +178,41 @@ TEST(Vec3, Length)
 	Vec3 vec{ 0, 0, 2 };
 	length = vec.length();
 	EXPECT_FLOAT_EQ(length, 2);
+}
+
+TEST(Vec3, Normalization)
+{
+	auto result = Vec3{ 5, 0, 0 }.normalize();
+	EXPECT_FLOAT_EQ(result.length(), 1);
+	EXPECT_FLOAT_EQ(result.x, 1);
+	EXPECT_FLOAT_EQ(result.y, 0);
+	EXPECT_FLOAT_EQ(result.z, 0);
+
+	result = Vec3{ 0, 3, 0 }.normalize();
+	EXPECT_FLOAT_EQ(result.length(), 1);
+	EXPECT_FLOAT_EQ(result.x, 0);
+	EXPECT_FLOAT_EQ(result.y, 1);
+	EXPECT_FLOAT_EQ(result.z, 0);
+
+	result = Vec3{ 0, 0, 10 }.normalize();
+	EXPECT_FLOAT_EQ(result.length(), 1);
+	EXPECT_FLOAT_EQ(result.x, 0);
+	EXPECT_FLOAT_EQ(result.y, 0);
+	EXPECT_FLOAT_EQ(result.z, 1);
+
+	Vec3 vec{ 0, 0, 0 };
+	ASSERT_DEATH(vec.normalize(), "Assertion failed.*");
+
+	result = Vec3{ 1, 2, 3 }.normalize();
+	EXPECT_FLOAT_EQ(result.length(), 1);
+	EXPECT_FLOAT_EQ(result.x, 0.26726124191242438468455348087975f);
+	EXPECT_FLOAT_EQ(result.y, 0.53452248382484876936910696175951f);
+	EXPECT_FLOAT_EQ(result.z, 0.80178372573727315405366044263926f);
+
+	result = Vec3{ -3.14f, 2.0f, -7.5f }.normalize();
+	EXPECT_FLOAT_EQ(result.length(), 1);
+	EXPECT_FLOAT_EQ(result.x, -0.37500832021380991639813072355782f);
+	EXPECT_FLOAT_EQ(result.y, 0.23885880268395536076314058825339f);
+	EXPECT_FLOAT_EQ(result.z, -0.89572051006483260286177720595021f);
+
 }
