@@ -1,4 +1,5 @@
 #pragma once
+#include <math.h>
 
 namespace math {
 
@@ -31,6 +32,22 @@ namespace math {
 			x *= scale;
 			y *= scale;
 			z *= scale;
+		}
+
+		inline Vec3 perpCW() const {
+			return Vec3(y, -x, 0);
+		}
+
+		inline Vec3 perpCCW() const {
+			return Vec3(-y, x, 0);
+		}
+
+		inline float dot(const Vec3 &vec) const {
+			return (x * vec.x) + (y * vec.y) + (z * vec.z);
+		}
+
+		inline float length() const {
+			return sqrtf( x * x + y * y + z * z);
 		}
 	};
 

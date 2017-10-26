@@ -123,3 +123,45 @@ TEST(Vec3, ScalarMultiplicationAssignment)
 	EXPECT_FLOAT_EQ(-6.f, result2.y);
 	EXPECT_FLOAT_EQ(-9.f, result2.z);
 }
+
+TEST(Vec3, Perpendicularity)
+{
+	Vec3 vec(4, 2);
+	Vec3 perpCW = vec.perpCW();
+	Vec3 perpCCW = vec.perpCCW();
+
+	EXPECT_FLOAT_EQ(perpCW.x, 2);
+	EXPECT_FLOAT_EQ(perpCW.y, -4);
+	EXPECT_FLOAT_EQ(perpCCW.x, -2);
+	EXPECT_FLOAT_EQ(perpCCW.y, 4);
+}
+
+TEST(Vec3, DotProduct)
+{
+	Vec3 first(1, 2, 3);
+	Vec3 second(4, 5, 6);
+	float result = first.dot(second);
+	EXPECT_FLOAT_EQ(result, 32);
+
+	float result2 = first.dot( Vec3{ 1, -2, -2 } );
+	EXPECT_FLOAT_EQ(result2, -9);
+}
+
+TEST(Vec3, Length)
+{
+	auto length = Vec3{ 1, 3, 2 }.length();
+	EXPECT_FLOAT_EQ(length, 3.7416573f);
+
+	length = Vec3{ 3, 4, 0 }.length();
+	EXPECT_FLOAT_EQ(length, 5);
+
+	length = Vec3{ 3, 0, 0 }.length();
+	EXPECT_FLOAT_EQ(length, 3);
+
+	length = Vec3{ 0, 3.145f, 0 }.length();
+	EXPECT_FLOAT_EQ(length, 3.145f);
+
+	Vec3 vec{ 0, 0, 2 };
+	length = vec.length();
+	EXPECT_FLOAT_EQ(length, 2);
+}
