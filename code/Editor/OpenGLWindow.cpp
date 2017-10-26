@@ -19,27 +19,36 @@
 namespace {
 	std::array<math::Vec3, 6> verts
 	{
-		math::Vec3(+0.0f, +0.14142135623f, -1),
+		math::Vec3(+0.0f, +0.14142135623f, 1),
 		math::Vec3(+1.0f, +0.0f, 0.0f),
 
-		math::Vec3(-0.1f, -0.1f, -1),
+		math::Vec3(-0.1f, -0.1f, 1),
 		math::Vec3(+1.0f, +0.0f, 0.0f),
 
-		math::Vec3(+0.1f, -0.1f, -1),
+		math::Vec3(+0.1f, -0.1f, 1),
 		math::Vec3(+1.0f, +0.0f, 0.0f)
-
-
-		//math::Vec3(-1.0f, +1.0f, -0.5f),
-		//math::Vec3(+0.0f, +1.0f, 0.0f),
-
-		//math::Vec3(+0.0f, -1.0f, -0.5f),
-		//math::Vec3(+0.0f, +1.0f, 0.0f),
-
-		//math::Vec3(+1.0f, +1.0f, -0.5f),
-		//math::Vec3(+0.0f, +1.0f, 0.0f),
 	};
 
-	math::Vec3 position(-0.5f, -0.5f);
+	std::array<math::Vec3, 4> boundaries
+	{
+		math::Vec3{ 0.f, 1.f, 1.f },
+		math::Vec3{ -1.f, 0.f, 1.f },
+		math::Vec3{ 0.f, -1.f, 1.f },
+		math::Vec3{ 1.f, 0.f, 1.f },
+	};
+
+	GLushort boundIndices[] = { 0, 1, 1, 2, 2, 3, 3, 0 };
+
+	math::Vec3 position;
+	math::Vec3 velocity;
+	const math::Vec3 dir(0, 1);
+	const float acceleration{ 0.2f };
+	float orientation{ 0.f };
+
+	bool moveForwardToggle{ false };
+	bool moveBackwardToggle{ false };
+	bool rotateRightToggle{ false };
+	bool rotateLeftToggle{ false };
 
 	bool checkStatus(
 		GLuint objectId,
@@ -67,6 +76,7 @@ namespace {
 
 OpenGLWindow::OpenGLWindow()
 {
+	setFocusPolicy(Qt::StrongFocus);
 	setMinimumSize(1200, 600);
 }
 
@@ -82,19 +92,30 @@ void OpenGLWindow::initializeGL()
 	//viewPortLocation.y = height() / 2 - minViewportSize / 2;
 	//glViewport(0, 0, viewPortLocation.x, viewPortLocation.y);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
-	//----------------------------------------------------------------------------------------
+	//---- Ship -----------------------------------------------------------------------------
 
 	glGenBuffers(1, &m_vertexBufferId);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts.data(), /*GL_STATIC_DRAW*/GL_DYNAMIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3)*2, nullptr);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, nullptr);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3)*2, (char*)(sizeof(math::Vec3)));
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, (char*)(sizeof(math::Vec3)));
+
+	//---- Boundaries -----------------------------------------------------------------------
+
+	/*glEnableVertexAttribArray(0);*/
+	glGenBuffers(1, &m_boundariesVertBufferId);
+	glBindBuffer(GL_ARRAY_BUFFER, m_boundariesVertBufferId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(boundaries), boundaries.data(), GL_STATIC_DRAW);
+
+	glGenBuffers(1, &m_boundariesIndexBufferId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_boundariesIndexBufferId);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(boundIndices), boundIndices, GL_STATIC_DRAW);
 
 
 	//GLushort indices[] = {0, 1, 2/*,  3,4,5*/};
@@ -105,7 +126,7 @@ void OpenGLWindow::initializeGL()
 	errorCode = glGetError();
 	assert(errorCode == 0);
 
-	installShaders();
+	//installShaders();
 
 	//----------------------------------------------------------------------------------------
 
@@ -114,7 +135,6 @@ void OpenGLWindow::initializeGL()
 	m_gameLoop.start();
 }
 
-static float orientation{ 0 };
 void OpenGLWindow::paintGL()
 {
 	NEW_PROFILING_FRAME();
@@ -141,19 +161,26 @@ void OpenGLWindow::paintGL()
 	//	for (int i = 0; i < 20000; ++i)
 	//		std::cout << "awd";
 
-	math::Vec3 upVector(0, 1);
-	auto op = math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
-	auto directionToAccel = op * upVector;
-	const float acceleration{ 0.2f };
+	if (rotateLeftToggle)
+		orientation += 0.0005f;
 
-	position += directionToAccel * acceleration * delta;
+	if (rotateRightToggle)
+		orientation -= 0.0005f;
+
+	if (moveForwardToggle)
+	{
+		auto directionToAccel = math::Mat3::rotate(orientation, math::Mat3::Axis::Z) * dir;
+		velocity += directionToAccel * acceleration * delta;
+	}
+
+	position += velocity * delta;
 
 	//-------------------------------------------------------------------
 
 	// Render
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	orientation += 0.0005f;
+
 	float aspectRatio = static_cast<float>(width() / height());
 	const auto aspectScale = (aspectRatio > 1) ? math::Vec2{ 1.0f / aspectRatio, 1.0f } : math::Vec2{ 1.0f, aspectRatio };
 
@@ -179,11 +206,18 @@ void OpenGLWindow::paintGL()
 		}
 	}
 
-	// Replace buffer with new vertices
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(translatedVerts), translatedVerts.data());
+	handleBoundaries();
 
-	// Draw directly
+	// Replace buffer with new vertices
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(translatedVerts), translatedVerts.data());
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, nullptr);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, (char*)(sizeof(math::Vec3)));
 	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_boundariesVertBufferId);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glDrawElements(GL_LINES, 8, GL_UNSIGNED_SHORT, 0);
 
 	// Draw with indices
 	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, nullptr);
@@ -191,20 +225,43 @@ void OpenGLWindow::paintGL()
 
 void OpenGLWindow::keyPressEvent(QKeyEvent* e)
 {
-	const float speed = 0.02f;
-	if (e->key() == Qt::Key_Up)
-		position.y += speed;
-	if (e->key() == Qt::Key_Down)
-		position.y -= speed;
-	if (e->key() == Qt::Key_Right)
-		position.x += speed;
-	if (e->key() == Qt::Key_Left)
-		position.x -= speed;
+	if (e->isAutoRepeat())
+		return;
+
+	processKeyToggle(e->key(), true);
 }
 
-void OpenGLWindow::keyReleaseEvent(QKeyEvent*)
+void OpenGLWindow::keyReleaseEvent(QKeyEvent* e)
 {
+	if (e->isAutoRepeat())
+		return;
 
+	processKeyToggle(e->key(), false);
+}
+
+void OpenGLWindow::processKeyToggle(int key, bool enabled)
+{
+	switch (key)
+	{
+	case Qt::Key_W:
+		moveForwardToggle = enabled;
+		break;
+
+	case Qt::Key_D:
+		rotateRightToggle = enabled;
+		break;
+
+	case Qt::Key_A:
+		rotateLeftToggle = enabled;
+		break;
+
+	case Qt::Key_S:
+		moveBackwardToggle = enabled;
+		break;
+
+	default:
+		break;
+	}
 }
 
 bool OpenGLWindow::checkShaderStatus(GLuint shaderId) const
@@ -268,6 +325,23 @@ void OpenGLWindow::installShaders()
 		return;
 
 	glUseProgram(programId);
+}
+
+void OpenGLWindow::handleBoundaries()
+{
+	bool anyCollisions{ false };
+	for (size_t i = 0; i < boundaries.size(); ++i)
+	{
+		const auto &first = boundaries[i];
+		const auto &second = boundaries[(i + 1) % boundaries.size()];
+
+		const auto wall = second - first;
+		const auto normal = wall.perpCCW();	// not normalized (but works because we work in -1, 1 space)
+		const auto respectivePosition = position - first;
+		const float dotResult = normal.dot(respectivePosition);
+		anyCollisions |= (dotResult < 0);
+	}
+		std::cout << anyCollisions << std::endl;
 }
 
 void OpenGLWindow::update()
