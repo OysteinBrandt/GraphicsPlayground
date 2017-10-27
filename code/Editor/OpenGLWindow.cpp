@@ -40,6 +40,7 @@ namespace {
 	GLushort boundIndices[] = { 0, 1, 1, 2, 2, 3, 3, 0 };
 
 	math::Vec3 position;
+	math::Vec3 oldPosition;
 	math::Vec3 velocity;
 	const math::Vec3 dir(0, 1);
 	const float acceleration{ 0.2f };
@@ -174,6 +175,7 @@ void OpenGLWindow::paintGL()
 	}
 
 	position += velocity * delta;
+	oldPosition = position;
 
 	//-------------------------------------------------------------------
 
@@ -329,19 +331,25 @@ void OpenGLWindow::installShaders()
 
 void OpenGLWindow::handleBoundaries()
 {
-	bool anyCollisions{ false };
+	bool collision{ false };
 	for (size_t i = 0; i < boundaries.size(); ++i)
 	{
 		const auto &first = boundaries[i];
 		const auto &second = boundaries[(i + 1) % boundaries.size()];
 
 		const auto wall = second - first;
-		const auto normal = wall.perpCCW();	// not normalized (but works because we work in -1, 1 space)
+		const auto normal = wall.perpCCW().normalized();
 		const auto respectivePosition = position - first;
 		const float dotResult = normal.dot(respectivePosition);
-		anyCollisions |= (dotResult < 0);
+
+		collision = (dotResult < 0);
+
+		if (collision)
+		{
+			velocity -= normal * velocity.dot(normal) * 2;
+			position = oldPosition;
+		}
 	}
-		std::cout << anyCollisions << std::endl;
 }
 
 void OpenGLWindow::update()

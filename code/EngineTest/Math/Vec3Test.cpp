@@ -180,36 +180,45 @@ TEST(Vec3, Length)
 	EXPECT_FLOAT_EQ(length, 2);
 }
 
+TEST(Vec3, LengthSquared)
+{
+	auto lengthSquared = Vec3{ 3, 4, 5 }.lengthSquared();
+	EXPECT_FLOAT_EQ(lengthSquared, 50.f);
+
+	Vec3 vec{ 0, -6, 0 };
+	EXPECT_FLOAT_EQ(vec.lengthSquared(), 36.0f);
+}
+
 TEST(Vec3, Normalization)
 {
-	auto result = Vec3{ 5, 0, 0 }.normalize();
+	auto result = Vec3{ 5, 0, 0 }.normalized();
 	EXPECT_FLOAT_EQ(result.length(), 1);
 	EXPECT_FLOAT_EQ(result.x, 1);
 	EXPECT_FLOAT_EQ(result.y, 0);
 	EXPECT_FLOAT_EQ(result.z, 0);
 
-	result = Vec3{ 0, 3, 0 }.normalize();
+	result = Vec3{ 0, 3, 0 }.normalized();
 	EXPECT_FLOAT_EQ(result.length(), 1);
 	EXPECT_FLOAT_EQ(result.x, 0);
 	EXPECT_FLOAT_EQ(result.y, 1);
 	EXPECT_FLOAT_EQ(result.z, 0);
 
-	result = Vec3{ 0, 0, 10 }.normalize();
+	result = Vec3{ 0, 0, 10 }.normalized();
 	EXPECT_FLOAT_EQ(result.length(), 1);
 	EXPECT_FLOAT_EQ(result.x, 0);
 	EXPECT_FLOAT_EQ(result.y, 0);
 	EXPECT_FLOAT_EQ(result.z, 1);
 
 	Vec3 vec{ 0, 0, 0 };
-	ASSERT_DEATH(vec.normalize(), "Assertion failed.*");
+	ASSERT_DEATH(vec.normalized(), "Assertion failed.*");
 
-	result = Vec3{ 1, 2, 3 }.normalize();
+	result = Vec3{ 1, 2, 3 }.normalized();
 	EXPECT_FLOAT_EQ(result.length(), 1);
 	EXPECT_FLOAT_EQ(result.x, 0.26726124191242438468455348087975f);
 	EXPECT_FLOAT_EQ(result.y, 0.53452248382484876936910696175951f);
 	EXPECT_FLOAT_EQ(result.z, 0.80178372573727315405366044263926f);
 
-	result = Vec3{ -3.14f, 2.0f, -7.5f }.normalize();
+	result = Vec3{ -3.14f, 2.0f, -7.5f }.normalized();
 	EXPECT_FLOAT_EQ(result.length(), 1);
 	EXPECT_FLOAT_EQ(result.x, -0.37500832021380991639813072355782f);
 	EXPECT_FLOAT_EQ(result.y, 0.23885880268395536076314058825339f);

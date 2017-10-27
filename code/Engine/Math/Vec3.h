@@ -48,10 +48,14 @@ namespace math {
 		}
 
 		inline float length() const {
-			return sqrtf( x * x + y * y + z * z);
+			return sqrtf(lengthSquared());
 		}
 
-		inline Vec3 normalize() const;
+		inline float lengthSquared() const {
+			return this->dot(*this);
+		}
+
+		inline Vec3 normalized() const;
 	};
 
 	/***********************************************************/
@@ -80,7 +84,7 @@ namespace math {
 		return Vec3(scale/vec.x, scale/vec.y, scale/vec.z);
 	}
 
-	inline Vec3 Vec3::normalize() const {
+	inline Vec3 Vec3::normalized() const {
 		const float magnitude = length();
 		const bool isValidLength = isnormal(magnitude);
 		assert(isValidLength);
