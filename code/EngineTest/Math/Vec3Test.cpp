@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <Math/Vec3.h>
+#include <Math/Constants.h>
 
 using math::Vec3;
 
@@ -159,6 +160,11 @@ TEST(Vec3, DotProduct)
 
 	float result2 = first.dot( Vec3{ 1, -2, -2 } );
 	EXPECT_FLOAT_EQ(result2, -9);
+
+	Vec3 a{ 0.5f, sqrtf(3.0f) / 2.f };
+	Vec3 b{ sqrtf(3.0f) / 2.f, 0.5f };
+	auto dotResult = a.dot(b);
+	EXPECT_FLOAT_EQ(dotResult, cos(math::PI / 6.0f));
 }
 
 TEST(Vec3, Length)
@@ -224,4 +230,56 @@ TEST(Vec3, Normalization)
 	EXPECT_FLOAT_EQ(result.y, 0.23885880268395536076314058825339f);
 	EXPECT_FLOAT_EQ(result.z, -0.89572051006483260286177720595021f);
 
+}
+
+void testProjectionOnto(const Vec3 &source, const Vec3 &target)
+{
+	auto result = source.projectOnto(target);
+	auto targetNormal = target.normalized();
+	auto expected = source.dot(targetNormal) * targetNormal;
+	EXPECT_FLOAT_EQ(result.x, expected.x);
+	EXPECT_FLOAT_EQ(result.y, expected.y);
+	EXPECT_FLOAT_EQ(result.z, expected.z);
+}
+
+TEST(Vec3, ProjectOnto)
+{
+	Vec3 source{ 2, 4 };
+	Vec3 target{ 1, 0 };
+	auto result = source.projectOnto(target);
+	EXPECT_FLOAT_EQ(result.x, 2.0f);
+	EXPECT_FLOAT_EQ(result.y, 0.0f);
+	EXPECT_FLOAT_EQ(result.z, 0.0f);
+
+	std::vector<Vec3> vectors
+	{
+		Vec3{ 1.0f, 2.0f, 3.0f },
+		Vec3{ 4.8f, 9.1f, 5.6f },
+		Vec3{ 0.0f, 5.0f, 0.0f, },
+		Vec3{ -3.2f, -4.9f, 6.7f, },
+		Vec3{ 2.4f, 3.1f, -99.6f, },
+	};
+
+	for (size_t i = 0; i < vectors.size() - 1; i++)
+	{
+		testProjectionOnto(vectors[i], vectors[i + 1]);
+		testProjectionOnto(vectors[i + 1], vectors[i]);
+	}
+}
+
+TEST(Vec3, LinearInterpolation)
+{
+	Vec3 source{ 4.7f, 9.2f, 7.1f };
+	Vec3 target{ 7.4f, 2.9f, 1.7f };
+	auto diff = target - source;
+	float alpha{ 0.0f };
+	while (alpha <= 1.0f)
+	{
+		Vec3 lerpResult1 = lerp(alpha, source, target);
+		Vec3 lerpResult2 = source + alpha * diff;
+		EXPECT_FLOAT_EQ(lerpResult1.x, lerpResult2.x);
+		EXPECT_FLOAT_EQ(lerpResult1.y, lerpResult2.y);
+		EXPECT_FLOAT_EQ(lerpResult1.z, lerpResult2.z);
+		alpha += 0.01f;
+	}
 }

@@ -56,6 +56,8 @@ namespace math {
 		}
 
 		inline Vec3 normalized() const;
+
+		inline Vec3 projectOnto(const Vec3 &target) const;
 	};
 
 	/***********************************************************/
@@ -93,6 +95,14 @@ namespace math {
 
 		const float inversLength = 1.0f / magnitude;
 		return inversLength * (*this);
+	}
+
+	inline Vec3 Vec3::projectOnto(const Vec3 &target) const {
+		return (this->dot(target) / target.lengthSquared()) * target;
+	}
+
+	inline Vec3 lerp(float alpha, const Vec3 &first, const Vec3 &second) {
+		return (1.0f - alpha) * first + alpha * second;
 	}
 
 }

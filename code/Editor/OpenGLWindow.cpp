@@ -338,15 +338,15 @@ void OpenGLWindow::handleBoundaries()
 		const auto &second = boundaries[(i + 1) % boundaries.size()];
 
 		const auto wall = second - first;
-		const auto normal = wall.perpCCW().normalized();
+		const auto wallNormal = wall.perpCCW(); //.normalized();
 		const auto respectivePosition = position - first;
-		const float dotResult = normal.dot(respectivePosition);
+		const float dotResult = wallNormal.dot(respectivePosition);
 
 		collision = (dotResult < 0);
 
 		if (collision)
 		{
-			velocity -= normal * velocity.dot(normal) * 2;
+			velocity -= 2 * velocity.projectOnto(wallNormal);
 			position = oldPosition;
 		}
 	}
