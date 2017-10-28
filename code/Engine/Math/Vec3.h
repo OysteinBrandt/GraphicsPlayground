@@ -93,8 +93,8 @@ namespace math {
 		if (!isValidLength)
 			return Vec3{};
 
-		const float inversLength = 1.0f / magnitude;
-		return inversLength * (*this);
+		const float inverseLength = 1.0f / magnitude;
+		return inverseLength * (*this);
 	}
 
 	inline Vec3 Vec3::projectOnto(const Vec3 &target) const {
