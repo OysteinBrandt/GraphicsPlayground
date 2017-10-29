@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Editor.h"
 #include <QtWidgets/qopenglwidget.h>
 #include <QtCore/qtimer.h>
 #include <chrono>
-
+#include <memory>
 class QKeyEvent;
+
+namespace math { class Vec3; }
 
 class OpenGLWindow : public QOpenGLWidget
 {
@@ -12,11 +15,7 @@ class OpenGLWindow : public QOpenGLWidget
 
 private:
 
-	GLuint m_vertexBufferId;
-	GLuint m_indexBufferId;
-
-	GLuint m_boundariesVertBufferId;
-	GLuint m_boundariesIndexBufferId;
+	std::unique_ptr<Editor> m_editor;
 
 	QTimer m_gameLoop;
 	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
@@ -36,7 +35,7 @@ private:
 	bool checkProgramStatus(GLuint programId) const;
 	std::string readShaderCode(const std::string &fileName) const;
 	void installShaders();
-	void handleBoundaries();
+	void handleBoundaries(std::vector<math::Vec3> &boundaries);
 
 private slots:
 	void update();

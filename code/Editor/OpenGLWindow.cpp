@@ -1,7 +1,7 @@
-#include <GL/glew.h>
 #include <QtGui/qevent.h>
 
 #include "OpenGLWindow.h"
+#include "Editor.h"
 #include "Math/Vec2.h"
 #include "Math/Vec3.h"
 #include "Math/Mat3.h"
@@ -17,27 +17,6 @@
 #include <array>
 
 namespace {
-	std::array<math::Vec3, 6> verts
-	{
-		math::Vec3(+0.0f, +0.14142135623f, 1),
-		math::Vec3(+1.0f, +0.0f, 0.0f),
-
-		math::Vec3(-0.1f, -0.1f, 1),
-		math::Vec3(+1.0f, +0.0f, 0.0f),
-
-		math::Vec3(+0.1f, -0.1f, 1),
-		math::Vec3(+1.0f, +0.0f, 0.0f)
-	};
-
-	std::array<math::Vec3, 4> boundaries
-	{
-		math::Vec3{ 0.f, 1.f, 1.f },
-		math::Vec3{ -1.f, 0.f, 1.f },
-		math::Vec3{ 0.f, -1.f, 1.f },
-		math::Vec3{ 1.f, 0.f, 1.f },
-	};
-
-	GLushort boundIndices[] = { 0, 1, 1, 2, 2, 3, 3, 0 };
 
 	math::Vec3 position;
 	math::Vec3 oldPosition;
@@ -83,146 +62,99 @@ OpenGLWindow::OpenGLWindow()
 
 void OpenGLWindow::initializeGL()
 {
-	GLenum errorCode = glewInit();
-	assert(errorCode == 0);
-
-	// Center OpenGL Viewport
-	//int minViewportSize = std::min(width(), height());
-	//math::Vec2 viewPortLocation;
-	//viewPortLocation.x = width() / 2 - minViewportSize / 2;
-	//viewPortLocation.y = height() / 2 - minViewportSize / 2;
-	//glViewport(0, 0, viewPortLocation.x, viewPortLocation.y);
-
-	//glEnable(GL_DEPTH_TEST);
-
-	//---- Ship -----------------------------------------------------------------------------
-
-	glGenBuffers(1, &m_vertexBufferId);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts.data(), /*GL_STATIC_DRAW*/GL_DYNAMIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, nullptr);
-
-	glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, (char*)(sizeof(math::Vec3)));
-
-	//---- Boundaries -----------------------------------------------------------------------
-
-	/*glEnableVertexAttribArray(0);*/
-	glGenBuffers(1, &m_boundariesVertBufferId);
-	glBindBuffer(GL_ARRAY_BUFFER, m_boundariesVertBufferId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(boundaries), boundaries.data(), GL_STATIC_DRAW);
-
-	glGenBuffers(1, &m_boundariesIndexBufferId);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_boundariesIndexBufferId);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(boundIndices), boundIndices, GL_STATIC_DRAW);
+	try
+	{
+		m_editor = std::make_unique<Editor>();
 
 
-	//GLushort indices[] = {0, 1, 2/*,  3,4,5*/};
-	//glGenBuffers(1, &m_indexBufferId);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferId);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	
-	errorCode = glGetError();
-	assert(errorCode == 0);
+		// Center OpenGL Viewport
+		//int minViewportSize = std::min(width(), height());
+		//math::Vec2 viewPortLocation;
+		//viewPortLocation.x = width() / 2 - minViewportSize / 2;
+		//viewPortLocation.y = height() / 2 - minViewportSize / 2;
+		//glViewport(0, 0, viewPortLocation.x, viewPortLocation.y);
 
-	//installShaders();
+		//glEnable(GL_DEPTH_TEST);
 
-	//----------------------------------------------------------------------------------------
+		//installShaders();
 
-	connect(&m_gameLoop, SIGNAL(timeout()), this, SLOT(update()));
-	m_frameTimer = std::chrono::high_resolution_clock::now();
-	m_gameLoop.start();
+		//----------------------------------------------------------------------------------------
+
+		connect(&m_gameLoop, SIGNAL(timeout()), this, SLOT(update()));
+		m_frameTimer = std::chrono::high_resolution_clock::now();
+		m_gameLoop.start();
+
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << "Exception caught during initialization: " << e.what() << std::endl;
+	}
 }
 
 void OpenGLWindow::paintGL()
 {
-	NEW_PROFILING_FRAME();
-
-	PROFILE_NAMED_VAR("Update and Render Total", p_updateAndRender);
-
-	// Update
-	auto now = std::chrono::high_resolution_clock::now();
-	const std::chrono::duration<float> deltaT = now - m_frameTimer;
-	const float delta = deltaT.count();
-	m_frameTimer = now;
-
-	//static int counter{ 0 };
-	//++counter;
-	//if (counter % 10 == 0)
-	//{
-	//	std::cout << "delta time: " << delta << std::endl;
-	//	std::cout << "Fps: " << 1.0f / delta << std::endl;
-	//	std::cout << "-------------------" << std::endl;
-	//}
-
-	//static int frameStopper{ 1 };
-	//if (frameStopper++ % 30 == 0)
-	//	for (int i = 0; i < 20000; ++i)
-	//		std::cout << "awd";
-
-	if (rotateLeftToggle)
-		orientation += 0.0005f;
-
-	if (rotateRightToggle)
-		orientation -= 0.0005f;
-
-	if (moveForwardToggle)
+	try
 	{
-		auto directionToAccel = math::Mat3::rotate(orientation, math::Mat3::Axis::Z) * dir;
-		velocity += directionToAccel * acceleration * delta;
-	}
+		// Update
+		auto now = std::chrono::high_resolution_clock::now();
+		const std::chrono::duration<float> deltaT = now - m_frameTimer;
+		const float delta = deltaT.count();
+		m_frameTimer = now;
 
-	position += velocity * delta;
-	oldPosition = position;
+		//static int counter{ 0 };
+		//++counter;
+		//if (counter % 10 == 0)
+		//{
+		//	std::cout << "delta time: " << delta << std::endl;
+		//	std::cout << "Fps: " << 1.0f / delta << std::endl;
+		//	std::cout << "-------------------" << std::endl;
+		//}
 
-	//-------------------------------------------------------------------
+		//static int frameStopper{ 1 };
+		//if (frameStopper++ % 30 == 0)
+		//	for (int i = 0; i < 20000; ++i)
+		//		std::cout << "awd";
 
-	// Render
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		if (rotateLeftToggle)
+			orientation += 0.0005f;
 
+		if (rotateRightToggle)
+			orientation -= 0.0005f;
 
-	float aspectRatio = static_cast<float>(width() / height());
-	const auto aspectScale = (aspectRatio > 1) ? math::Vec2{ 1.0f / aspectRatio, 1.0f } : math::Vec2{ 1.0f, aspectRatio };
-
-	math::Mat3 matrix;
-	{
-		PROFILE("Matrix Multiplication");
-		matrix = math::Mat3::translate(math::Vec2(position.x, position.y)) *
-						 math::Mat3::scale(aspectScale.x, aspectScale.y) *
-						 math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
-	}
-
-	std::array<math::Vec3, 6> translatedVerts;
-	{
-		PROFILE("Vector Transformation");
-		for (size_t i = 0; i < verts.size(); ++i)
+		if (moveForwardToggle)
 		{
-			if (i % 2 == 0)
-			{
-				translatedVerts[i] = matrix * verts[i];
-			}
-			else
-				translatedVerts[i] = verts[i];
+			auto directionToAccel = math::Mat3::rotate(orientation, math::Mat3::Axis::Z) * dir;
+			velocity += directionToAccel * acceleration * delta;
 		}
+
+		position += velocity * delta;
+		oldPosition = position;
+
+		m_editor->update();
+
+		//-------------------------------------------------------------------
+
+		// Render
+		m_editor->render();
+		//float aspectRatio = static_cast<float>(width() / height());
+		//const auto aspectScale = (aspectRatio > 1) ? math::Vec2{ 1.0f / aspectRatio, 1.0f } : math::Vec2{ 1.0f, aspectRatio };
+
+		//math::Mat3 matrix;
+		//{
+		//	PROFILE("Matrix Multiplication");
+		//	matrix = math::Mat3::translate(math::Vec2(position.x, position.y)) *
+		//					 math::Mat3::scale(aspectScale.x, aspectScale.y) *
+		//					 math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
+		//}
+
+		//handleBoundaries();
 	}
-
-	handleBoundaries();
-
-	// Replace buffer with new vertices
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferId);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(translatedVerts), translatedVerts.data());
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, nullptr);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(math::Vec3) * 2, (char*)(sizeof(math::Vec3)));
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	glBindBuffer(GL_ARRAY_BUFFER, m_boundariesVertBufferId);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glDrawElements(GL_LINES, 8, GL_UNSIGNED_SHORT, 0);
-
-	// Draw with indices
-	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, nullptr);
+	catch (const std::exception& e)
+	{
+		std::cout << "Exception caught during update/render loop: " << e.what() << std::endl;
+		// TODO: break application
+		std::cin.get();
+	}
 }
 
 void OpenGLWindow::keyPressEvent(QKeyEvent* e)
@@ -329,7 +261,7 @@ void OpenGLWindow::installShaders()
 	glUseProgram(programId);
 }
 
-void OpenGLWindow::handleBoundaries()
+void OpenGLWindow::handleBoundaries(std::vector<math::Vec3> &boundaries)
 {
 	bool collision{ false };
 	for (size_t i = 0; i < boundaries.size(); ++i)

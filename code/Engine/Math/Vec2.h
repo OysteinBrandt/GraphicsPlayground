@@ -2,6 +2,7 @@
 
 namespace math {
 
+	// TODO: Consider declspec for this class and other math classes
 	class Vec2
 	{
 	public:
@@ -9,7 +10,7 @@ namespace math {
 		float x;
 		float y;
 		
-		Vec2(float x = 0.0f, float y = 0.0f) : x(x), y(y)
+		inline Vec2(float x = 0.0f, float y = 0.0f) : x(x), y(y)
 		{}
 
 		//-----------------------------------------------

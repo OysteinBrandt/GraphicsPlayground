@@ -92,7 +92,23 @@ TEST(Mat3, Rotate)
 	EXPECT_FLOAT_EQ(1, rot.z3);
 }
 
-TEST(Mat3, Translate)
+TEST(Mat3, TranslateXY)
+{
+	auto transformation = Mat3::translate(4, 8);
+	EXPECT_FLOAT_EQ(1, transformation.x1);
+	EXPECT_FLOAT_EQ(0, transformation.y1);
+	EXPECT_FLOAT_EQ(4, transformation.z1);
+
+	EXPECT_FLOAT_EQ(0, transformation.x2);
+	EXPECT_FLOAT_EQ(1, transformation.y2);
+	EXPECT_FLOAT_EQ(8, transformation.z2);
+
+	EXPECT_FLOAT_EQ(0, transformation.x3);
+	EXPECT_FLOAT_EQ(0, transformation.y3);
+	EXPECT_FLOAT_EQ(1, transformation.z3);
+}
+
+TEST(Mat3, TranslateVec2)
 {
 	auto transformation = Mat3::translate(Vec2(4, 8));
 	EXPECT_FLOAT_EQ(1, transformation.x1);
@@ -107,11 +123,34 @@ TEST(Mat3, Translate)
 	EXPECT_FLOAT_EQ(0, transformation.y3);
 	EXPECT_FLOAT_EQ(1, transformation.z3);
 
+	// TODO: Allow Mat3 * Vec2 translation?
 	Vec3 vector{ -3, 8 , 1 };
 	auto result = transformation * vector;
 	EXPECT_FLOAT_EQ(1, result.x);
 	EXPECT_FLOAT_EQ(16, result.y);
 	EXPECT_FLOAT_EQ(1, result.z);
+}
+
+TEST(Mat3, TranslateVec3)
+{
+	auto transformation = Mat3::translate(Vec3(4, 8, 5));
+	EXPECT_FLOAT_EQ(1, transformation.x1);
+	EXPECT_FLOAT_EQ(0, transformation.y1);
+	EXPECT_FLOAT_EQ(4, transformation.z1);
+
+	EXPECT_FLOAT_EQ(0, transformation.x2);
+	EXPECT_FLOAT_EQ(1, transformation.y2);
+	EXPECT_FLOAT_EQ(8, transformation.z2);
+
+	EXPECT_FLOAT_EQ(0, transformation.x3);
+	EXPECT_FLOAT_EQ(0, transformation.y3);
+	EXPECT_FLOAT_EQ(1, transformation.z3);
+
+	Vec3 vector{ -3, 8 , 3 };
+	auto result = transformation * vector;
+	EXPECT_FLOAT_EQ(9, result.x);
+	EXPECT_FLOAT_EQ(32, result.y);
+	EXPECT_FLOAT_EQ(3, result.z);
 }
 
 TEST(Mat3, MatrixMatrixMultiply)

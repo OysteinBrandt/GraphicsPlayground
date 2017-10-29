@@ -167,6 +167,9 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ControllerComponent.cpp" />
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CustomMainWindow.cpp" />
     <ClCompile Include="OpenGLWindow.cpp" />
@@ -178,7 +181,11 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="CustomMainWindow.h" />
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="KeyMapper.h" />
+    <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="OpenGLWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -27,7 +27,7 @@ namespace math {
 				x3(x3), y3(y3), z3(z3)
 		{ }
 
-		inline Vec3 operator*(const Vec3 &vec) {
+		inline Vec3 operator*(const Vec3 &vec) const {
 			return Vec3(x1 * vec.x + y1 * vec.y + z1 * vec.z,
 									x2 * vec.x + y2 * vec.y + z2 * vec.z,
 									x3 * vec.x + y3 * vec.y + z3 * vec.z);
@@ -36,11 +36,21 @@ namespace math {
 		// TODO (obr): Replace enum with a unit vector? (eg. rotate around a custom axis)
 		OBR_API static Mat3 rotate(float radians, Axis axis);
 
+		inline static Mat3 translate(float x, float y)
+		{
+			return Mat3 { 1, 0, x,
+										0, 1, y,
+										0, 0, 1};
+		}
+
 		inline static Mat3 translate(const Vec2 &position)
 		{
-			return Mat3 { 1, 0, position.x,
-										0, 1, position.y,
-										0, 0, 1};
+			return translate(position.x, position.y);
+		}
+
+		inline static Mat3 translate(const Vec3 &position)
+		{
+			return translate(position.x, position.y);
 		}
 
 		inline static Mat3 scale(float x, float y) {

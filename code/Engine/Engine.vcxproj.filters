@@ -11,6 +11,21 @@
     <ClCompile Include="DebugTools\Profiler.cpp">
       <Filter>DebugTools</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\Renderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Components\RendererComponent.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Components\PhysicsComponent.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\KeyInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -42,6 +57,33 @@
     <ClInclude Include="DebugTools\Profile.h">
       <Filter>DebugTools</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\Geometry.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderable.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Component.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\RendererComponent.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\PhysicsComponent.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyMapperInterface.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -49,6 +91,18 @@
     </Filter>
     <Filter Include="DebugTools">
       <UniqueIdentifier>{83870d44-0a00-481c-a2cd-0bb3e2352bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{6a84ab91-3ca7-458e-b1c1-40dcc9ef807a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{dd914229-8d86-45bb-a6d1-001be722fe5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Components">
+      <UniqueIdentifier>{d18bcb3a-2584-4dd4-a272-f643d3b2ccd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{51180e39-f851-43c5-8fd6-2313a9c26f5d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

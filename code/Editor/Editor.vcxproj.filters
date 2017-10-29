@@ -5,9 +5,16 @@
     <ClCompile Include="OpenGLWindow.cpp" />
     <ClCompile Include="OpenGLWindow_moc.cpp" />
     <ClCompile Include="CustomMainWindow.cpp" />
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="KeyMapper.cpp" />
+    <ClCompile Include="ControllerComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLWindow.h" />
     <ClInclude Include="CustomMainWindow.h" />
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="KeyMapper.h" />
+    <ClInclude Include="MenuChoise.h" />
+    <ClInclude Include="ControllerComponent.h" />
   </ItemGroup>
 </Project>
