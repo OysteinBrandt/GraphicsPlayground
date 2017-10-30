@@ -6,6 +6,27 @@ using engine::render::Geometry;
 
 Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipController(m_keyInput, m_shipPhysics)
 {
+	addShip();
+	addBoundaries();
+}
+
+void Editor::update()
+{
+	auto now = std::chrono::high_resolution_clock::now();
+	const std::chrono::duration<float> deltaTime = now - m_frameTimer;
+	m_frameTimer = now;
+
+	m_keyInput.update();
+	m_ship.update(deltaTime.count());
+}
+
+void Editor::render(float width, float height)
+{
+	m_renderer.render(width, height);
+}
+
+void Editor::addShip()
+{
 	shipVerices =
 	{
 		math::Vec3(+0.0f, +0.14142135623f, 1),
@@ -20,16 +41,6 @@ Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipContro
 
 	shipIndices = { 0, 1, 2 };
 
-	//boundaries =
-	//{
-	//	math::Vec3{ 0.f, 1.f, 1.f },
-	//	math::Vec3{ -1.f, 0.f, 1.f },
-	//	math::Vec3{ 0.f, -1.f, 1.f },
-	//	math::Vec3{ 1.f, 0.f, 1.f },
-	//};
-
-	//boundIndices = { 0, 1, 1, 2, 2, 3, 3, 0 };
-
 	m_ship.addComponent(&m_shipController);
 	m_ship.addComponent(&m_shipPhysics);
 
@@ -40,17 +51,18 @@ Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipContro
 	//m_lerpRenderable = m_renderer.addRenderable(shipGeometry);
 }
 
-void Editor::update()
+void Editor::addBoundaries()
 {
-	auto now = std::chrono::high_resolution_clock::now();
-	const std::chrono::duration<float> deltaTime = now - m_frameTimer;
-	m_frameTimer = now;
+	boundaries =
+	{
+		math::Vec3{ 0.f, 1.f, 1.f },
+		math::Vec3{ -1.f, 0.f, 1.f },
+		math::Vec3{ 0.f, -1.f, 1.f },
+		math::Vec3{ 1.f, 0.f, 1.f },
+	};
 
-	m_keyInput.update();
-	m_ship.update(deltaTime.count());
-}
+	boundIndices = { 0, 1, 1, 2, 2, 3, 3, 0 };
 
-void Editor::render()
-{
-	m_renderer.render();
+	//m_renderer.addGeometry(boundaries, boundIndices, GL_LINES);
+	//m_shipRenderer.assign(m_boundariesRenderable);
 }
