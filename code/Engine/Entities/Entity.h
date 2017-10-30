@@ -12,6 +12,7 @@ namespace entities
 		std::vector<Component*> m_components;
 
 	public:
+		// TODO: Add oldPosition for setting position after bounds checking??
 		math::Vec3 position;
 		float orientation;
 

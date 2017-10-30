@@ -33,6 +33,10 @@ namespace engine::render
 																				GLenum renderMode);
 		Renderable& addRenderable(const Geometry& geometry);
 
-		void render();
+		void render(float width, float height);
+
+	private:
+
+		math::Mat3 aspectCorrectionMatrix(float width, float height) const;
 	};
 }

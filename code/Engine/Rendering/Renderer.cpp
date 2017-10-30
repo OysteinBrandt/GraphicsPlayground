@@ -53,9 +53,21 @@ Renderable& Renderer::addRenderable(const Geometry& geometry)
 	return m_renderables.emplace_back(geometry);
 }
 
-void Renderer::render()
+math::Mat3 Renderer::aspectCorrectionMatrix(float width, float height) const
+{
+	float aspectRatio = width / height;
+
+	if (aspectRatio > 1)
+		return math::Mat3::scale(1.0f / aspectRatio, 1.0f);
+	else
+		return math::Mat3::scale(1.0f, aspectRatio);
+}
+
+void Renderer::render(float width, float height)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	const auto aspectMatrix = aspectCorrectionMatrix(width, height);
 
 	for (const auto &renderable : m_renderables)
 	{
@@ -66,7 +78,7 @@ void Renderer::render()
 		std::vector<math::Vec3> transformedVerts;
 		transformedVerts.reserve(vertices.size());
 		for (const auto &vertex : vertices)
-			transformedVerts.push_back(renderable.m_matrix * vertex);
+			transformedVerts.push_back(aspectMatrix * renderable.m_matrix * vertex);
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(transformedVerts), transformedVerts.data());

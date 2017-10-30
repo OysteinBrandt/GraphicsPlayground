@@ -66,7 +66,6 @@ void OpenGLWindow::initializeGL()
 	{
 		m_editor = std::make_unique<Editor>();
 
-
 		// Center OpenGL Viewport
 		//int minViewportSize = std::min(width(), height());
 		//math::Vec2 viewPortLocation;
@@ -78,12 +77,8 @@ void OpenGLWindow::initializeGL()
 
 		//installShaders();
 
-		//----------------------------------------------------------------------------------------
-
 		connect(&m_gameLoop, SIGNAL(timeout()), this, SLOT(update()));
-		m_frameTimer = std::chrono::high_resolution_clock::now();
 		m_gameLoop.start();
-
 	}
 	catch (const std::exception& e)
 	{
@@ -95,64 +90,19 @@ void OpenGLWindow::paintGL()
 {
 	try
 	{
-		// Update
-		auto now = std::chrono::high_resolution_clock::now();
-		const std::chrono::duration<float> deltaT = now - m_frameTimer;
-		const float delta = deltaT.count();
-		m_frameTimer = now;
-
-		//static int counter{ 0 };
-		//++counter;
-		//if (counter % 10 == 0)
-		//{
-		//	std::cout << "delta time: " << delta << std::endl;
-		//	std::cout << "Fps: " << 1.0f / delta << std::endl;
-		//	std::cout << "-------------------" << std::endl;
-		//}
-
 		//static int frameStopper{ 1 };
 		//if (frameStopper++ % 30 == 0)
 		//	for (int i = 0; i < 20000; ++i)
 		//		std::cout << "awd";
 
-		if (rotateLeftToggle)
-			orientation += 0.0005f;
-
-		if (rotateRightToggle)
-			orientation -= 0.0005f;
-
-		if (moveForwardToggle)
-		{
-			auto directionToAccel = math::Mat3::rotate(orientation, math::Mat3::Axis::Z) * dir;
-			velocity += directionToAccel * acceleration * delta;
-		}
-
-		position += velocity * delta;
-		oldPosition = position;
-
 		m_editor->update();
-
-		//-------------------------------------------------------------------
-
-		// Render
-		m_editor->render();
-		//float aspectRatio = static_cast<float>(width() / height());
-		//const auto aspectScale = (aspectRatio > 1) ? math::Vec2{ 1.0f / aspectRatio, 1.0f } : math::Vec2{ 1.0f, aspectRatio };
-
-		//math::Mat3 matrix;
-		//{
-		//	PROFILE("Matrix Multiplication");
-		//	matrix = math::Mat3::translate(math::Vec2(position.x, position.y)) *
-		//					 math::Mat3::scale(aspectScale.x, aspectScale.y) *
-		//					 math::Mat3::rotate(orientation, math::Mat3::Axis::Z);
-		//}
+		m_editor->render(width(), height());
 
 		//handleBoundaries();
 	}
 	catch (const std::exception& e)
 	{
 		std::cout << "Exception caught during update/render loop: " << e.what() << std::endl;
-		// TODO: break application
 		std::cin.get();
 	}
 }

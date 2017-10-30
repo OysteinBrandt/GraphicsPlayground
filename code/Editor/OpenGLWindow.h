@@ -18,7 +18,6 @@ private:
 	std::unique_ptr<Editor> m_editor;
 
 	QTimer m_gameLoop;
-	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
 
 public:
 	OpenGLWindow();
