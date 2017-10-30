@@ -28,10 +28,10 @@ namespace engine::render
 		Renderer operator=(const Renderer&) = delete;
 		Renderer& opearator(const Renderer&) = delete;
 
-		const Geometry& addGeometry(const std::vector<math::Vec3> &vertices,
+		Geometry* addGeometry(const std::vector<math::Vec3> &vertices,
 																				const std::vector<unsigned short> &indices,
 																				GLenum renderMode);
-		Renderable& addRenderable(const Geometry& geometry);
+		Renderable* addRenderable(Geometry* geometry);
 
 		void render(float width, float height);
 

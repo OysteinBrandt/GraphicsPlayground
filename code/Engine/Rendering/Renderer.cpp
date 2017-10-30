@@ -7,6 +7,9 @@ namespace engine::render
 
 Renderer::Renderer() : m_vertexBufferID(-1), m_indexBufferID(-1)
 {
+	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
+	m_geometries.reserve(2);  // TODO: This is a temp solution
+	m_renderables.reserve(2); // TODO: This is a temp solution
 	initialize();
 }
 
@@ -40,17 +43,18 @@ void Renderer::initialize()
 	assert(errorCode == 0);
 }
 
-const Geometry& Renderer::addGeometry(
+Geometry* Renderer::addGeometry(
 	const std::vector<math::Vec3> &vertices,
 	const std::vector<unsigned short> &indices,
 	GLenum renderMode)
 {
-	return m_geometries.emplace_back(vertices, indices, renderMode);
+	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
+	return &m_geometries.emplace_back(vertices, indices, renderMode);
 }
 
-Renderable& Renderer::addRenderable(const Geometry& geometry)
+Renderable* Renderer::addRenderable(Geometry* geometry)
 {
-	return m_renderables.emplace_back(geometry);
+	return &m_renderables.emplace_back(*geometry);
 }
 
 math::Mat3 Renderer::aspectCorrectionMatrix(float width, float height) const
@@ -73,7 +77,7 @@ void Renderer::render(float width, float height)
 	{
 		const auto &vertices = renderable.geometry().vertices();
 		const auto &indices = renderable.geometry().indices();
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(indices), indices.data());
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(GLushort) * indices.capacity(), indices.data());
 		
 		std::vector<math::Vec3> transformedVerts;
 		transformedVerts.reserve(vertices.size());
@@ -81,10 +85,10 @@ void Renderer::render(float width, float height)
 			transformedVerts.push_back(aspectMatrix * renderable.m_matrix * vertex);
 
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(transformedVerts), transformedVerts.data());
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(math::Vec3) * transformedVerts.capacity(), transformedVerts.data());
 
 		const GLenum renderMode = renderable.geometry().renderMode();
-		glDrawElements(renderMode, vertices.size(), GL_UNSIGNED_SHORT, 0);
+		glDrawElements(renderMode, indices.size(), GL_UNSIGNED_SHORT, 0);
 	}
 }
 

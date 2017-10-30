@@ -15,24 +15,21 @@ class Editor
 {
 	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
 	input::KeyMapper m_keyMapper;
-	input::KeyInput m_keyInput;
 	
 	entities::Entity m_ship;
-	std::vector<math::Vec3> shipVerices;
-	std::vector<GLushort> shipIndices;
+	
+	std::vector<math::Vec3> m_shipVerices;
+	std::vector<GLushort> m_shipIndices;
+	std::vector<math::Vec3> m_boundaryVertices;
+	std::vector<GLushort> m_boundaryIndices;
 
-	entities::Entity m_boundaries;
-	std::vector<math::Vec3> boundaries;
-	std::vector<GLushort> boundIndices;
-
-	entities::component::RendererComponent m_shipRenderer;
 	entities::component::PhysicsComponent m_shipPhysics;
-	ControllerComponent m_shipController;
-
 	engine::render::Renderer m_renderer;
 	engine::render::Renderable* m_shipRenderable;
-	engine::render::Renderable* m_lerpRenderable;
+	entities::component::RendererComponent m_shipRenderer;
 
+	input::KeyInput m_keyInput;
+	ControllerComponent m_shipController;
 public:
 	Editor();
 

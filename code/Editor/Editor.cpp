@@ -27,7 +27,7 @@ void Editor::render(float width, float height)
 
 void Editor::addShip()
 {
-	shipVerices =
+	m_shipVerices =
 	{
 		math::Vec3(+0.0f, +0.14142135623f, 1),
 		//math::Vec3(+1.0f, +0.0f, 0.0f),
@@ -39,13 +39,14 @@ void Editor::addShip()
 		//math::Vec3(+1.0f, +0.0f, 0.0f)
 	};
 
-	shipIndices = { 0, 1, 2 };
+	m_shipIndices = { 0, 1, 2 };
 
 	m_ship.addComponent(&m_shipController);
 	m_ship.addComponent(&m_shipPhysics);
 
-	const Geometry &shipGeometry = m_renderer.addGeometry(shipVerices, shipIndices, GL_TRIANGLES);
-	m_shipRenderable = &m_renderer.addRenderable(shipGeometry);
+	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
+	Geometry *shipGeometry = m_renderer.addGeometry(m_shipVerices, m_shipIndices, GL_TRIANGLES);
+	m_shipRenderable = m_renderer.addRenderable(shipGeometry);
 	m_shipRenderer.assign(m_shipRenderable);
 	m_ship.addComponent(&m_shipRenderer);
 	//m_lerpRenderable = m_renderer.addRenderable(shipGeometry);
@@ -53,7 +54,7 @@ void Editor::addShip()
 
 void Editor::addBoundaries()
 {
-	boundaries =
+	m_boundaryVertices =
 	{
 		math::Vec3{ 0.f, 1.f, 1.f },
 		math::Vec3{ -1.f, 0.f, 1.f },
@@ -61,8 +62,8 @@ void Editor::addBoundaries()
 		math::Vec3{ 1.f, 0.f, 1.f },
 	};
 
-	boundIndices = { 0, 1, 1, 2, 2, 3, 3, 0 };
+	m_boundaryIndices = { 0, 1, 1, 2, 2, 3, 3, 0 };
 
-	//m_renderer.addGeometry(boundaries, boundIndices, GL_LINES);
-	//m_shipRenderer.assign(m_boundariesRenderable);
+	Geometry *boundaryGeometry = m_renderer.addGeometry(m_boundaryVertices, m_boundaryIndices, GL_LINES);
+	m_renderer.addRenderable(boundaryGeometry);
 }
