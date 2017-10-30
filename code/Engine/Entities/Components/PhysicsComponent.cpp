@@ -4,11 +4,12 @@
 namespace entities::component
 {
 
-	void PhysicsComponent::update(/*deltaTime*/)
+	void PhysicsComponent::update(float dt)
 	{
-		velocity += acceleration;
-		getParent()->position += velocity;
+		velocity += acceleration * dt;
+		getParent()->position += velocity * dt;
 		getParent()->orientation += angularVelocity;
+		acceleration = math::Vec3{};
 	}
 
 }

@@ -14,10 +14,10 @@ void Entity::addComponent(Component * component)
 	component->m_parent = this;
 }
 
-void Entity::update()
+void Entity::update(float dt)
 {
 	for (const auto &component : m_components)
-		component->update();
+		component->update(dt);
 }
 
 }

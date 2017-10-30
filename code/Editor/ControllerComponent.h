@@ -13,5 +13,5 @@ class ControllerComponent : public entities::Component
 public:
 	ControllerComponent(const input::KeyInput &keyInput, entities::component::PhysicsComponent& physics);
 
-	void update() override;
+	void update(float) override;
 };

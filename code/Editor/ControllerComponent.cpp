@@ -14,7 +14,7 @@ ControllerComponent::ControllerComponent(const input::KeyInput & keyInput, entit
 	m_input = &keyInput;
 }
 
-void ControllerComponent::update()
+void ControllerComponent::update(float)
 {
 	const float angularVelocity{ 0.001f };
 	if (m_input->isActionsHot(input::MenuChoise::RotateLeft))

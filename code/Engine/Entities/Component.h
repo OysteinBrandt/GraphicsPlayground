@@ -15,6 +15,6 @@ namespace entities
 			return m_parent;
 		}
 
-		virtual void update() {}
+		virtual void update(float) {}
 	};
 }

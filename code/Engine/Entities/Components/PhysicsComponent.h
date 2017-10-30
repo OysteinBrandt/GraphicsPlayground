@@ -15,6 +15,6 @@ namespace entities::component
 		PhysicsComponent() : angularVelocity{0.0f}
 		{ }
 
-		void update() override;
+		void update(float dt) override;
 	};
 }

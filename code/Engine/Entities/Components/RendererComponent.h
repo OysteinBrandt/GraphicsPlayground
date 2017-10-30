@@ -13,6 +13,6 @@ namespace entities::component
 	public:
 		void assign(engine::render::Renderable *renderable);
 
-		void update() override;
+		void update(float) override;
 	};
 }

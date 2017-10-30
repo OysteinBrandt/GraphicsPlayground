@@ -7,11 +7,13 @@
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
 #include "Input/KeyInput.h"
+#include <chrono>
 
 namespace engine::render { class Renderable; }
 
 class Editor
 {
+	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
 	input::KeyMapper m_keyMapper;
 	input::KeyInput m_keyInput;
 	entities::Entity m_ship;

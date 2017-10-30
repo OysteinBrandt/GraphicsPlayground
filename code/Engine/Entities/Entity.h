@@ -17,7 +17,7 @@ namespace entities
 
 		Entity();
 		void addComponent(Component *component);
-		void update();
+		void update(float dt);
 
 		template<class T>
 		T* getComponent() const;

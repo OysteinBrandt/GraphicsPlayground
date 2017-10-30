@@ -42,8 +42,12 @@ Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipContro
 
 void Editor::update()
 {
+	auto now = std::chrono::high_resolution_clock::now();
+	const std::chrono::duration<float> deltaTime = now - m_frameTimer;
+	m_frameTimer = now;
+
 	m_keyInput.update();
-	m_ship.update();
+	m_ship.update(deltaTime.count());
 }
 
 void Editor::render()
