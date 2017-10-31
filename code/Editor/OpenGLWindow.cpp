@@ -66,15 +66,6 @@ void OpenGLWindow::initializeGL()
 	{
 		m_editor = std::make_unique<Editor>();
 
-		// Center OpenGL Viewport
-		//int minViewportSize = std::min(width(), height());
-		//math::Vec2 viewPortLocation;
-		//viewPortLocation.x = width() / 2 - minViewportSize / 2;
-		//viewPortLocation.y = height() / 2 - minViewportSize / 2;
-		//glViewport(0, 0, viewPortLocation.x, viewPortLocation.y);
-
-		//glEnable(GL_DEPTH_TEST);
-
 		//installShaders();
 
 		connect(&m_gameLoop, SIGNAL(timeout()), this, SLOT(update()));
@@ -90,15 +81,8 @@ void OpenGLWindow::paintGL()
 {
 	try
 	{
-		//static int frameStopper{ 1 };
-		//if (frameStopper++ % 30 == 0)
-		//	for (int i = 0; i < 20000; ++i)
-		//		std::cout << "awd";
-
 		m_editor->update();
 		m_editor->render(width(), height());
-
-		//handleBoundaries();
 	}
 	catch (const std::exception& e)
 	{
@@ -209,29 +193,6 @@ void OpenGLWindow::installShaders()
 		return;
 
 	glUseProgram(programId);
-}
-
-void OpenGLWindow::handleBoundaries(std::vector<math::Vec3> &boundaries)
-{
-	bool collision{ false };
-	for (size_t i = 0; i < boundaries.size(); ++i)
-	{
-		const auto &first = boundaries[i];
-		const auto &second = boundaries[(i + 1) % boundaries.size()];
-
-		const auto wall = second - first;
-		const auto wallNormal = wall.perpCCW(); //.normalized();
-		const auto respectivePosition = position - first;
-		const float dotResult = wallNormal.dot(respectivePosition);
-
-		collision = (dotResult < 0);
-
-		if (collision)
-		{
-			velocity -= 2 * velocity.projectOnto(wallNormal);
-			position = oldPosition;
-		}
-	}
 }
 
 void OpenGLWindow::update()

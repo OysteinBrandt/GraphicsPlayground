@@ -26,6 +26,9 @@
     <ClCompile Include="Input\KeyInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Entities\Components\BoundaryHandlerComponent.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="Input\KeyInput.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\BoundaryHandlerComponent.h">
+      <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

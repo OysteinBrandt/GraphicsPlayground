@@ -25,6 +25,7 @@
     <ClInclude Include="DllHelper.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entities\Component.h" />
+    <ClInclude Include="Entities\Components\BoundaryHandlerComponent.h" />
     <ClInclude Include="Entities\Components\PhysicsComponent.h" />
     <ClInclude Include="Entities\Components\RendererComponent.h" />
     <ClInclude Include="Entities\Entity.h" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <ClCompile Include="DebugTools\Profiler.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Entities\Components\BoundaryHandlerComponent.cpp" />
     <ClCompile Include="Entities\Components\PhysicsComponent.cpp" />
     <ClCompile Include="Entities\Components\RendererComponent.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />

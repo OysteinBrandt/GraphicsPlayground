@@ -4,7 +4,7 @@
 
 using engine::render::Geometry;
 
-Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipController(m_keyInput, m_shipPhysics)
+Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipController(m_keyInput, m_shipPhysics), m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices)
 {
 	addShip();
 	addBoundaries();
@@ -43,6 +43,7 @@ void Editor::addShip()
 
 	m_ship.addComponent(&m_shipController);
 	m_ship.addComponent(&m_shipPhysics);
+	m_ship.addComponent(&m_shipBoundaryHandler);
 
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
 	Geometry *shipGeometry = m_renderer.addGeometry(m_shipVerices, m_shipIndices, GL_TRIANGLES);

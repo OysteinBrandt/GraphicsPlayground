@@ -4,6 +4,7 @@
 #include <Entities/Entity.h>
 #include <Entities/Components/RendererComponent.h>
 #include <Entities/Components/PhysicsComponent.h>
+#include <Entities/Components/BoundaryHandlerComponent.h>
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
 #include "Input/KeyInput.h"
@@ -24,6 +25,7 @@ class Editor
 	std::vector<GLushort> m_boundaryIndices;
 
 	entities::component::PhysicsComponent m_shipPhysics;
+	entities::component::BoundaryHandlerComponent m_shipBoundaryHandler;
 	engine::render::Renderer m_renderer;
 	engine::render::Renderable* m_shipRenderable;
 	entities::component::RendererComponent m_shipRenderer;
