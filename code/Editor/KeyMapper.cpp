@@ -1,6 +1,6 @@
 #include "KeyMapper.h"
 
-#if defined _WIN32 || defined __CYGWIN__
+#if defined _WIN32 || defined _WIN64 || defined __CYGWIN__
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h> // TODO: Make platform specific (ie. prefix this file win32_ and make other cpp files for other platforms)
 #include <cassert> // TODO: Rewrite ?
@@ -26,9 +26,8 @@ namespace input
 	}
 
 }
-#else
-	#if __GNUC__ >= 4
-	#else
+#elif __linux__
 	#pragma warning Unknown I/O mapping semantics.
-	#endif
+#elif defined(__APPLE__) && defined(__MACH__)
+	#pragma warning Unknown I/O mapping semantics.
 #endif
