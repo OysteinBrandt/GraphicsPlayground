@@ -34,7 +34,6 @@ private:
 	bool checkProgramStatus(GLuint programId) const;
 	std::string readShaderCode(const std::string &fileName) const;
 	void installShaders();
-	void handleBoundaries(std::vector<math::Vec3> &boundaries);
 
 private slots:
 	void update();
