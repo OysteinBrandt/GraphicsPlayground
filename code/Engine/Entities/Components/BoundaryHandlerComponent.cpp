@@ -5,9 +5,7 @@
 namespace entities::component
 {
 
-	BoundaryHandlerComponent::BoundaryHandlerComponent(
-		PhysicsComponent &physicsComp, 
-		const std::vector<math::Vec3>& boundary)
+	BoundaryHandlerComponent::BoundaryHandlerComponent(PhysicsComponent &physicsComp, const std::vector<math::Vec3>& boundary)
 		: m_physics(physicsComp), m_boundary(boundary)
 	{
 	}
@@ -17,8 +15,8 @@ namespace entities::component
 		bool collision{ false };
 		for (size_t i = 0; i < m_boundary.size(); ++i)
 		{
-			const auto &first = m_boundary[i];
-			const auto &second = m_boundary[(i + 1) % m_boundary.size()];
+			const auto &first = m_boundary.at(i);
+			const auto &second = m_boundary.at( (i + 1) % m_boundary.size() );
 
 			const auto wall = second - first;
 			const auto wallNormal = wall.perpCCW(); //.normalized();
