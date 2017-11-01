@@ -37,6 +37,6 @@ namespace engine::render
 
 	private:
 
-		math::Mat3 aspectCorrectionMatrix(float width, float height) const;
+		math::Mat4 aspectCorrectionMatrix(float width, float height) const;
 	};
 }

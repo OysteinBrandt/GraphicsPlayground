@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Mat2Test.cpp" />
     <ClCompile Include="Math\Mat3Test.cpp" />
+    <ClCompile Include="Math\Mat4Test.cpp" />
     <ClCompile Include="Math\Vec2Test.cpp" />
     <ClCompile Include="Math\Vec3Test.cpp" />
   </ItemGroup>

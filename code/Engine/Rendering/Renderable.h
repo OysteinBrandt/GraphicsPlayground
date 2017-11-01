@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include <Math/Mat3.h>
+#include <Math/Mat4.h>
 
 namespace engine::render
 {
@@ -10,7 +10,7 @@ namespace engine::render
 	{
 		const Geometry& m_geometry;
 	public:
-		math::Mat3 m_matrix;
+		math::Mat4 m_matrix;
 
 		Renderable(const Geometry &geometry)
 			: m_geometry(geometry)

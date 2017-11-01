@@ -4,7 +4,10 @@
 
 using engine::render::Geometry;
 
-Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX), m_shipController(m_keyInput, m_shipPhysics), m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices)
+Editor::Editor() : 
+	m_keyInput(m_keyMapper, input::MenuChoise::MAX), 
+	m_shipController(m_keyInput, m_shipPhysics), 
+	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices)
 {
 	addShip();
 	addBoundaries();

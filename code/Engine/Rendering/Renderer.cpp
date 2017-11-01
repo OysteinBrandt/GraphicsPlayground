@@ -57,14 +57,14 @@ Renderable* Renderer::addRenderable(Geometry* geometry)
 	return &m_renderables.emplace_back(*geometry);
 }
 
-math::Mat3 Renderer::aspectCorrectionMatrix(float width, float height) const
+math::Mat4 Renderer::aspectCorrectionMatrix(float width, float height) const
 {
 	float aspectRatio = width / height;
 
 	if (aspectRatio > 1)
-		return math::Mat3::scale(1.0f / aspectRatio, 1.0f);
+		return math::Mat4::scale(1.0f / aspectRatio, 1.0f, 0.f);
 	else
-		return math::Mat3::scale(1.0f, aspectRatio);
+		return math::Mat4::scale(1.0f, aspectRatio, 0.f);
 }
 
 void Renderer::render(float width, float height)

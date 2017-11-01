@@ -18,6 +18,9 @@
     <ClCompile Include="DebugToolsTest\ProfilerTest.cpp">
       <Filter>DebugToolsTest</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Mat4Test.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
