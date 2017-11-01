@@ -211,6 +211,7 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+code/EngineTest/profiling_result.csv
 
 #Translations
 *.mo
