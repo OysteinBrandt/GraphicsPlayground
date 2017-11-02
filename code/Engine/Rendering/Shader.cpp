@@ -48,9 +48,10 @@ namespace engine::render
 
 	std::string Shader::readShaderCode(const std::string &fileName) const
 	{
-		std::ifstream stream("D:/src/GraphicsPlayground/Resources/Shaders/" + fileName);
+		const std::string filePath{ "D:/src/GraphicsPlayground/Resources/Shaders/" };
+		std::ifstream stream(filePath + fileName);
 		if (!stream.good())
-			ENGINE_ASSERT_EXCEPTION("Failed to load shader: " + fileName);
+			ENGINE_ASSERT_EXCEPTION("Failed to load shader: \"" + fileName + "\" from folder \"" + filePath + "\"");
 
 		return std::string(
 			(std::istreambuf_iterator<char>(stream)),
