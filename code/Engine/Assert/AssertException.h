@@ -4,7 +4,6 @@
 #define _ENGINE_ASSERTEXCEPTION_H_
 
 #include "EngineException.h"
-#include <iostream>
 
 namespace engine::assert
 {
@@ -20,11 +19,9 @@ namespace engine::assert
 	public:
 
 		exception(const std::string &message, const std::string &function, const std::string &file, unsigned int line)
-			: engine::exception("Assert exception:\nMessage: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line)),
+			: engine::exception("\nMessage: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line)),
 				m_message(message), m_function(function), m_file(file), m_line(line)
-		{
-			std::cout << what() << std::endl;
-		}
+		{ }
 	};
 }
 

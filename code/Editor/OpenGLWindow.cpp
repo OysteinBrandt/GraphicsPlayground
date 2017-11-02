@@ -73,7 +73,7 @@ void OpenGLWindow::initializeGL()
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "Exception caught during initialization: " << e.what() << std::endl;
+		std::cout << "Exception caught during initialization!" << e.what() << std::endl;
 	}
 }
 
@@ -86,7 +86,7 @@ void OpenGLWindow::paintGL()
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << "Exception caught during update/render loop: " << e.what() << std::endl;
+		std::cout << "Exception caught during update/render loop!" << e.what() << std::endl;
 		std::cin.get();
 	}
 }
