@@ -25,15 +25,6 @@ public:
 protected:
 	void initializeGL() override;
 	void paintGL() override;
-	void keyPressEvent(QKeyEvent*);
-	void keyReleaseEvent(QKeyEvent*);
-	void processKeyToggle(int key, bool enabled);
-
-private:
-	bool checkShaderStatus(GLuint shaderId) const;
-	bool checkProgramStatus(GLuint programId) const;
-	std::string readShaderCode(const std::string &fileName) const;
-	void installShaders();
 
 private slots:
 	void update();
