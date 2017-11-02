@@ -6,14 +6,16 @@
 namespace engine::render
 {
 	class Geometry;
+	class Shader;
 	class Renderable
 	{
-		const Geometry& m_geometry;
+		const Geometry &m_geometry;
+		const Shader *m_shader;
 	public:
 		math::Mat4 m_matrix;
 
-		Renderable(const Geometry &geometry)
-			: m_geometry(geometry)
+		Renderable(const Geometry &geometry, const Shader *shader = nullptr)
+			: m_geometry(geometry), m_shader(shader)
 		{ }
 
 		Renderable operator=(const Renderable&) = delete;
@@ -23,5 +25,7 @@ namespace engine::render
 		{
 			return m_geometry;
 		}
+
+		bool useProgram() const;
 	};
 }

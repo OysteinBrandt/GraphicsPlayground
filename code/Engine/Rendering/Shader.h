@@ -1,11 +1,12 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "DllHelper.h"
 #include <string>
 
 namespace engine::render
 {
-	class Shader
+	class OBR_API Shader
 	{
 		struct OglStringHelper {
 			const char *p;
@@ -22,7 +23,7 @@ namespace engine::render
 		Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 		~Shader();
 
-		void useProgram();
+		void useProgram() const;
 
 	private:
 		std::string readShaderCode(const std::string &fileName) const;

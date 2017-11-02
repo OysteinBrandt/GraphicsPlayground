@@ -52,9 +52,9 @@ Geometry* Renderer::addGeometry(
 	return &m_geometries.emplace_back(vertices, indices, renderMode);
 }
 
-Renderable* Renderer::addRenderable(Geometry* geometry)
+Renderable* Renderer::addRenderable(Geometry *geometry, Shader *shader)
 {
-	return &m_renderables.emplace_back(*geometry);
+	return &m_renderables.emplace_back(*geometry, shader);
 }
 
 math::Mat4 Renderer::aspectCorrectionMatrix(float width, float height) const
@@ -88,8 +88,13 @@ void Renderer::render(float width, float height)
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(math::Vec3) * transformedVerts.capacity(), transformedVerts.data());
 
+		const bool shaderWasInstalled = renderable.useProgram();
+
 		const GLenum renderMode = renderable.geometry().renderMode();
 		glDrawElements(renderMode, indices.size(), GL_UNSIGNED_SHORT, 0);
+
+		if (shaderWasInstalled)
+			glUseProgram(0);
 	}
 }
 

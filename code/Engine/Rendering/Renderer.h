@@ -10,6 +10,7 @@
 
 namespace engine::render
 {
+	class Shader;
 	class OBR_API Renderer
 	{
 		std::vector<Geometry> m_geometries;
@@ -31,7 +32,7 @@ namespace engine::render
 		Geometry* addGeometry(const std::vector<math::Vec3> &vertices,
 																				const std::vector<unsigned short> &indices,
 																				GLenum renderMode);
-		Renderable* addRenderable(Geometry* geometry);
+		Renderable* addRenderable(Geometry *geometry, Shader *shader = nullptr);
 
 		void render(float width, float height);
 

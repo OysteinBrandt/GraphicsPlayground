@@ -41,7 +41,7 @@ namespace engine::render
 		glDeleteShader(m_fragmentShaderId);
 	}
 
-	void Shader::useProgram()
+	void Shader::useProgram() const
 	{
 		glUseProgram(m_programId);
 	}

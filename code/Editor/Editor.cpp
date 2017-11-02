@@ -8,7 +8,8 @@ Editor::Editor() :
 	m_keyInput(m_keyMapper, input::MenuChoise::MAX), 
 	m_shipController(m_keyInput, m_shipPhysics), 
 	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices),
-	m_lerpLerper(m_lerpPoints, m_shipPhysics)
+	m_lerpLerper(m_lerpPoints, m_shipPhysics),
+	m_shader("defaultVertex.vert", "defaulFragment.frag")
 {
 	addShips();
 	addBoundaries();
@@ -86,7 +87,7 @@ void Editor::addLerper(engine::render::Geometry *geometry)
 	};
 
 	m_lerper.addComponent(&m_lerpLerper);
-	m_lerpRenderable = m_renderer.addRenderable(geometry);
+	m_lerpRenderable = m_renderer.addRenderable(geometry, &m_shader);
 	m_lerpRenderer.assign(m_lerpRenderable);
 	m_lerper.addComponent(&m_lerpRenderer);
 }

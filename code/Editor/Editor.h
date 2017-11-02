@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Rendering/Renderer.h>
+#include <Rendering/Shader.h>
 #include <Entities/Entity.h>
 #include <Entities/Components/RendererComponent.h>
 #include <Entities/Components/PhysicsComponent.h>
@@ -30,6 +31,7 @@ class Editor
 	entities::component::PhysicsComponent m_shipPhysics;
 	entities::component::BoundaryHandlerComponent m_shipBoundaryHandler;
 	engine::render::Renderer m_renderer;
+	engine::render::Shader m_shader;
 	engine::render::Renderable *m_shipRenderable;
 	engine::render::Renderable *m_lerpRenderable;
 	entities::component::RendererComponent m_shipRenderer;

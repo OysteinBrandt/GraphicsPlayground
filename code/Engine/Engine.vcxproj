@@ -57,6 +57,7 @@
     <ClCompile Include="Math\Mat2.cpp" />
     <ClCompile Include="Math\Mat3.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
+    <ClCompile Include="Rendering\Renderable.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
   </ItemGroup>
