@@ -32,6 +32,15 @@ namespace engine::render
 		checkProgramStatus(m_programId);
 	}
 
+	Shader::~Shader()
+	{
+		glDetachShader(m_programId, m_vertexShaderId);
+		glDetachShader(m_programId, m_fragmentShaderId);
+
+		glDeleteShader(m_vertexShaderId);
+		glDeleteShader(m_fragmentShaderId);
+	}
+
 	void Shader::useProgram()
 	{
 		glUseProgram(m_programId);

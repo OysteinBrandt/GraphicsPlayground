@@ -20,6 +20,8 @@ namespace engine::render
 	public:
 
 		Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+		~Shader();
+
 		void useProgram();
 
 	private:
