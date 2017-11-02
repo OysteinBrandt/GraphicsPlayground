@@ -71,6 +71,7 @@ void Renderer::render(float width, float height)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// TODO: Require fixed size or add flags for resizable/fixed. Ie. do not calculate matrix every frame if not needed.
 	const auto aspectMatrix = aspectCorrectionMatrix(width, height);
 
 	for (const auto &renderable : m_renderables)

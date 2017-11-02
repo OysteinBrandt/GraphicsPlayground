@@ -35,6 +35,9 @@
     <ClCompile Include="Entities\Components\LerpComponent.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\Shader.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -99,6 +102,13 @@
     <ClInclude Include="Entities\Components\LerpComponent.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\Shader.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineException.h" />
+    <ClInclude Include="Assert\AssertException.h">
+      <Filter>Assert</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -118,6 +128,9 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{51180e39-f851-43c5-8fd6-2313a9c26f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assert">
+      <UniqueIdentifier>{e0391299-ec22-4c9f-bbb0-18ef97e7c58e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
