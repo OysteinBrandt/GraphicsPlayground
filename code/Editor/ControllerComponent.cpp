@@ -26,6 +26,7 @@ void ControllerComponent::update(float)
 	if (m_input->isActionsHot(input::MenuChoise::Accelerate))
 	{
 		const auto orientation = getParent()->orientation;
+		//auto directionToAccel = math::Mat3::rotate(orientation, math::Mat3::Axis::) * frontDirectionOfEntity;
 		m_physics->acceleration = math::Vec3{ -sinf(orientation), cosf(orientation) };
 	}
 }

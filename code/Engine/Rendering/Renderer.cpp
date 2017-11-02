@@ -9,7 +9,7 @@ Renderer::Renderer() : m_vertexBufferID(-1), m_indexBufferID(-1)
 {
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
 	m_geometries.reserve(2);  // TODO: This is a temp solution
-	m_renderables.reserve(2); // TODO: This is a temp solution
+	m_renderables.reserve(3); // TODO: This is a temp solution
 	initialize();
 }
 

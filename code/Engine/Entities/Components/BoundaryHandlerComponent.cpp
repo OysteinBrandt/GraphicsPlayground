@@ -8,6 +8,7 @@ namespace entities::component
 	BoundaryHandlerComponent::BoundaryHandlerComponent(PhysicsComponent &physicsComp, const std::vector<math::Vec3>& boundary)
 		: m_physics(physicsComp), m_boundary(boundary)
 	{
+		// TODO: reference to boundary is updated after construction
 	}
 
 	void BoundaryHandlerComponent::update(float dt)

@@ -5,6 +5,7 @@
 #include <Entities/Components/RendererComponent.h>
 #include <Entities/Components/PhysicsComponent.h>
 #include <Entities/Components/BoundaryHandlerComponent.h>
+#include <Entities/Components/LerpComponent.h>
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
 #include "Input/KeyInput.h"
@@ -18,17 +19,22 @@ class Editor
 	input::KeyMapper m_keyMapper;
 	
 	entities::Entity m_ship;
+	entities::Entity m_lerper;
 	
 	std::vector<math::Vec3> m_shipVerices;
 	std::vector<GLushort> m_shipIndices;
 	std::vector<math::Vec3> m_boundaryVertices;
 	std::vector<GLushort> m_boundaryIndices;
+	std::vector<math::Vec3> m_lerpPoints;
 
 	entities::component::PhysicsComponent m_shipPhysics;
 	entities::component::BoundaryHandlerComponent m_shipBoundaryHandler;
 	engine::render::Renderer m_renderer;
-	engine::render::Renderable* m_shipRenderable;
+	engine::render::Renderable *m_shipRenderable;
+	engine::render::Renderable *m_lerpRenderable;
 	entities::component::RendererComponent m_shipRenderer;
+	entities::component::RendererComponent m_lerpRenderer;
+	entities::component::LerpComponent m_lerpLerper;
 
 	input::KeyInput m_keyInput;
 	ControllerComponent m_shipController;
@@ -40,7 +46,8 @@ public:
 
 private:
 
-	void addShip();
+	void addShips();
+	void addLerper(engine::render::Geometry *geometry);
 	void addBoundaries();
 };
 

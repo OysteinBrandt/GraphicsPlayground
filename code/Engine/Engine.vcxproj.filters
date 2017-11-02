@@ -32,6 +32,9 @@
     <ClCompile Include="Math\Mat4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Entities\Components\LerpComponent.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -91,6 +94,9 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Components\BoundaryHandlerComponent.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\LerpComponent.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>

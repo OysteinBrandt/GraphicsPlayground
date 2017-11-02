@@ -7,9 +7,10 @@ using engine::render::Geometry;
 Editor::Editor() : 
 	m_keyInput(m_keyMapper, input::MenuChoise::MAX), 
 	m_shipController(m_keyInput, m_shipPhysics), 
-	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices)
+	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices),
+	m_lerpLerper(m_lerpPoints, m_shipPhysics)
 {
-	addShip();
+	addShips();
 	addBoundaries();
 }
 
@@ -21,6 +22,7 @@ void Editor::update()
 
 	m_keyInput.update();
 	m_ship.update(deltaTime.count());
+	m_lerper.update(deltaTime.count());
 }
 
 void Editor::render(float width, float height)
@@ -28,7 +30,7 @@ void Editor::render(float width, float height)
 	m_renderer.render(width, height);
 }
 
-void Editor::addShip()
+void Editor::addShips()
 {
 	m_shipVerices =
 	{
@@ -53,7 +55,8 @@ void Editor::addShip()
 	m_shipRenderable = m_renderer.addRenderable(shipGeometry);
 	m_shipRenderer.assign(m_shipRenderable);
 	m_ship.addComponent(&m_shipRenderer);
-	//m_lerpRenderable = m_renderer.addRenderable(shipGeometry);
+	
+	addLerper(shipGeometry);
 }
 
 void Editor::addBoundaries()
@@ -70,4 +73,20 @@ void Editor::addBoundaries()
 
 	Geometry *boundaryGeometry = m_renderer.addGeometry(m_boundaryVertices, m_boundaryIndices, GL_LINES);
 	m_renderer.addRenderable(boundaryGeometry);
+}
+
+void Editor::addLerper(engine::render::Geometry *geometry)
+{
+	m_lerpPoints = 
+	{
+		math::Vec3{  0.5f, 0.5f, 1.0f },
+		math::Vec3{ -0.5f, 0.5f, 1.0f },
+		math::Vec3{ -0.5f, -0.5f, 1.0f },
+		math::Vec3{  0.5f, -0.5f, 1.0f }
+	};
+
+	m_lerper.addComponent(&m_lerpLerper);
+	m_lerpRenderable = m_renderer.addRenderable(geometry);
+	m_lerpRenderer.assign(m_lerpRenderable);
+	m_lerper.addComponent(&m_lerpRenderer);
 }
