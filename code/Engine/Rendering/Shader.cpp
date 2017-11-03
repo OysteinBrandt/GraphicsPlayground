@@ -36,14 +36,19 @@ namespace engine::render
 	{
 		glDetachShader(m_programId, m_vertexShaderId);
 		glDetachShader(m_programId, m_fragmentShaderId);
-
+		glDeleteProgram(m_programId);
 		glDeleteShader(m_vertexShaderId);
 		glDeleteShader(m_fragmentShaderId);
 	}
 
-	void Shader::useProgram() const
+	void Shader::bind() const
 	{
 		glUseProgram(m_programId);
+	}
+
+	void Shader::unbind() const
+	{
+		glUseProgram(0);
 	}
 
 	std::string Shader::readShaderCode(const std::string &fileName) const

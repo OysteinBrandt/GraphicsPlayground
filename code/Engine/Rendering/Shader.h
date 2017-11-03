@@ -23,7 +23,8 @@ namespace engine::render
 		Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 		~Shader();
 
-		void useProgram() const;
+		void bind() const;
+		void unbind() const;
 
 	private:
 		std::string readShaderCode(const std::string &fileName) const;

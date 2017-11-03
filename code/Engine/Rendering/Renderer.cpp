@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include <cassert> //TODO: Replace
-
+#include "Shader.h"
 
 namespace engine::render
 {
@@ -15,6 +15,8 @@ Renderer::Renderer() : m_vertexBufferID(-1), m_indexBufferID(-1)
 
 Renderer::~Renderer()
 {
+	glDisableVertexAttribArray(0);
+
 	if (m_vertexBufferID != -1)
 		glDeleteBuffers(1, &m_vertexBufferID);
 
@@ -96,13 +98,15 @@ void Renderer::render(float width, float height)
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(math::Vec3) * transformedVerts.capacity(), transformedVerts.data());
 
-		const bool shaderWasInstalled = renderable.useProgram();
+		const auto* shader = renderable.shader();
+		if (shader != nullptr)
+			shader->bind();
 
 		const GLenum renderMode = renderable.geometry().renderMode();
 		glDrawElements(renderMode, indices.size(), GL_UNSIGNED_SHORT, 0);
 
-		if (shaderWasInstalled)
-			glUseProgram(0);
+		if (shader != nullptr)
+			shader->unbind();
 	}
 }
 

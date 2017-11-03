@@ -1,11 +1,12 @@
 #include "Renderable.h"
 #include "Shader.h"
 
-bool engine::render::Renderable::useProgram() const
+namespace engine::render
 {
-	if (m_shader == nullptr)
-		return false;
-	
-	m_shader->useProgram();
-	return true;
+
+	const Shader* Renderable::shader() const
+	{
+		return m_shader;
+	}
+
 }

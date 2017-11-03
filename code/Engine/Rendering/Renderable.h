@@ -26,6 +26,6 @@ namespace engine::render
 			return m_geometry;
 		}
 
-		bool useProgram() const;
+		const Shader* shader() const;
 	};
 }
