@@ -6,7 +6,7 @@
 namespace entities::component
 {
 
-	LerpComponent::LerpComponent(const std::vector<math::Vec3>& lerpPoints, PhysicsComponent & physics)
+	LerpComponent::LerpComponent(const std::vector<math::Vec3>& lerpPoints, Physics & physics)
 		: m_physics(physics), m_points(lerpPoints), m_source(0), m_destination(1)
 	{
 		//assert(m_points.size() >= 2);	// TODO: reference to points is updated after construction

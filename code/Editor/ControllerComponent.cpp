@@ -1,14 +1,14 @@
 #include "ControllerComponent.h"
 
 #include <Entities/Entity.h>
-#include <Entities/Components/PhysicsComponent.h>
+#include <Entities/Components/Physics.h>
 #include <Input/KeyInput.h>
 #include "MenuChoise.h"
 #include <Math/Vec3.h>
 
-using entities::component::PhysicsComponent;
+using entities::component::Physics;
 
-ControllerComponent::ControllerComponent(const input::KeyInput & keyInput, entities::component::PhysicsComponent& physics)
+ControllerComponent::ControllerComponent(const input::KeyInput & keyInput, entities::component::Physics& physics)
 {
 	m_physics = &physics;
 	m_input = &keyInput;

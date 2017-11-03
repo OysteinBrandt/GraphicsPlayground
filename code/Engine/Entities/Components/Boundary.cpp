@@ -1,11 +1,11 @@
 #include "Boundary.h"
 #include "Entities/Entity.h"
-#include "Entities/Components/PhysicsComponent.h"
+#include "Entities/Components/Physics.h"
 
 namespace entities::component
 {
 
-	Boundary::Boundary(PhysicsComponent &physicsComp, const std::vector<math::Vec3>& boundary)
+	Boundary::Boundary(Physics &physicsComp, const std::vector<math::Vec3>& boundary)
 		: m_physics(physicsComp), m_boundary(boundary)
 	{
 		// TODO: reference to boundary is updated after construction

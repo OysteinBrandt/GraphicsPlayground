@@ -29,7 +29,7 @@
     <ClInclude Include="Entities\Component.h" />
     <ClInclude Include="Entities\Components\Boundary.h" />
     <ClInclude Include="Entities\Components\LerpComponent.h" />
-    <ClInclude Include="Entities\Components\PhysicsComponent.h" />
+    <ClInclude Include="Entities\Components\Physics.h" />
     <ClInclude Include="Entities\Components\Positional.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Input\KeyInput.h" />
@@ -50,7 +50,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entities\Components\Boundary.cpp" />
     <ClCompile Include="Entities\Components\LerpComponent.cpp" />
-    <ClCompile Include="Entities\Components\PhysicsComponent.cpp" />
+    <ClCompile Include="Entities\Components\Physics.cpp" />
     <ClCompile Include="Entities\Components\Positional.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Input\KeyInput.cpp" />

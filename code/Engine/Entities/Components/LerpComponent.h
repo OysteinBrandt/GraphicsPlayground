@@ -6,17 +6,17 @@
 
 namespace entities::component
 {
-	class PhysicsComponent;
+	class Physics;
 	class OBR_API LerpComponent : public Component
 	{
-		PhysicsComponent &m_physics;
+		Physics &m_physics;
 		const std::vector<math::Vec3> &m_points;
 		float m_alpha;
 		size_t m_source;
 		size_t m_destination;
 
 	public:
-		LerpComponent(const std::vector<math::Vec3> &lerpPoints, PhysicsComponent &physics);
+		LerpComponent(const std::vector<math::Vec3> &lerpPoints, Physics &physics);
 
 		void update(float dt) override;
 

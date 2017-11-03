@@ -4,7 +4,7 @@
 #include <Rendering/Shader.h>
 #include <Entities/Entity.h>
 #include <Entities/Components/Positional.h>
-#include <Entities/Components/PhysicsComponent.h>
+#include <Entities/Components/Physics.h>
 #include <Entities/Components/Boundary.h>
 #include <Entities/Components/LerpComponent.h>
 #include "ControllerComponent.h"
@@ -28,7 +28,7 @@ class Editor
 	std::vector<GLushort> m_boundaryIndices;
 	std::vector<math::Vec3> m_lerpPoints;
 
-	entities::component::PhysicsComponent m_shipPhysics;
+	entities::component::Physics m_shipPhysics;
 	entities::component::Boundary m_shipBoundaryHandler;
 	engine::render::Renderer m_renderer;
 	engine::render::Shader m_shader;

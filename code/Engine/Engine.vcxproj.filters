@@ -17,9 +17,6 @@
     <ClCompile Include="Entities\Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Components\PhysicsComponent.cpp">
-      <Filter>Entities\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Input\KeyInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
@@ -37,6 +34,9 @@
       <Filter>Entities\Components</Filter>
     </ClCompile>
     <ClCompile Include="Entities\Components\Positional.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Components\Physics.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,9 +85,6 @@
     <ClInclude Include="Entities\Component.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\Components\PhysicsComponent.h">
-      <Filter>Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Input\KeyMapperInterface.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
       <Filter>Entities\Components</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Components\Positional.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\Physics.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,15 +6,15 @@
 
 namespace entities::component
 {
-	class PhysicsComponent;
+	class Physics;
 	class OBR_API Boundary : public Component
 	{
-		PhysicsComponent &m_physics;
+		Physics &m_physics;
 		math::Vec3 prevFramePos;
 		const std::vector<math::Vec3> &m_boundary;
 		
 	public:
-		Boundary(PhysicsComponent &physicsComp, const std::vector<math::Vec3> &boundary);
+		Boundary(Physics &physicsComp, const std::vector<math::Vec3> &boundary);
 		void update(float dt) override;
 
 	};
