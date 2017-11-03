@@ -28,7 +28,7 @@
     <ClInclude Include="EngineException.h" />
     <ClInclude Include="Entities\Component.h" />
     <ClInclude Include="Entities\Components\Boundary.h" />
-    <ClInclude Include="Entities\Components\LerpComponent.h" />
+    <ClInclude Include="Entities\Components\Lerp.h" />
     <ClInclude Include="Entities\Components\Physics.h" />
     <ClInclude Include="Entities\Components\Positional.h" />
     <ClInclude Include="Entities\Entity.h" />
@@ -49,7 +49,7 @@
     <ClCompile Include="DebugTools\Profiler.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entities\Components\Boundary.cpp" />
-    <ClCompile Include="Entities\Components\LerpComponent.cpp" />
+    <ClCompile Include="Entities\Components\Lerp.cpp" />
     <ClCompile Include="Entities\Components\Physics.cpp" />
     <ClCompile Include="Entities\Components\Positional.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />

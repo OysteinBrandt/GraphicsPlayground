@@ -6,7 +6,7 @@
 #include <Entities/Components/Positional.h>
 #include <Entities/Components/Physics.h>
 #include <Entities/Components/Boundary.h>
-#include <Entities/Components/LerpComponent.h>
+#include <Entities/Components/Lerp.h>
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
 #include "Input/KeyInput.h"
@@ -36,7 +36,7 @@ class Editor
 	engine::render::Renderable *m_lerpRenderable;
 	entities::component::Positional m_shipRenderer;
 	entities::component::Positional m_lerpRenderer;
-	entities::component::LerpComponent m_lerpLerper;
+	entities::component::Lerp m_lerpLerper;
 
 	input::KeyInput m_keyInput;
 	ControllerComponent m_shipController;

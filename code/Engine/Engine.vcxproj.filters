@@ -23,9 +23,6 @@
     <ClCompile Include="Math\Mat4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Components\LerpComponent.cpp">
-      <Filter>Entities\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\Shader.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -37,6 +34,9 @@
       <Filter>Entities\Components</Filter>
     </ClCompile>
     <ClCompile Include="Entities\Components\Physics.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Components\Lerp.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,9 +91,6 @@
     <ClInclude Include="Input\KeyInput.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\Components\LerpComponent.h">
-      <Filter>Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Rendering\Shader.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
       <Filter>Entities\Components</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Components\Physics.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\Lerp.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>
