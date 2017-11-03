@@ -5,7 +5,7 @@
 #include <Entities/Entity.h>
 #include <Entities/Components/RendererComponent.h>
 #include <Entities/Components/PhysicsComponent.h>
-#include <Entities/Components/BoundaryHandlerComponent.h>
+#include <Entities/Components/Boundary.h>
 #include <Entities/Components/LerpComponent.h>
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
@@ -29,7 +29,7 @@ class Editor
 	std::vector<math::Vec3> m_lerpPoints;
 
 	entities::component::PhysicsComponent m_shipPhysics;
-	entities::component::BoundaryHandlerComponent m_shipBoundaryHandler;
+	entities::component::Boundary m_shipBoundaryHandler;
 	engine::render::Renderer m_renderer;
 	engine::render::Shader m_shader;
 	engine::render::Renderable *m_shipRenderable;

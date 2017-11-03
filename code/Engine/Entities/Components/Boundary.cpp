@@ -1,17 +1,17 @@
-#include "BoundaryHandlerComponent.h"
+#include "Boundary.h"
 #include "Entities/Entity.h"
 #include "Entities/Components/PhysicsComponent.h"
 
 namespace entities::component
 {
 
-	BoundaryHandlerComponent::BoundaryHandlerComponent(PhysicsComponent &physicsComp, const std::vector<math::Vec3>& boundary)
+	Boundary::Boundary(PhysicsComponent &physicsComp, const std::vector<math::Vec3>& boundary)
 		: m_physics(physicsComp), m_boundary(boundary)
 	{
 		// TODO: reference to boundary is updated after construction
 	}
 
-	void BoundaryHandlerComponent::update(float dt)
+	void Boundary::update(float dt)
 	{
 		bool collision{ false };
 		for (size_t i = 0; i < m_boundary.size(); ++i)

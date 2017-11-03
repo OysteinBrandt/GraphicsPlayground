@@ -26,9 +26,6 @@
     <ClCompile Include="Input\KeyInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Components\BoundaryHandlerComponent.cpp">
-      <Filter>Entities\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -39,6 +36,9 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Rendering\Renderable.cpp" />
+    <ClCompile Include="Entities\Components\Boundary.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -97,9 +97,6 @@
     <ClInclude Include="Input\KeyInput.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\Components\BoundaryHandlerComponent.h">
-      <Filter>Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Entities\Components\LerpComponent.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
@@ -109,6 +106,9 @@
     <ClInclude Include="EngineException.h" />
     <ClInclude Include="Assert\AssertException.h">
       <Filter>Assert</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\Boundary.h">
+      <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
