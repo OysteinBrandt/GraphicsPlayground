@@ -17,9 +17,6 @@
     <ClCompile Include="Entities\Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Components\RendererComponent.cpp">
-      <Filter>Entities\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Entities\Components\PhysicsComponent.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
@@ -37,6 +34,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\Renderable.cpp" />
     <ClCompile Include="Entities\Components\Boundary.cpp">
+      <Filter>Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Components\Positional.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,9 +85,6 @@
     <ClInclude Include="Entities\Component.h">
       <Filter>Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\Components\RendererComponent.h">
-      <Filter>Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Entities\Components\PhysicsComponent.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
       <Filter>Assert</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Components\Boundary.h">
+      <Filter>Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Components\Positional.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
   </ItemGroup>

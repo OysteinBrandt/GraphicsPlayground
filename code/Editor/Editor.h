@@ -3,7 +3,7 @@
 #include <Rendering/Renderer.h>
 #include <Rendering/Shader.h>
 #include <Entities/Entity.h>
-#include <Entities/Components/RendererComponent.h>
+#include <Entities/Components/Positional.h>
 #include <Entities/Components/PhysicsComponent.h>
 #include <Entities/Components/Boundary.h>
 #include <Entities/Components/LerpComponent.h>
@@ -34,8 +34,8 @@ class Editor
 	engine::render::Shader m_shader;
 	engine::render::Renderable *m_shipRenderable;
 	engine::render::Renderable *m_lerpRenderable;
-	entities::component::RendererComponent m_shipRenderer;
-	entities::component::RendererComponent m_lerpRenderer;
+	entities::component::Positional m_shipRenderer;
+	entities::component::Positional m_lerpRenderer;
 	entities::component::LerpComponent m_lerpLerper;
 
 	input::KeyInput m_keyInput;

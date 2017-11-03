@@ -30,7 +30,7 @@
     <ClInclude Include="Entities\Components\Boundary.h" />
     <ClInclude Include="Entities\Components\LerpComponent.h" />
     <ClInclude Include="Entities\Components\PhysicsComponent.h" />
-    <ClInclude Include="Entities\Components\RendererComponent.h" />
+    <ClInclude Include="Entities\Components\Positional.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Input\KeyInput.h" />
     <ClInclude Include="Input\KeyMapperInterface.h" />
@@ -51,7 +51,7 @@
     <ClCompile Include="Entities\Components\Boundary.cpp" />
     <ClCompile Include="Entities\Components\LerpComponent.cpp" />
     <ClCompile Include="Entities\Components\PhysicsComponent.cpp" />
-    <ClCompile Include="Entities\Components\RendererComponent.cpp" />
+    <ClCompile Include="Entities\Components\Positional.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Input\KeyInput.cpp" />
     <ClCompile Include="Math\Mat2.cpp" />
