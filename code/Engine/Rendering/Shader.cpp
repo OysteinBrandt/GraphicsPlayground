@@ -48,6 +48,7 @@ namespace engine::render
 
 	std::string Shader::readShaderCode(const std::string &fileName) const
 	{
+		// TODO: Add Shader folder path to configuration
 		const std::string filePath{ "D:/src/GraphicsPlayground/Resources/Shaders/" };
 		std::ifstream stream(filePath + fileName);
 		if (!stream.good())
