@@ -1,3 +1,35 @@
+# OpenGL
+
+1. Interleaved attributes
+see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object
+
+Quoted from khronos.org, "As a general rule, you should use interleaved attributes wherever possible. 
+Obviously if you need to change certain attributes and not others, then interleaving the ones that change with those that don't is not a good idea. 
+But you should interleave the constant attributes with each other, and the changing attributes with those that change at the same time."
+
+struct Vertex
+{
+  GLfloat position[3];
+  GLfloat normal[3];
+  Glubyte color[4];
+};
+
+Vertex vertices[VERTEX_COUNT];
+
+// --------------------------------
+
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(baseOffset + offsetof(Vertex, position)));
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(baseOffset + offsetof(Vertex, normal)));
+glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), reinterpret_cast<void*>(baseOffset + offsetof(Vertex, color)));
+
+
+2. Vertex Array Object
+see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object
+
+glGenVertexArrays, glDeleteVertexArrays, and glBindVertexArray
+
+
+
 # Optimize Matrix class
  * Mat2H ==> Homogeneous ==> can remove last row of a Mat3
 [a b c]
