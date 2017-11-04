@@ -1,7 +1,10 @@
 #pragma once
 
 #include <GL/glew.h>
+
+#include "Math/Mat4.h"
 #include "DllHelper.h"
+#include "Assert/AssertException.h"
 #include <string>
 
 namespace engine::render
@@ -25,6 +28,13 @@ namespace engine::render
 
 		void bind() const;
 		void unbind() const;
+
+		void loadMatrix(const math::Mat4 &matrix) const
+		{
+			GLint loc = glGetUniformLocation(m_programId, "MVP");
+			ENGINE_ASSERT_EXCEPTION_IF(loc == -1,"No uniform named MVP");
+			glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix.x[0]);
+		}
 
 	private:
 		std::string readShaderCode(const std::string &fileName) const;

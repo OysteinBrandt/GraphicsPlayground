@@ -26,6 +26,7 @@ namespace engine::render
 		m_programId = glCreateProgram();
 		glAttachShader(m_programId, m_vertexShaderId);
 		glAttachShader(m_programId, m_fragmentShaderId);
+
 		glLinkProgram(m_programId);
 
 		// TODO: Validate that this function works

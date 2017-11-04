@@ -40,7 +40,7 @@
     <ClInclude Include="Math\Mat4.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
-    <ClInclude Include="Rendering\Geometry.h" />
+    <ClInclude Include="Rendering\OpenGLModel.h" />
     <ClInclude Include="Rendering\Renderable.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\Shader.h" />
@@ -57,6 +57,7 @@
     <ClCompile Include="Math\Mat2.cpp" />
     <ClCompile Include="Math\Mat3.cpp" />
     <ClCompile Include="Math\Mat4.cpp" />
+    <ClCompile Include="Rendering\OpenGLModel.cpp" />
     <ClCompile Include="Rendering\Renderable.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "Geometry.h"
 #include "Renderable.h"
 #include <vector>
 #include "DllHelper.h"
@@ -13,26 +12,21 @@ namespace engine::render
 	class Shader;
 	class OBR_API Renderer
 	{
-		std::vector<Geometry> m_geometries;
+		const Shader &m_defaultShader;
+		std::vector<OpenGLModel> m_models;
 		std::vector<Renderable> m_renderables;
 
-		GLuint m_vertexBufferID;
-		GLuint m_indexBufferID;
-		static const unsigned int MAX_BUFFER_SIZE = 1024;
-
-		void initialize(); // TODO: Make public, and use from caller?
-
 	public:
-		Renderer();
+		Renderer(const Shader &defaultShader);
 		~Renderer();
 
 		Renderer operator=(const Renderer&) = delete;
 		Renderer& opearator(const Renderer&) = delete;
 
-		Geometry* addGeometry(const std::vector<math::Vec3> &vertices,
+		OpenGLModel* addGeometry(const std::vector<math::Vec3> &vertices,
 																				const std::vector<unsigned short> &indices,
 																				GLenum renderMode);
-		Renderable* addRenderable(Geometry *geometry, Shader *shader = nullptr);
+		Renderable* addRenderable(OpenGLModel *model, Shader *shader = nullptr);
 
 		void render(float width, float height);
 

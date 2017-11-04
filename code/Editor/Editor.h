@@ -22,7 +22,6 @@ class Editor
 	entities::Entity m_ship;
 	entities::Entity m_lerper;
 	
-	std::vector<math::Vec3> m_shipVerices;
 	std::vector<GLushort> m_shipIndices;
 	std::vector<math::Vec3> m_boundaryVertices;
 	std::vector<GLushort> m_boundaryIndices;
@@ -34,8 +33,8 @@ class Editor
 	engine::render::Shader m_shader;
 	engine::render::Renderable *m_shipRenderable;
 	engine::render::Renderable *m_lerpRenderable;
-	entities::component::Positional m_shipRenderer;
-	entities::component::Positional m_lerpRenderer;
+	entities::component::Positional m_shipTransform;
+	entities::component::Positional m_lerpTransform;
 	entities::component::Lerp m_lerpLerper;
 
 	input::KeyInput m_keyInput;
@@ -49,7 +48,7 @@ public:
 private:
 
 	void addShips();
-	void addLerper(engine::render::Geometry *geometry);
+	void addLerper(engine::render::OpenGLModel *model);
 	void addBoundaries();
 };
 
