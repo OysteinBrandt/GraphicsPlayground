@@ -35,10 +35,12 @@ namespace math {
 			z *= scale;
 		}
 
+		// TODO: Move to Vec2 ?
 		inline Vec3 perpCW() const {
 			return Vec3(y, -x, 0);
 		}
 
+		// TODO: Move to Vec2 ?
 		inline Vec3 perpCCW() const {
 			return Vec3(-y, x, 0);
 		}
@@ -103,6 +105,14 @@ namespace math {
 
 	inline Vec3 lerp(float alpha, const Vec3 &first, const Vec3 &second) {
 		return (1.0f - alpha) * first + alpha * second;
+	}
+
+	inline Vec3 cross(const Vec3 &first, const Vec3 &second) {
+		return Vec3{
+			first.y * second.z - first.z * second.y,
+			first.z * second.x - first.x * second.z,
+			first.x * second.y - first.y * second.x
+		};
 	}
 
 }

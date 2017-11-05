@@ -283,3 +283,19 @@ TEST(Vec3, LinearInterpolation)
 		alpha += 0.01f;
 	}
 }
+
+TEST(Vec3, CrossProduct)
+{
+	const Vec3 xdir{ 1.f, 0.f, 0.f };
+	const Vec3 zdir{ 0.f, 0.f, -1.f };
+	auto res = math::cross(xdir, zdir);
+	EXPECT_FLOAT_EQ(0.f, res.x);
+	EXPECT_FLOAT_EQ(1.f, res.y);
+	EXPECT_FLOAT_EQ(0.f, res.z);
+
+	res = math::cross(res, xdir);
+	EXPECT_FLOAT_EQ(zdir.x, res.x);
+	EXPECT_FLOAT_EQ(zdir.y, res.y);
+	EXPECT_FLOAT_EQ(zdir.z, res.z);
+
+}
