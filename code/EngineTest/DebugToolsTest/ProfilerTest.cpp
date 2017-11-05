@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "DebugTools/Profiler.h"
+#ifdef PROFILING
 #include <fstream>
 
 using debug::details::Profiler;
@@ -185,3 +186,4 @@ TEST(Profiler, NewCategoryAfterFirstFrame)
 	profiler.newFrame();
 	ASSERT_DEATH(profiler.addEntry("A new Category appears!", 15s), "Assertion failed.*");
 }
+#endif
