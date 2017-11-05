@@ -9,6 +9,7 @@
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="win32_Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLWindow.h" />

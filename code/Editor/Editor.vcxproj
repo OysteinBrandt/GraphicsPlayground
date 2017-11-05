@@ -175,6 +175,7 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     <ClCompile Include="CustomMainWindow.cpp" />
     <ClCompile Include="OpenGLWindow.cpp" />
     <ClCompile Include="OpenGLWindow_moc.cpp" />
+    <ClCompile Include="win32_Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
