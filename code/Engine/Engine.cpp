@@ -1,10 +1,15 @@
 #include "Engine.h"
 
+#include <GL/glew.h>
+#include "Assert/AssertException.h"
+
 namespace obr
 {
 
 Engine::Engine()
 {
+	GLenum errorCode = glewInit();
+	ENGINE_ASSERT_EXCEPTION_IF(errorCode != GLEW_NO_ERROR, "Failed to initialize glew.");
 }
 
 

@@ -14,6 +14,10 @@ OpenGLWindow::OpenGLWindow()
 
 void OpenGLWindow::initializeGL()
 {
+	GLenum errorCode = glewInit();
+	if (errorCode != 0)
+		std::cout << "Failed to initialize glew!" << std::endl;
+
 	try
 	{
 		m_editor = std::make_unique<Editor>();

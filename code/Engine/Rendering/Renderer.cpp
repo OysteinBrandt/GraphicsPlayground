@@ -15,9 +15,6 @@ Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
 	m_models.reserve(NUM_MAX_MODELS);  // TODO: This is a temp solution
 	m_renderables.reserve(NUM_MAX_MODELS); // TODO: This is a temp solution
-	
-	GLenum errorCode = glewInit();
-	assert(errorCode == GLEW_NO_ERROR);
 
 	glEnable(GL_DEPTH_TEST);
 }
