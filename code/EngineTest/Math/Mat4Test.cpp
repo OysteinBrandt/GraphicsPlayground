@@ -67,9 +67,9 @@ TEST(Mat4, MatrixVectorMultiply)
 							13, 14, 15, 16 };
 	Vec3 vector{ 1, 2, 3 };
 	res = matrix * vector;
-	EXPECT_FLOAT_EQ(14.0f, res.x);
-	EXPECT_FLOAT_EQ(38.0f, res.y);
-	EXPECT_FLOAT_EQ(62.0f, res.z);
+	EXPECT_FLOAT_EQ(18.0f, res.x);
+	EXPECT_FLOAT_EQ(46.0f, res.y);
+	EXPECT_FLOAT_EQ(74.0f, res.z);
 
 }
 
@@ -164,14 +164,14 @@ TEST(Mat4, TranslateXYZ)
 	EXPECT_FLOAT_EQ(0.0f, m.y[2]);
 	EXPECT_FLOAT_EQ(0.0f, m.y[3]);
 
-	EXPECT_FLOAT_EQ(4.0f, m.z[0]);
-	EXPECT_FLOAT_EQ(8.0f, m.z[1]);
-	EXPECT_FLOAT_EQ(3.0f, m.z[2]);
+	EXPECT_FLOAT_EQ(0.0f, m.z[0]);
+	EXPECT_FLOAT_EQ(0.0f, m.z[1]);
+	EXPECT_FLOAT_EQ(1.0f, m.z[2]);
 	EXPECT_FLOAT_EQ(0.0f, m.z[3]);
 
-	EXPECT_FLOAT_EQ(0.0f, m.w[0]);
-	EXPECT_FLOAT_EQ(0.0f, m.w[1]);
-	EXPECT_FLOAT_EQ(0.0f, m.w[2]);
+	EXPECT_FLOAT_EQ(4.0f, m.w[0]);
+	EXPECT_FLOAT_EQ(8.0f, m.w[1]);
+	EXPECT_FLOAT_EQ(3.0f, m.w[2]);
 	EXPECT_FLOAT_EQ(1.0f, m.w[3]);
 }
 
@@ -188,21 +188,21 @@ TEST(Mat4, TranslateVec3)
 	EXPECT_FLOAT_EQ(0.0f, m.y[2]);
 	EXPECT_FLOAT_EQ(0.0f, m.y[3]);
 
-	EXPECT_FLOAT_EQ(2.0f, m.z[0]);
-	EXPECT_FLOAT_EQ(3.0f, m.z[1]);
-	EXPECT_FLOAT_EQ(4.0f, m.z[2]);
+	EXPECT_FLOAT_EQ(0.0f, m.z[0]);
+	EXPECT_FLOAT_EQ(0.0f, m.z[1]);
+	EXPECT_FLOAT_EQ(1.0f, m.z[2]);
 	EXPECT_FLOAT_EQ(0.0f, m.z[3]);
 
-	EXPECT_FLOAT_EQ(0.0f, m.w[0]);
-	EXPECT_FLOAT_EQ(0.0f, m.w[1]);
-	EXPECT_FLOAT_EQ(0.0f, m.w[2]);
+	EXPECT_FLOAT_EQ(2.0f, m.w[0]);
+	EXPECT_FLOAT_EQ(3.0f, m.w[1]);
+	EXPECT_FLOAT_EQ(4.0f, m.w[2]);
 	EXPECT_FLOAT_EQ(1.0f, m.w[3]);
 
 	Vec3 vec{ -4, 6, 2 };
 	auto res = m * vec;
-	EXPECT_FLOAT_EQ(0.0f, res.x);
-	EXPECT_FLOAT_EQ(12.f, res.y);
-	EXPECT_FLOAT_EQ(8.0f, res.z);
+	EXPECT_FLOAT_EQ(-2.0f, res.x);
+	EXPECT_FLOAT_EQ(9.f, res.y);
+	EXPECT_FLOAT_EQ(6.0f, res.z);
 }
 
 TEST(Mat4, MatrixMatrixMultiply)

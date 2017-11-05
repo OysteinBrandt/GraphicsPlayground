@@ -33,9 +33,9 @@ namespace math
 
 		inline static Mat4 translate(float x, float y, float z)
 		{
-			return Mat4{ 1, 0, x, 0,
-									 0, 1, y, 0,
-									 0, 0, z, 0,
+			return Mat4{ 1, 0, 0, x,
+									 0, 1, 0, y,
+									 0, 0, 1, z,
 									 0, 0, 0, 1 };
 		}
 
@@ -54,9 +54,9 @@ namespace math
 	};
 
 	inline Vec3 operator*(const Mat4& mat, const Vec3 &vec) {
-		return Vec3{ mat.x[0] * vec.x + mat.y[0] * vec.y + mat.z[0] * vec.z,
-								 mat.x[1] * vec.x + mat.y[1] * vec.y + mat.z[1] * vec.z,
-								 mat.x[2] * vec.x + mat.y[2] * vec.y + mat.z[2] * vec.z };
+		return Vec3{ mat.x[0] * vec.x + mat.y[0] * vec.y + mat.z[0] * vec.z + 1 * mat.w[0],
+								 mat.x[1] * vec.x + mat.y[1] * vec.y + mat.z[1] * vec.z + 1 * mat.w[1],
+								 mat.x[2] * vec.x + mat.y[2] * vec.y + mat.z[2] * vec.z + 1 * mat.w[2] };
 	}
 
 	inline Mat4 operator*(const Mat4 &first, const Mat4 &second) {
