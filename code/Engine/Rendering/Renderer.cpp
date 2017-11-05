@@ -19,7 +19,7 @@ Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera
 	GLenum errorCode = glewInit();
 	assert(errorCode == GLEW_NO_ERROR);
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer()
@@ -38,22 +38,9 @@ Renderable* Renderer::addRenderable(OpenGLModel *model, Shader *shader)
 	return &m_renderables.emplace_back(*model, shader);
 }
 
-math::Mat4 Renderer::aspectCorrectionMatrix(float width, float height) const
-{
-	float aspectRatio = width / height;
-
-	if (aspectRatio > 1)
-		return math::Mat4::scale(1.0f / aspectRatio, 1.0f, 1.f);
-	else
-		return math::Mat4::scale(1.0f, aspectRatio, 1.f);
-}
-
 void Renderer::render(float width, float height)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// TODO: Require fixed size or add flags for resizable/fixed. Ie. do not calculate matrix every frame if not needed.
-	const auto aspectMatrix = aspectCorrectionMatrix(width, height);
 
 	for (const auto &renderable : m_renderables)
 	{
@@ -66,7 +53,7 @@ void Renderer::render(float width, float height)
 			shader = &m_defaultShader;
 
 		shader->bind();
-		const math::Mat4 MVP = aspectMatrix * m_camera.viewMatrix() * renderable.m_matrix;
+		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable.m_matrix;
 		shader->loadMatrix(MVP);
 
 		glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);

@@ -4,8 +4,9 @@
 
 using engine::render::OpenGLModel;
 
-Editor::Editor() : 
+Editor::Editor() :
 	m_keyInput(m_keyMapper, input::MenuChoise::MAX),
+	m_camera(math::Vec3{ 0.f, 0.f, -3.f }),
 	m_cameraController(m_keyInput, m_camera),
 	m_shipController(m_keyInput, m_shipPhysics), 
 	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices),
@@ -33,6 +34,8 @@ void Editor::update()
 
 void Editor::render(float width, float height)
 {
+	// TODO: Require fixed size or add flags for resizable/fixed. Ie. do not calculate matrix every frame if not needed.
+	m_camera.updateProjection(width, height);
 	m_renderer.render(width, height);
 }
 

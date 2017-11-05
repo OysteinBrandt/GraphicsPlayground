@@ -29,9 +29,5 @@ namespace engine::render
 		Renderable* addRenderable(OpenGLModel *model, Shader *shader = nullptr);
 
 		void render(float width, float height);
-
-	private:
-
-		math::Mat4 aspectCorrectionMatrix(float width, float height) const;
 	};
 }
