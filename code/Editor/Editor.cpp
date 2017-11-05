@@ -5,12 +5,13 @@
 using engine::render::OpenGLModel;
 
 Editor::Editor() : 
-	m_keyInput(m_keyMapper, input::MenuChoise::MAX), 
+	m_keyInput(m_keyMapper, input::MenuChoise::MAX),
+	m_cameraController(m_keyInput, m_camera),
 	m_shipController(m_keyInput, m_shipPhysics), 
 	m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices),
 	m_lerpLerper(m_lerpPoints, m_shipPhysics),
 	m_shader("defaultVertex.vert", "defaulFragment.frag"),
-	m_renderer(m_shader)
+	m_renderer(m_camera, m_shader)
 {
 	addShips();
 	addBoundaries();
@@ -21,10 +22,13 @@ void Editor::update()
 	auto now = std::chrono::high_resolution_clock::now();
 	const std::chrono::duration<float> deltaTime = now - m_frameTimer;
 	m_frameTimer = now;
+	const auto dt = deltaTime.count();
 
 	m_keyInput.update();
-	m_ship.update(deltaTime.count());
-	m_lerper.update(deltaTime.count());
+	m_cameraController.update(dt);
+	m_camera.update();
+	m_ship.update(dt);
+	m_lerper.update(dt);
 }
 
 void Editor::render(float width, float height)
@@ -34,7 +38,7 @@ void Editor::render(float width, float height)
 
 void Editor::addShips()
 {
-	std::vector<math::Vec3> shipVerices =
+	const std::vector<math::Vec3> shipVerices =
 	{
 		math::Vec3(+0.0f, +0.14142135623f, 1),
 		//math::Vec3(+1.0f, +0.0f, 0.0f),
@@ -46,14 +50,14 @@ void Editor::addShips()
 		//math::Vec3(+1.0f, +0.0f, 0.0f)
 	};
 
-	m_shipIndices = { 0, 1, 2 };
+	const std::vector<GLushort> shipIndices = { 0, 1, 2 };
 
 	m_ship.addComponent(&m_shipController);
 	m_ship.addComponent(&m_shipPhysics);
 	m_ship.addComponent(&m_shipBoundaryHandler);
 
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
-	OpenGLModel *shipModel = m_renderer.addGeometry(shipVerices, m_shipIndices, GL_TRIANGLES);
+	OpenGLModel *shipModel = m_renderer.addGeometry(shipVerices, shipIndices, GL_TRIANGLES);
 	m_shipRenderable = m_renderer.addRenderable(shipModel);
 	m_shipTransform.assign(m_shipRenderable);
 	m_ship.addComponent(&m_shipTransform);
@@ -81,10 +85,10 @@ void Editor::addLerper(engine::render::OpenGLModel *model)
 {
 	m_lerpPoints = 
 	{
-		math::Vec3{  0.5f, 0.5f, 1.0f },
-		math::Vec3{ -0.5f, 0.5f, 1.0f },
-		math::Vec3{ -0.5f, -0.5f, 1.0f },
-		math::Vec3{  0.5f, -0.5f, 1.0f }
+		math::Vec3{  0.5f, 0.5f, 0.0f },
+		math::Vec3{ -0.5f, 0.5f, 0.0f },
+		math::Vec3{ -0.5f, -0.5f, 0.0f },
+		math::Vec3{  0.5f, -0.5f, 0.0f }
 	};
 
 	m_lerper.addComponent(&m_lerpLerper);

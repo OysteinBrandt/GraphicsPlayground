@@ -2,11 +2,13 @@
 
 #include <Rendering/Renderer.h>
 #include <Rendering/Shader.h>
+#include <Rendering/Camera.h>
 #include <Entities/Entity.h>
 #include <Entities/Components/Positional.h>
 #include <Entities/Components/Physics.h>
 #include <Entities/Components/Boundary.h>
 #include <Entities/Components/Lerp.h>
+#include "CameraController.h"
 #include "ControllerComponent.h"
 #include "KeyMapper.h"
 #include "Input/KeyInput.h"
@@ -18,11 +20,11 @@ class Editor
 {
 	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
 	input::KeyMapper m_keyMapper;
-	
+	engine::render::Camera m_camera;
+
 	entities::Entity m_ship;
 	entities::Entity m_lerper;
 	
-	std::vector<GLushort> m_shipIndices;
 	std::vector<math::Vec3> m_boundaryVertices;
 	std::vector<GLushort> m_boundaryIndices;
 	std::vector<math::Vec3> m_lerpPoints;
@@ -38,6 +40,7 @@ class Editor
 	entities::component::Lerp m_lerpLerper;
 
 	input::KeyInput m_keyInput;
+	CameraController m_cameraController;
 	ControllerComponent m_shipController;
 public:
 	Editor();

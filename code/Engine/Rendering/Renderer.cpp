@@ -1,14 +1,15 @@
 #include "Renderer.h"
-#include <cassert> //TODO: Replace
+#include "Camera.h"
 #include "Shader.h"
 #include "OpenGLModel.h"
 
+#include <cassert> //TODO: Replace
 namespace engine::render
 {
 
 	static const int NUM_MAX_MODELS = 3;
 
-Renderer::Renderer(const Shader &defaultShader) : m_defaultShader(defaultShader)
+Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
 {
 
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
@@ -17,16 +18,15 @@ Renderer::Renderer(const Shader &defaultShader) : m_defaultShader(defaultShader)
 	
 	GLenum errorCode = glewInit();
 	assert(errorCode == GLEW_NO_ERROR);
+
+	//glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer()
 {
 }
 
-OpenGLModel* Renderer::addGeometry(
-	const std::vector<math::Vec3> &vertices,
-	const std::vector<unsigned short> &indices,
-	GLenum renderMode)
+OpenGLModel* Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode)
 {
 	assert(m_models.size() < NUM_MAX_MODELS);
 	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
@@ -43,9 +43,9 @@ math::Mat4 Renderer::aspectCorrectionMatrix(float width, float height) const
 	float aspectRatio = width / height;
 
 	if (aspectRatio > 1)
-		return math::Mat4::scale(1.0f / aspectRatio, 1.0f, 0.f);
+		return math::Mat4::scale(1.0f / aspectRatio, 1.0f, 1.f);
 	else
-		return math::Mat4::scale(1.0f, aspectRatio, 0.f);
+		return math::Mat4::scale(1.0f, aspectRatio, 1.f);
 }
 
 void Renderer::render(float width, float height)
@@ -66,7 +66,7 @@ void Renderer::render(float width, float height)
 			shader = &m_defaultShader;
 
 		shader->bind();
-		const math::Mat4 MVP = aspectMatrix * renderable.m_matrix;
+		const math::Mat4 MVP = aspectMatrix * m_camera.viewMatrix() * renderable.m_matrix;
 		shader->loadMatrix(MVP);
 
 		glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);

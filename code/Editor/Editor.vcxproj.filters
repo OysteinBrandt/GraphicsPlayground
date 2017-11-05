@@ -8,6 +8,7 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="ControllerComponent.cpp" />
+    <ClCompile Include="CameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLWindow.h" />
@@ -16,5 +17,6 @@
     <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="ControllerComponent.h" />
+    <ClInclude Include="CameraController.h" />
   </ItemGroup>
 </Project>

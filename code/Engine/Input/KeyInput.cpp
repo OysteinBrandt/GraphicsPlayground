@@ -3,7 +3,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h> // TODO: Make platform independent?
-#include <cassert> //TODO: Refactor
+#include "Assert/AssertException.h"
 
 namespace input
 {
@@ -12,7 +12,7 @@ namespace input
 	{
 		m_keyMapper = &keyMapper;
 		m_maxActionValue = maxActionValue;
-		assert(m_maxActionValue > 0);
+		ENGINE_ASSERT_EXCEPTION_IF(m_maxActionValue <= 0, "Should have at least one action");
 	}
 
 	void KeyInput::update()

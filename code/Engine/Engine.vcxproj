@@ -40,6 +40,7 @@
     <ClInclude Include="Math\Mat4.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
+    <ClInclude Include="Rendering\Camera.h" />
     <ClInclude Include="Rendering\OpenGLModel.h" />
     <ClInclude Include="Rendering\Renderable.h" />
     <ClInclude Include="Rendering\Renderer.h" />

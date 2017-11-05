@@ -167,6 +167,7 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="KeyMapper.cpp" />
@@ -181,6 +182,7 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraController.h" />
     <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="CustomMainWindow.h" />
     <ClInclude Include="Editor.h" />

@@ -19,6 +19,14 @@ namespace input
 				return VK_LEFT;
 			case MenuChoise::RotateRight:
 				return VK_RIGHT;
+			case MenuChoise::CameraForward:
+				return 'W';
+			case MenuChoise::CameraBackward:
+				return 'S';
+			case MenuChoise::CameraLeft:
+				return 'A';
+			case MenuChoise::CameraRight:
+				return 'D';
 		}
 
 		assert(false);
