@@ -1,40 +1,38 @@
 #include <Windows.h>
+#include "IORedirect.h"
+#include "Editor.h"
 
 static bool running{ true };
+HDC global_deviceContext;
+int windowWidth{ 800 };
+int windowHeight{ 600 };
+Editor *global_editor = nullptr;
 
-
-void setPixelFormat(HDC deviceContext)
+void setupPixelFormat(HDC deviceContext)
 {
 	PIXELFORMATDESCRIPTOR pixelFormatDescriptor{};
 	pixelFormatDescriptor.nSize = sizeof(PIXELFORMATDESCRIPTOR);
 	pixelFormatDescriptor.nVersion = 1;
-	pixelFormatDescriptor.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	pixelFormatDescriptor.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER;
 	pixelFormatDescriptor.iPixelType = PFD_TYPE_RGBA;
 	pixelFormatDescriptor.cColorBits = 24; // TODO: Check that this works, may be 32 instead
-	pixelFormatDescriptor.cRedBits = 0;
-	pixelFormatDescriptor.cRedShift = 0;
-	pixelFormatDescriptor.cGreenBits = 0;
-	pixelFormatDescriptor.cGreenShift = 0;
-	pixelFormatDescriptor.cBlueBits = 0;
-	pixelFormatDescriptor.cBlueShift = 0;
-	pixelFormatDescriptor.cAlphaBits = 0;
-	pixelFormatDescriptor.cAlphaShift = 0;
-	pixelFormatDescriptor.cAccumBits = 0;
-	pixelFormatDescriptor.cAccumRedBits = 0;
-	pixelFormatDescriptor.cAccumGreenBits = 0;
-	pixelFormatDescriptor.cAccumBlueBits = 0;
-	pixelFormatDescriptor.cAccumAlphaBits = 0;
 	pixelFormatDescriptor.cDepthBits = 16; // TODO: Specifies the depth of the depth (z-axis) buffer
-	pixelFormatDescriptor.cStencilBits = 0;
-	pixelFormatDescriptor.cAuxBuffers = 0;
-	pixelFormatDescriptor.iLayerType = 0;
-	pixelFormatDescriptor.bReserved = 0;
-	pixelFormatDescriptor.dwLayerMask = 0;
-	pixelFormatDescriptor.dwVisibleMask = 0;
-	pixelFormatDescriptor.dwDamageMask = 0;
-
 	const int format = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
 	SetPixelFormat(deviceContext, format, &pixelFormatDescriptor);
+}
+
+void mainLoop(Editor &editor, int width, int height)
+{
+	try
+	{
+		editor.update();
+		editor.render(static_cast<float>(width), static_cast<float>(height));
+	}
+	catch (...)
+	{
+		// TODO: Handle exception
+	}
+	SwapBuffers(global_deviceContext);
 }
 
 LRESULT CALLBACK
@@ -48,17 +46,36 @@ mainWindowCallback(HWND window,
 	{
 	case WM_CREATE:
 	{
+		OutputDebugStringA("WM_CREATE\n");
+		PAINTSTRUCT paint;
+		HDC deviceContext = BeginPaint(window, &paint);
+		global_deviceContext = deviceContext;
+		setupPixelFormat(deviceContext);
+		HGLRC renderContext = wglCreateContext(deviceContext);
+		wglMakeCurrent(deviceContext, renderContext);
 	}break;
 
 	case WM_SIZE:
 	{
 		OutputDebugStringA("WM_SIZE\n");
+		windowWidth = LOWORD(lParam);
+		windowHeight = HIWORD(lParam);
+		glViewport(0, 0, windowWidth, windowHeight);
 	}break;
 
 	case WM_CLOSE:
 	{
 		// TODO: Handle this with a message to the user?
+		OutputDebugStringA("WM_CLOSE\n");
 		running = false;
+
+		//// De-select the rendering context
+		//wglMakeCurrent(hdc, NULL);
+		//// Release the rendering context
+		//wglDeleteContext(hrc);
+		//// Release the device context
+		//EndPaint(hwnd, &ps);
+		//PostQuitMessage(0);
 	} break;
 
 	case WM_ACTIVATEAPP:
@@ -68,23 +85,24 @@ mainWindowCallback(HWND window,
 
 	case WM_DESTROY:
 	{
+		OutputDebugStringA("WM_DESTROY\n");
 		// TODO: Handle this as an error - recreate window?
 		running = false;
 	}break;
 
 	case WM_PAINT:
 	{
-		PAINTSTRUCT paint;
-		/*HDC deviceContext =*/ BeginPaint(window, &paint);
+		//OutputDebugStringA("WM_PAINT\n");
+		if (global_editor != nullptr)
+			mainLoop(*global_editor, windowWidth, windowHeight);
+		//PAINTSTRUCT paint;
+		//HDC deviceContext = BeginPaint(window, &paint);
 		//int x = paint.rcPaint.left;
 		//int y = paint.rcPaint.top;
 		//int width = paint.rcPaint.right - paint.rcPaint.left;
 		//int height = paint.rcPaint.bottom - paint.rcPaint.top;
-
 		//PatBlt(deviceContext, x, y, width, height, BLACKNESS);
-		//TextOutA(deviceContext, width / 2, height / 2, "OMG lulz!", 9);
-
-		EndPaint(window, &paint);
+		//EndPaint(window, &paint);
 	}break;
 
 	default:
@@ -101,6 +119,8 @@ WinMain(HINSTANCE instance,
 				LPSTR /*lpCmdLine*/,
 				int nCmdShow)
 {
+	redirectIOToConsole();
+
 	WNDCLASSEX windowClass = {};
 
 	windowClass.cbSize = sizeof(WNDCLASSEX);
@@ -129,8 +149,8 @@ WinMain(HINSTANCE instance,
 		WS_OVERLAPPEDWINDOW|WS_VISIBLE,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
+		windowWidth,
+		windowHeight,
 		0,
 		0,
 		instance,
@@ -146,12 +166,15 @@ WinMain(HINSTANCE instance,
 	ShowWindow(windowHandle, nCmdShow);
 	UpdateWindow(windowHandle);
 
+	Editor editor;
+	global_editor = &editor;
 	while (running)
 	{
 		MSG message;
-		BOOL messageResult = messageResult = GetMessage(&message, 0, 0, 0);
+		BOOL messageResult = PeekMessage(&message, 0, 0, 0, PM_REMOVE);
 		if (messageResult > 0)
 		{
+			//mainLoop(editor, windowWidth, windowHeight);
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}

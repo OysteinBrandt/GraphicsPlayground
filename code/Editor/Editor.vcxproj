@@ -107,7 +107,7 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\win32\glew32.dll" "$(Ou
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>NotSet</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)..\3rdParty\Qt\lib;$(SolutionDir)..\3rdParty\glew\lib\Release\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;Qt5Gui.lib;Qt5Core.lib;Qt5Widgets.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -155,7 +155,7 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\win32\glew32.dll" "$(Ou
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>NotSet</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)..\3rdParty\Qt\lib;$(SolutionDir)..\3rdParty\glew\lib\Release\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;Qt5Gui.lib;Qt5Core.lib;Qt5Widgets.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -170,11 +170,14 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="IORedirect.cpp" />
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CustomMainWindow.cpp" />
     <ClCompile Include="OpenGLWindow.cpp" />
     <ClCompile Include="OpenGLWindow_moc.cpp" />
+    <ClCompile Include="Scenes\SimpleGame.cpp" />
+    <ClCompile Include="Shapes\Cube.cpp" />
     <ClCompile Include="win32_Editor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,9 +190,12 @@ xcopy /y /d  "$(SolutionDir)..\3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutD
     <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="CustomMainWindow.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="IORedirect.h" />
     <ClInclude Include="KeyMapper.h" />
     <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="OpenGLWindow.h" />
+    <ClInclude Include="Scenes\SimpleGame.h" />
+    <ClInclude Include="Shapes\Cube.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
