@@ -60,9 +60,7 @@ namespace engine::render
 		if (!stream.good())
 			ENGINE_ASSERT_EXCEPTION("Failed to load shader: \"" + fileName + "\" from folder \"" + filePath + "\"");
 
-		return std::string(
-			(std::istreambuf_iterator<char>(stream)),
-			std::istreambuf_iterator<char>());
+		return std::string(std::istreambuf_iterator<char>{stream}, {});
 	}
 
 	void Shader::checkShaderStatus(GLuint shaderId) const
