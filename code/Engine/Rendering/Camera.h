@@ -13,8 +13,8 @@ namespace engine::render
 
 		math::Vec3 m_position;
 		float m_fov{ math::PI/2 };
-		float m_nearPlane = 0.f;
-		float m_farPlane = 5.0f;
+		float m_nearPlane = 1.f;
+		float m_farPlane = 10.0f;
 
 	public:
 		math::Vec3 direction;
