@@ -20,7 +20,7 @@ void Editor::update()
 	const auto dt = deltaTime.count();
 
 	++frames;
-	if (frames % 1000 == 0)
+	if (frames % 100 == 0)
 	{
 		std::cout << (1 / dt) << std::endl;
 		frames = 0;

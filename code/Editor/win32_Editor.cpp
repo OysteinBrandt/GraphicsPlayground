@@ -127,12 +127,12 @@ WinMain(HINSTANCE instance,
 	windowClass.style = CS_OWNDC|CS_HREDRAW|CS_VREDRAW;
 	windowClass.lpfnWndProc = mainWindowCallback;
 	windowClass.hInstance = instance;
-	//windowClass.hIcon = LoadIcon(instance, MAKEINTRESOURCE(IDI_APPLICATION));
+	windowClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	windowClass.lpszMenuName = NULL;
 	windowClass.lpszClassName = "GraphicsPlaygroundEditorWindowClass";
-	//windowClass.hIconSm = LoadIcon(windowClass.instance, MAKEINTRESOURCE(IDI_APPLICATION));
+	windowClass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
 	if (!RegisterClassEx(&windowClass))
 	{
