@@ -14,39 +14,43 @@
 namespace engine::render { class Renderable; }
 namespace input { class KeyInput; }
 
-class SimpleGame
+namespace scenes
 {
-	engine::render::Camera m_camera;
 
-	entities::Entity m_ship;
-	entities::Entity m_lerper;
+	class SimpleGame
+	{
+		engine::render::Camera m_camera;
 
-	std::vector<math::Vec3> m_boundaryVertices;
-	std::vector<GLushort> m_boundaryIndices;
-	std::vector<math::Vec3> m_lerpPoints;
+		entities::Entity m_ship;
+		entities::Entity m_lerper;
 
-	entities::component::Physics m_shipPhysics;
-	entities::component::Boundary m_shipBoundaryHandler;
-	engine::render::Renderer m_renderer;
-	engine::render::Shader m_shader;
-	engine::render::Renderable *m_shipRenderable;
-	engine::render::Renderable *m_lerpRenderable;
-	entities::component::Positional m_shipTransform;
-	entities::component::Positional m_lerpTransform;
-	entities::component::Lerp m_lerpLerper;
+		std::vector<math::Vec3> m_boundaryVertices;
+		std::vector<GLushort> m_boundaryIndices;
+		std::vector<math::Vec3> m_lerpPoints;
 
-	CameraController m_cameraController;
-	ControllerComponent m_shipController;
-public:
-	SimpleGame(const input::KeyInput &keyInput);
+		entities::component::Physics m_shipPhysics;
+		entities::component::Boundary m_shipBoundaryHandler;
+		engine::render::Renderer m_renderer;
+		engine::render::Shader m_shader;
+		engine::render::Renderable *m_shipRenderable;
+		engine::render::Renderable *m_lerpRenderable;
+		entities::component::Positional m_shipTransform;
+		entities::component::Positional m_lerpTransform;
+		entities::component::Lerp m_lerpLerper;
 
-	void update(float dt);
-	void render(float width, float height);
+		CameraController m_cameraController;
+		ControllerComponent m_shipController;
+	public:
+		SimpleGame(const input::KeyInput &keyInput);
 
-private:
+		void update(float dt);
+		void render(float width, float height);
 
-	void addShips();
-	void addLerper(engine::render::OpenGLModel *model);
-	void addBoundaries();
-};
+	private:
 
+		void addShips();
+		void addLerper(engine::render::OpenGLModel *model);
+		void addBoundaries();
+	};
+
+}

@@ -14,7 +14,7 @@ class Editor
 	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
 	input::KeyMapper m_keyMapper;
 	input::KeyInput m_keyInput;
-	std::unique_ptr<SimpleGame> m_gameScene;
+	std::unique_ptr<scenes::SimpleGame> m_gameScene;
 	int frames;
 
 public:

@@ -8,7 +8,7 @@ Editor::Editor() : m_keyInput(m_keyMapper, input::MenuChoise::MAX)
 	if (errorCode != 0)
 		std::cout << "Failed to initialize glew!" << std::endl;
 
-	m_gameScene = std::make_unique<SimpleGame>(m_keyInput);
+	m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);
 	frames = 0;
 }
 
