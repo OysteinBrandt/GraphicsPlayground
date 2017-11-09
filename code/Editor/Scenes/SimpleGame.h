@@ -8,8 +8,8 @@
 #include <Entities/Components/Physics.h>
 #include <Entities/Components/Boundary.h>
 #include <Entities/Components/Lerp.h>
-#include "../CameraController.h"
-#include "../ControllerComponent.h"
+//#include "CameraController.h"
+#include "ControllerComponent.h"
 
 namespace engine::render { class Renderable; }
 namespace input { class KeyInput; }
@@ -38,7 +38,7 @@ namespace scenes
 		entities::component::Positional m_lerpTransform;
 		entities::component::Lerp m_lerpLerper;
 
-		CameraController m_cameraController;
+		//CameraController m_cameraController;
 		ControllerComponent m_shipController;
 	public:
 		SimpleGame(const input::KeyInput &keyInput);

@@ -13,6 +13,7 @@ namespace engine::render
 		GLuint m_indexBufferID;
 		GLenum m_renderMode;
 		GLsizei m_vertexCount;
+		bool m_renderOutline;
 
 	public:
 
@@ -32,6 +33,16 @@ namespace engine::render
 		GLsizei vertexCount() const
 		{
 			return m_vertexCount;
+		}
+
+		void renderOutline(bool outline)
+		{
+			m_renderOutline = outline;
+		}
+
+		bool renderOutline() const
+		{
+			return m_renderOutline;
 		}
 	};
 }

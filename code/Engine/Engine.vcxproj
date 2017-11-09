@@ -44,7 +44,9 @@
     <ClInclude Include="Rendering\OpenGLModel.h" />
     <ClInclude Include="Rendering\Renderable.h" />
     <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderTypes.h" />
     <ClInclude Include="Rendering\Shader.h" />
+    <ClInclude Include="Rendering\WindowSize.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugTools\Profiler.cpp" />

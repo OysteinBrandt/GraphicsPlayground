@@ -20,12 +20,17 @@ namespace engine::render
 		math::Vec3 direction;
 		math::Vec3 up;
 
-		Camera(const math::Vec3 &position) : m_position(position), direction{0.f, 0.f, -1.f}, up{0.f, 1.f, 0.f}
+		Camera()
+		{ }
+
+		Camera(const math::Vec3 &position) : m_position(position), direction{0.f, 0.f, 1.f}, up{0.f, 1.f, 0.f}
 		{ }
 
 		void update()
 		{
-			m_viewMatrix = math::Mat4::translate(m_position);
+			m_viewMatrix = math::Mat4::rotate(direction.x, math::Mat4::Axis::Y) * 
+				math::Mat4::rotate(direction.y, math::Mat4::Axis::X) *
+				math::Mat4::translate(m_position);
 		}
 
 		OBR_API void updateProjection(float width, float height);

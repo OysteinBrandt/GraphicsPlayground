@@ -17,6 +17,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="IORedirect.cpp" />
+    <ClCompile Include="Scenes\Cubes.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLWindow.h" />
@@ -33,6 +36,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="IORedirect.h" />
+    <ClInclude Include="Scenes\Cubes.hpp">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

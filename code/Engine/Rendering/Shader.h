@@ -32,8 +32,15 @@ namespace engine::render
 		void loadMatrix(const math::Mat4 &matrix) const
 		{
 			GLint loc = glGetUniformLocation(m_programId, "MVP");
-			ENGINE_ASSERT_EXCEPTION_IF(loc == -1,"No uniform named MVP");
+			ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named MVP");
 			glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix.x[0]);
+		}
+
+		void loadColor(const math::Vec3 &color) const
+		{
+			GLint loc = glGetUniformLocation(m_programId, "mycolor");
+			ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named instaColor");
+			glUniform3fv(loc, 1, &color.x);
 		}
 
 	private:

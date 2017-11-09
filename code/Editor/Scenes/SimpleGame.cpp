@@ -11,7 +11,7 @@ namespace scenes
 
 	SimpleGame::SimpleGame(const input::KeyInput &keyInput) :
 		m_camera(math::Vec3{ 0.f, 0.f, -3.f }),
-		m_cameraController(keyInput, m_camera),
+		//m_cameraController(keyInput, m_camera),
 		m_shipController(keyInput, m_shipPhysics),
 		m_shipBoundaryHandler(m_shipPhysics, m_boundaryVertices),
 		m_lerpLerper(m_lerpPoints, m_shipPhysics),
@@ -24,7 +24,7 @@ namespace scenes
 
 	void SimpleGame::update(float dt)
 	{
-		m_cameraController.update(dt);
+		//m_cameraController.update(dt);
 		m_camera.update();
 		m_ship.update(dt);
 		m_lerper.update(dt);

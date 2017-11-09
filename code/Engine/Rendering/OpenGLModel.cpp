@@ -6,7 +6,7 @@ namespace engine::render
 {
 
 	OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices, GLenum renderMode)
-		: m_renderMode(renderMode), m_vertexCount(indices.size())
+		: m_renderMode(renderMode), m_vertexCount(indices.size()), m_renderOutline{false}
 	{
 		glGenVertexArrays(1, &m_vaoID);
 		glBindVertexArray(m_vaoID);

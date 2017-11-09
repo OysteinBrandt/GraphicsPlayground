@@ -2,9 +2,10 @@
 
 in layout(location=0) vec3 position;
 //in layout(location=1) vec3 vertexColor;
-uniform mat4 MVP;
 
-out vec3 theColor;
+// TODO: investigate layout binding
+//layout(binding = 0) uniform sampler2D DiffuseTexture;
+uniform mat4 MVP;
 
 void main()
 {

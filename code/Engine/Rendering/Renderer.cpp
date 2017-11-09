@@ -7,7 +7,7 @@
 namespace engine::render
 {
 
-	static const int NUM_MAX_MODELS = 3;
+	static const int NUM_MAX_MODELS = 1;
 
 Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
 {
@@ -52,8 +52,19 @@ void Renderer::render(float width, float height)
 		shader->bind();
 		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable.m_matrix;
 		shader->loadMatrix(MVP);
+		shader->loadColor(math::Vec3{ 1.0f, 0.0f, 0.0f });
 
 		glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
+
+		if (model.renderOutline())
+		{
+			shader->loadColor(math::Vec3{ 0.0f, 1.0f, 0.0f });
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glPolygonOffset(0.f, -0.5f);	// TODO: Calculate suitable offset
+			glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
 		glDisableVertexAttribArray(0);
 		glBindVertexArray(0);
 

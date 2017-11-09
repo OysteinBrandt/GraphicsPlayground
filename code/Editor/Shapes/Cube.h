@@ -3,7 +3,7 @@
 #include <Math/Vec3.h>
 #include <vector>
 
-namespace editor
+namespace shapes
 {
 	class Cube
 	{

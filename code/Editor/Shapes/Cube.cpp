@@ -1,21 +1,21 @@
 #include "Cube.h"
 #include <Math/Vec3.h>
 
-namespace editor
+namespace shapes
 {
 	Cube::Cube(float size)
 	{
 		float dist = size / 2;
 		vertices =
 		{
-			math::Vec3{ -dist,  0.f,  0.f },
-			math::Vec3{  dist,  0.f,  0.f },
-			math::Vec3{  dist, dist,  0.f },
-			math::Vec3{ -dist, dist,  0.f },
-			math::Vec3{  dist,  0.f, dist },
-			math::Vec3{ -dist,  0.f, dist },
-			math::Vec3{ -dist, dist, dist },
-			math::Vec3{  dist, dist, dist }
+			math::Vec3{ -dist, -dist, -dist },
+			math::Vec3{  dist, -dist, -dist },
+			math::Vec3{  dist,  dist, -dist },
+			math::Vec3{ -dist,  dist, -dist },
+			math::Vec3{  dist, -dist,  dist },
+			math::Vec3{ -dist, -dist,  dist },
+			math::Vec3{ -dist,  dist,  dist },
+			math::Vec3{  dist,  dist,  dist }
 		};
 
 		indices =

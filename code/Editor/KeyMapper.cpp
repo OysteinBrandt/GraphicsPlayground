@@ -27,6 +27,8 @@ namespace input
 				return 'A';
 			case MenuChoise::CameraRight:
 				return 'D';
+			case MenuChoise::MouseLButtonDown:
+				return VK_LBUTTON;
 		}
 
 		assert(false);

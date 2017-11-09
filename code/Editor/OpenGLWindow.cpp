@@ -20,7 +20,7 @@ void OpenGLWindow::initializeGL()
 
 	try
 	{
-		m_editor = std::make_unique<Editor>();
+		//m_editor = std::make_unique<Editor>();
 
 		connect(&m_gameLoop, SIGNAL(timeout()), this, SLOT(update()));
 		m_gameLoop.start();
