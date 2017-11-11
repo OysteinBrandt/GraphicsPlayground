@@ -1,6 +1,8 @@
 #pragma once
 #include <math.h>
 #include <cassert> // TODO: Replace
+#include <iosfwd>
+#include "DllHelper.h"
 
 namespace math {
 
@@ -60,6 +62,8 @@ namespace math {
 		inline Vec3 normalized() const;
 
 		inline Vec3 projectOnto(const Vec3 &target) const;
+
+		OBR_API std::ostream& print(std::ostream &stream) const;
 	};
 
 	/***********************************************************/
@@ -113,6 +117,10 @@ namespace math {
 			first.z * second.x - first.x * second.z,
 			first.x * second.y - first.y * second.x
 		};
+	}
+
+	inline std::ostream& operator<<(std::ostream &stream, const Vec3 &vec) {
+		return vec.print(stream);
 	}
 
 }

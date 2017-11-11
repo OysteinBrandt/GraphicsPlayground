@@ -56,10 +56,6 @@ mainWindowCallback(HWND window,
 	{
 		PAINTSTRUCT paint;
 		HDC deviceContext = BeginPaint(window, &paint);
-		//int x = paint.rcPaint.left;
-		//int y = paint.rcPaint.top;
-		//int width = paint.rcPaint.right - paint.rcPaint.left;
-		//int height = paint.rcPaint.bottom - paint.rcPaint.top;
 		global_deviceContext = deviceContext;
 		setupPixelFormat(deviceContext);
 		HGLRC renderContext = wglCreateContext(deviceContext);
@@ -119,8 +115,8 @@ mainWindowCallback(HWND window,
 		case MK_LBUTTON:
 		{
 			// TODO: Consider replacing #include <Windowsx.h> and retrieve mouse input differently.
-			int mouseX = GET_X_LPARAM(lParam);
-			int mouseY = GET_Y_LPARAM(lParam);
+			//int mouseX = GET_X_LPARAM(lParam);
+			//int mouseY = GET_Y_LPARAM(lParam);
 		}break;
 
 		case MK_CONTROL:
@@ -176,9 +172,6 @@ WinMain(HINSTANCE instance,
 
 		return 1;
 	}
-
-	//global_windowSize.width = 800;
-	//global_windowSize.height = 600;
 
 	HWND windowHandle = CreateWindowEx(
 		0,

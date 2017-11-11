@@ -16,6 +16,21 @@ void engine::render::Camera::updateProjection(float width, float height)
 	m_projectionMatrix.w.at(3) = 0.f;
 }
 
+math::Mat4 engine::render::Camera::lookAt(const math::Vec3 & pos, const math::Vec3 & target, const math::Vec3 & up)
+{
+	const auto w = (pos - target).normalized();
+	const auto u = math::cross(up, w);
+	const auto v = math::cross(w, u);
+
+	return math::Mat4
+	{
+		u.x, u.y, u.z, -(u.dot(pos)),
+		v.x, v.y, v.z, -(v.dot(pos)),
+		w.x, w.y, w.z, -(w.dot(pos)),
+		  0,   0,   0,             1
+	};
+}
+
 // TODO: Could be needed in a 2D environment
 //math::Mat4 engine::render::Camera::aspectCorrectionMatrix(float width, float height) const
 //{

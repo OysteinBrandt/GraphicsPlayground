@@ -40,4 +40,18 @@ namespace math
 			break;
 		}
 	}
+
+	/*********************************************************/
+
+	Mat4 Mat4::rotate(float radians, const Vec3 & axis)
+	{
+		auto cosine = cos(radians);
+		auto c = 1 - cosine;
+		auto sine = sin(radians);
+
+		return Mat4{ axis.x*axis.x*c+cosine,      axis.x*axis.y*c-axis.z*sine, axis.x*axis.z*c+axis.y*sine, 0.f,
+								 axis.x*axis.y*c+axis.z*sine, axis.y*axis.y*c+cosine,      axis.y*axis.z*c-axis.x*sine, 0.f,
+								 axis.x*axis.z*c-axis.y*sine, axis.y*axis.z*c+axis.x*sine, axis.z*axis.z*c+cosine,      0.f,
+								 0.f,                         0.f,                         0.f,                         1.f};
+	}
 }

@@ -73,7 +73,7 @@ TEST(Mat4, MatrixVectorMultiply)
 
 }
 
-TEST(Mat4, Rotate)
+TEST(Mat4, RotateFixedAxis)
 {
 	Mat4 rot = Mat4::rotate(0, Mat4::Axis::Z);
 	EXPECT_FLOAT_EQ(1.0f, rot.x[0]);
@@ -149,6 +149,29 @@ TEST(Mat4, Rotate)
 	EXPECT_FLOAT_EQ(0,           rot.y[3]);
 	EXPECT_FLOAT_EQ(0,           rot.z[3]);
 	EXPECT_FLOAT_EQ(1,           rot.w[3]);
+}
+
+TEST(Mat4, RotateAnyAxis)
+{
+	auto rot = Mat4::rotate(math::PI, {1.0f, 0.0f, 0.0f});
+	EXPECT_FLOAT_EQ(1, rot.x[0]);
+	EXPECT_FLOAT_EQ(0, rot.y[0]);
+	EXPECT_FLOAT_EQ(0, rot.z[0]);
+	EXPECT_FLOAT_EQ(0, rot.w[0]);
+	EXPECT_FLOAT_EQ(0, rot.x[1]);
+	EXPECT_FLOAT_EQ(-1, rot.y[1]);
+	EXPECT_TRUE(closeEnough(0.f, rot.z[1]));
+	EXPECT_FLOAT_EQ(0, rot.w[1]);
+	EXPECT_FLOAT_EQ(0, rot.x[2]);
+	EXPECT_TRUE(closeEnough(0.f, rot.y[2]));
+	EXPECT_FLOAT_EQ(-1, rot.z[2]);
+	EXPECT_FLOAT_EQ(0, rot.w[2]);
+	EXPECT_FLOAT_EQ(0, rot.x[3]);
+	EXPECT_FLOAT_EQ(0, rot.y[3]);
+	EXPECT_FLOAT_EQ(0, rot.z[3]);
+	EXPECT_FLOAT_EQ(1, rot.w[3]);
+
+	// TODO: Rotate around other angles eg. {0.5f, 0.5f, 0.0f}
 }
 
 TEST(Mat4, TranslateXYZ)

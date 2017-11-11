@@ -7,7 +7,6 @@
 #include <Math/Constants.h>
 
 #include <Windows.h> // TODO: Refactor
-#include <string>
 
 using engine::render::Camera;
 using namespace input::MenuChoise;
@@ -22,14 +21,13 @@ CameraController::CameraController(const input::KeyInput & keyInput, Camera& cam
 void CameraController::update(float dt)
 {
 	const float cameraSpeed{ 1.0f * dt };
-	const float cameraMouseSpeed{ 5.0f * dt };
+	const float cameraMouseSpeed{ 8.0f * dt };
 	if (m_input->isActionsHot(MouseLButtonDown))
 	{
-		// TODO: Camera orbit/rotate
 		POINT pos;
 		GetCursorPos(&pos);
 
-		// if first click is within view
+		// TODO: Improve
 		if (pos.x > m_windowSize.startX && pos.x < (m_windowSize.startX + m_windowSize.width) &&
 			  pos.y > m_windowSize.startY && pos.y < (m_windowSize.startY + m_windowSize.height))
 		{
@@ -40,32 +38,31 @@ void CameraController::update(float dt)
 				return;
 			}
 
-			const auto rightDir = math::cross(m_camera->direction, m_camera->up);
-			const auto rotation = math::Mat4::rotate(delta.x * ( cameraMouseSpeed), math::Mat4::Axis::Y) *
-														math::Mat4::rotate(delta.y * (-cameraMouseSpeed), math::Mat4::Axis::X);
+			m_camera->rotate(-delta.x * cameraMouseSpeed, m_camera->up());
 
-			m_camera->direction = rotation * m_camera->direction;
-			//m_camera->up = math::cross(m_camera->direction, (rotation * rightDir * (-1))).normalized();
+			const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
+			m_camera->rotate(-delta.y * cameraMouseSpeed, rightDir);
+
 			m_oldMousePos = { pos.x, pos.y };
 		}
 	}
 	if (m_input->isActionsHot(CameraRight))
 	{
-		const auto rightDir = math::cross(m_camera->direction, m_camera->up);
+		const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
 		m_camera->translate(rightDir * cameraSpeed);
 	}
 	if (m_input->isActionsHot(CameraLeft))
 	{
-		const auto leftDir = math::cross(m_camera->direction, m_camera->up)  * (-1.f);
+		const auto leftDir = math::cross(m_camera->direction(), m_camera->up())  * (-1.f);
 		m_camera->translate(leftDir * cameraSpeed);
 	}
 	if (m_input->isActionsHot(CameraForward))
 	{
-		m_camera->translate(m_camera->direction * cameraSpeed);
+		m_camera->translate(m_camera->direction() * cameraSpeed);
 	}
 
 	if (m_input->isActionsHot(CameraBackward))
 	{
-		m_camera->translate(m_camera->direction * (-cameraSpeed));
+		m_camera->translate(m_camera->direction() * (-cameraSpeed));
 	}
 }
