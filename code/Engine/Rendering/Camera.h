@@ -56,12 +56,22 @@ namespace engine::render
 
 		void rotate(float radians, const math::Vec3 &axis)
 		{
-			m_direction = math::Mat4::rotate(radians, axis) * m_direction;
+			const auto rotation = math::Mat4::rotate(radians, axis);
+			m_direction = rotation * m_direction;
+			m_up = rotation * m_up;
 		}
 
 		void translate(const math::Vec3 &position)
 		{
 			m_position += position;
+		}
+
+		void lookAt(const math::Vec3 &target)
+		{
+			const auto direction = target - m_position;
+			m_direction = direction.normalized();
+			const auto rightDir = math::cross(m_up, m_direction);
+			m_up = math::cross(m_direction, rightDir);
 		}
 
 	private:

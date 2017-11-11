@@ -9,7 +9,8 @@ Editor::Editor(const engine::render::WindowSize<int> &windowSize)
 	if (errorCode != 0)
 		std::cout << "Failed to initialize glew!" << std::endl;
 
-	m_camera = engine::render::Camera{ math::Vec3{ 0.f, 0.f, -3.f } };
+	m_camera = engine::render::Camera{ math::Vec3{ 0.f, 3.f, -3.f } };
+	m_camera.lookAt({ 0.f, 0.f, 0.f });
 	m_cameraController = std::make_unique<CameraController>(m_keyInput, m_camera, windowSize);
 	m_shader = std::make_unique<engine::render::Shader>("defaultVertex.vert", "defaulFragment.frag");
 

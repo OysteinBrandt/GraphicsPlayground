@@ -20,14 +20,16 @@ CameraController::CameraController(const input::KeyInput & keyInput, Camera& cam
 
 void CameraController::update(float dt)
 {
-	const float cameraSpeed{ 1.0f * dt };
-	const float cameraMouseSpeed{ 8.0f * dt };
+	const float cameraSpeed{ 5.0f * dt };
+	const float cameraMouseSpeed{ 10.0f * dt };
 	if (m_input->isActionsHot(MouseLButtonDown))
 	{
 		POINT pos;
 		GetCursorPos(&pos);
 
 		// TODO: Improve
+		// Hide mouse after click
+		// Keep mouse inside view??
 		if (pos.x > m_windowSize.startX && pos.x < (m_windowSize.startX + m_windowSize.width) &&
 			  pos.y > m_windowSize.startY && pos.y < (m_windowSize.startY + m_windowSize.height))
 		{

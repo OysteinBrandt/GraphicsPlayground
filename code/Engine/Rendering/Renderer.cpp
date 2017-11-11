@@ -16,6 +16,7 @@ Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera
 	m_models.reserve(NUM_MAX_MODELS);  // TODO: This is a temp solution
 	m_renderables.reserve(NUM_MAX_MODELS); // TODO: This is a temp solution
 
+	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glEnable(GL_DEPTH_TEST);
 }
 
