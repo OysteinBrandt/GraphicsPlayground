@@ -8,8 +8,8 @@ namespace engine::render { class Camera; }
 
 struct MousePosition
 {
-	long x;
-	long y;
+	int x;
+	int y;
 };
 
 class CameraController : public entities::Component

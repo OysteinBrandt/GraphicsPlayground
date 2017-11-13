@@ -24,8 +24,11 @@ namespace engine::render
 		Camera()
 		{ }
 
-		Camera(const math::Vec3 &position) : m_position(position), m_direction{0.f, 0.f, 1.f}, m_up{0.f, 1.f, 0.f}
-		{ }
+		Camera(const math::Vec3 &position, const math::Vec3 &target = {0.f, 0.f, 0.f}) 
+			: m_position(position), m_direction{ 0.f, 0.f, 1.f }, m_up{ 0.f, 1.f, 0.f }
+		{
+			lookAt(target);
+		}
 
 		const math::Vec3& direction() const
 		{

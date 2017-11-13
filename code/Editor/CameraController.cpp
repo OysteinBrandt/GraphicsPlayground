@@ -7,6 +7,7 @@
 #include <Math/Constants.h>
 
 #include <Windows.h> // TODO: Refactor
+#include <iostream> // TODO: For debugging, remove
 
 using engine::render::Camera;
 using namespace input::MenuChoise;
@@ -33,22 +34,36 @@ void CameraController::update(float dt)
 		if (pos.x > m_windowSize.startX && pos.x < (m_windowSize.startX + m_windowSize.width) &&
 			  pos.y > m_windowSize.startY && pos.y < (m_windowSize.startY + m_windowSize.height))
 		{
+//#define FPS_CAMERA
+
+			MousePosition centerSceen{ m_windowSize.startX + m_windowSize.width / 2, m_windowSize.startY + m_windowSize.height / 2 };
 			const MousePosition delta = { pos.x - m_oldMousePos.x, pos.y - m_oldMousePos.y };
 			if (sqrt(delta.x * delta.x + delta.y * delta.y) > 5.0)
 			{
-				m_oldMousePos = { pos.x, pos.y };
+				//SetCursorPos(centerSceen.x, centerSceen.y);
+				m_oldMousePos = /*centerSceen;*/{ pos.x, pos.y };
 				return;
 			}
+#ifdef FPS_CAMERA
+			//SetCursorPos(centerSceen.x, centerSceen.y);
+
+			//std::cout << "deltaX: " << delta.x << "/tdeltaY: " << delta.y << std::endl;
 
 			m_camera->rotate(-delta.x * cameraMouseSpeed, m_camera->up());
 
 			const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
 			m_camera->rotate(-delta.y * cameraMouseSpeed, rightDir);
 
-			m_oldMousePos = { pos.x, pos.y };
+			m_oldMousePos = /*centerSceen;*/{ pos.x, pos.y };
+#else // orbit
+			m_camera->rotate(-delta.x * cameraMouseSpeed, m_camera->up());
+			const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
+			m_camera->rotate(-delta.y * cameraMouseSpeed, rightDir);
+
+#endif
 		}
 	}
-	if (m_input->isActionsHot(CameraRight))
+	if (m_input->isActionsHot(CameraRight))	// TODO: Should only work when window has focus
 	{
 		const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
 		m_camera->translate(rightDir * cameraSpeed);
