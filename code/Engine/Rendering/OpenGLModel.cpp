@@ -11,36 +11,44 @@ namespace engine::render
 		glGenVertexArrays(1, &m_vaoID);
 		glBindVertexArray(m_vaoID);
 
-		glGenBuffers(1, &m_vertexBufferID);
-		glGenBuffers(1, &m_indexBufferID);
+		storeDataInAttributeList(0, vertices);
+		bindIndicesBuffer(indices);
 
-		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferID);
+		glBindVertexArray(0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
 
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(math::Vec3), vertices.data(), GL_STATIC_DRAW);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW);
+	OpenGLModel::~OpenGLModel()
+	{
+		glDeleteVertexArrays(1, &m_vaoID);
+		glDeleteBuffers(m_vboIDs.size(), m_vboIDs.data());
+	}
 
-
+	void OpenGLModel::storeDataInAttributeList(GLuint attributeNumber, const std::vector<math::Vec3>& data)
+	{
+		GLuint vboId;
+		m_vboIDs.push_back(vboId);
+		glGenBuffers(1, &m_vboIDs.back());
+		glBindBuffer(GL_ARRAY_BUFFER, m_vboIDs.back());
+		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(math::Vec3), data.data(), GL_STATIC_DRAW);
 		// http://www.informit.com/articles/article.aspx?p=2033340&seqNum=3
+		// https://www.khronos.org/opengl/wiki/Vertex_Specification_Best_Practices
 		// TODO: Consider using 'Packed Data Formats for Vertex Attributes'
 		// eg. GL_INT_2_10_10_10_REV or GL_UNSIGNED_INT_2_10_10_10_REV
 		/*
 		"represent four-component data represented as ten bits for each of the first three components and two for the last,
 		packed in reverse order into a single 32-bit quantity (a GLuint). GL_BGRA could just have easily been called GL_ZYXW"
 		*/
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-
-		glBindVertexArray(0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	OpenGLModel::~OpenGLModel()
+	void OpenGLModel::bindIndicesBuffer(const std::vector<GLushort> &indices)
 	{
-		glDisableVertexAttribArray(0);
-		glDeleteVertexArrays(1, &m_vaoID);
-		glDeleteBuffers(1, &m_vertexBufferID);
-		glDeleteBuffers(1, &m_indexBufferID);
+		GLuint vboId;
+		m_vboIDs.push_back(vboId);
+		glGenBuffers(1, &m_vboIDs.back());
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vboIDs.back());
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLushort), indices.data(), GL_STATIC_DRAW);
 	}
-
 }

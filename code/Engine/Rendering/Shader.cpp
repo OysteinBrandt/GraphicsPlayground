@@ -35,6 +35,7 @@ namespace engine::render
 
 	Shader::~Shader()
 	{
+		unbind();
 		glDetachShader(m_programId, m_vertexShaderId);
 		glDetachShader(m_programId, m_fragmentShaderId);
 		glDeleteProgram(m_programId);

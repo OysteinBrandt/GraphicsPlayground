@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include <Windowsx.h>
+//#include <Windowsx.h>
 #include "IORedirect.h"
 #include "Editor.h"
 #include <Rendering/WindowSize.h>

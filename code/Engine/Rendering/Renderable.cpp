@@ -6,7 +6,7 @@ namespace engine::render
 
 	const Shader* Renderable::shader() const
 	{
-		return m_shader;
+		return m_customShader;
 	}
 
 }

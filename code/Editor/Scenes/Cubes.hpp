@@ -13,8 +13,12 @@ namespace scenes
 	{
 		entities::Entity m_cube;
 		entities::component::Physics m_physics;
-		entities::component::Positional m_pos;
-		engine::render::Renderable *m_renderable;
+
+		entities::component::Positional m_cube1Transform;
+		engine::render::Renderable *m_cube1;
+
+		entities::component::Positional m_cube2Transform;
+		engine::render::Renderable *m_cube2;
 
 	public:
 

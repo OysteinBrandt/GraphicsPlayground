@@ -3,6 +3,7 @@
 #include "Entities/Component.h"
 
 namespace engine::render { class Renderable; }
+namespace math { class Vec3; }
 
 namespace entities::component
 {
@@ -12,7 +13,7 @@ namespace entities::component
 
 	public:
 		void assign(engine::render::Renderable *renderable);
-
 		void update(float) override;
+		void position(const math::Vec3 &pos);
 	};
 }

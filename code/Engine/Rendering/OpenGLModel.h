@@ -9,8 +9,7 @@ namespace engine::render
 	class OpenGLModel
 	{
 		GLuint m_vaoID;
-		GLuint m_vertexBufferID;
-		GLuint m_indexBufferID;
+		std::vector<GLuint> m_vboIDs;
 		GLenum m_renderMode;
 		GLsizei m_vertexCount;
 		bool m_renderOutline;
@@ -44,5 +43,10 @@ namespace engine::render
 		{
 			return m_renderOutline;
 		}
+
+	private:
+
+		void storeDataInAttributeList(GLuint attributeNumber, const std::vector<math::Vec3>& data);
+		void bindIndicesBuffer(const std::vector<GLushort> &indices);
 	};
 }

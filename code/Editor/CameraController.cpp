@@ -34,7 +34,7 @@ void CameraController::update(float dt)
 		if (pos.x > m_windowSize.startX && pos.x < (m_windowSize.startX + m_windowSize.width) &&
 			  pos.y > m_windowSize.startY && pos.y < (m_windowSize.startY + m_windowSize.height))
 		{
-//#define FPS_CAMERA
+#define FPS_CAMERA
 
 			MousePosition centerSceen{ m_windowSize.startX + m_windowSize.width / 2, m_windowSize.startY + m_windowSize.height / 2 };
 			const MousePosition delta = { pos.x - m_oldMousePos.x, pos.y - m_oldMousePos.y };

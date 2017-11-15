@@ -15,9 +15,9 @@ namespace engine::render
 		math::Vec3 m_position;
 		math::Vec3 m_direction;
 		math::Vec3 m_up;
-		float m_fov{ math::PI/2 };
-		float m_nearPlane = 1.f;
-		float m_farPlane = 10.0f;
+		float m_fov;
+		float m_nearPlane;
+		float m_farPlane;
 
 	public:
 
@@ -25,7 +25,8 @@ namespace engine::render
 		{ }
 
 		Camera(const math::Vec3 &position, const math::Vec3 &target = {0.f, 0.f, 0.f}) 
-			: m_position(position), m_direction{ 0.f, 0.f, 1.f }, m_up{ 0.f, 1.f, 0.f }
+			: m_position(position), m_direction{ 0.f, 0.f, 1.f }, m_up{ 0.f, 1.f, 0.f }, 
+			  m_fov{math::PI/2}, m_nearPlane{0.1f}, m_farPlane{10.f}
 		{
 			lookAt(target);
 		}
