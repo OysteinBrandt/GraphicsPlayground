@@ -3,19 +3,11 @@
 #include "Shader.h"
 #include "OpenGLModel.h"
 
-#include <cassert> //TODO: Replace
 namespace engine::render
 {
 
-	static const int NUM_MAX_MODELS = 1;
-
 Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
 {
-
-	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
-	m_models.reserve(NUM_MAX_MODELS);  // TODO: This is a temp solution
-	m_renderables.reserve(NUM_MAX_MODELS); // TODO: This is a temp solution
-
 	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glEnable(GL_DEPTH_TEST);
 }
@@ -24,16 +16,26 @@ Renderer::~Renderer()
 {
 }
 
-OpenGLModel* Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode)
+size_t Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode)
 {
-	assert(m_models.size() < NUM_MAX_MODELS);
-	// TODO: Find a solution to the problem of returning pointer/reference to vector elements, as they will be invalidated when the size increases!!!
-	return &m_models.emplace_back(vertices, indices, renderMode);
+	m_models.emplace_back(vertices, indices, renderMode);
+	return m_models.size()-1;
 }
 
-Renderable* Renderer::addRenderable(OpenGLModel *model, Shader *shader)
+size_t Renderer::addRenderable(size_t modelId, Shader *shader)
 {
-	return &m_renderables.emplace_back(*model, shader);
+	m_renderables.emplace_back(m_models[modelId], shader);
+	return m_renderables.size()-1;
+}
+
+OpenGLModel* Renderer::getModel(size_t geometryId)
+{
+	return &m_models.at(geometryId);
+}
+
+Renderable* Renderer::getRenderable(size_t id)
+{
+	return &m_renderables.at(id);
 }
 
 void Renderer::render(float width, float height)

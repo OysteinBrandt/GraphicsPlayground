@@ -25,8 +25,10 @@ namespace engine::render
 		Renderer operator=(const Renderer&) = delete;
 		Renderer& opearator(const Renderer&) = delete;
 
-		OpenGLModel* addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode);
-		Renderable* addRenderable(OpenGLModel *model, Shader *shader = nullptr);
+		size_t addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode);
+		size_t addRenderable(size_t modelId, Shader *shader = nullptr);
+		OpenGLModel* getModel(size_t geometryId);
+		Renderable* getRenderable(size_t id);
 
 		void render(float width, float height);
 	};

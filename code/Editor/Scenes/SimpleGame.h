@@ -19,6 +19,7 @@ namespace scenes
 
 	class SimpleGame
 	{
+#if 0
 		engine::render::Camera m_camera;
 
 		entities::Entity m_ship;
@@ -51,6 +52,7 @@ namespace scenes
 		void addShips();
 		void addLerper(engine::render::OpenGLModel *model);
 		void addBoundaries();
+#endif
 	};
 
 }

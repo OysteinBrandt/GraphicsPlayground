@@ -1,3 +1,4 @@
+#if 0
 #include "SimpleGame.h"
 #include <Math/Mat3.h>
 #include "../MenuChoise.h"
@@ -94,3 +95,4 @@ namespace scenes
 	}
 
 }
+#endif
