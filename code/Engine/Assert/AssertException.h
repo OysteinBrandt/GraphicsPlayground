@@ -19,7 +19,7 @@ namespace engine::assert
 	public:
 
 		exception(const std::string &message, const std::string &function, const std::string &file, unsigned int line)
-			: engine::exception("\nMessage: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line)),
+			: engine::exception("Message: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line)),
 				m_message(message), m_function(function), m_file(file), m_line(line)
 		{ }
 	};

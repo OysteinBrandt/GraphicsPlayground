@@ -3,6 +3,7 @@
 #include "IORedirect.h"
 #include "Editor.h"
 #include <Rendering/WindowSize.h>
+#include <iostream>
 
 static bool running{ true };
 HDC global_deviceContext;
@@ -29,9 +30,12 @@ void mainLoop(Editor &editor, int width, int height)
 		editor.update();
 		editor.render(static_cast<float>(width), static_cast<float>(height));
 	}
-	catch (...)
+	catch (const std::exception &e)
 	{
 		// TODO: Handle exception
+		OutputDebugStringA("Exception caught during game loop:\n");
+		OutputDebugStringA(e.what());
+		std::cout << "Exception caught during game loop:\n" << e.what() << std::endl;
 		DebugBreak();
 	}
 	SwapBuffers(global_deviceContext);
@@ -205,8 +209,20 @@ WinMain(HINSTANCE instance,
 	global_windowSize.width  = window.right - window.left;
 	global_windowSize.height = window.bottom - window.top;
 
-	Editor editor{ global_windowSize };
-	global_editor = &editor;
+	try
+	{
+		static Editor editor{ global_windowSize };
+		global_editor = &editor;
+	}
+	catch (const std::exception &e)
+	{
+		// TODO: Handle exception
+		OutputDebugStringA("Exception caught during construction:\n");
+		OutputDebugStringA(e.what());
+		std::cout << "Exception caught during construction:\n" << e.what() << std::endl;
+		DebugBreak();
+	}
+
 	while (running)
 	{
 		MSG message;
