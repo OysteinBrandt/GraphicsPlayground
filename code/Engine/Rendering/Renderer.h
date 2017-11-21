@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include "Renderable.h"
+#include "OpenGLModel.h"
 #include <vector>
 #include "DllHelper.h"
 
@@ -25,7 +26,8 @@ namespace engine::render
 		Renderer operator=(const Renderer&) = delete;
 		Renderer& opearator(const Renderer&) = delete;
 
-		size_t addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode);
+		size_t addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices,
+											 const std::vector<math::Vec3> &colors, GLenum renderMode);
 		size_t addRenderable(size_t modelId, Shader *shader = nullptr);
 		OpenGLModel* getModel(size_t geometryId);
 		Renderable* getRenderable(size_t id);

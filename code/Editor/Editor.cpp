@@ -2,8 +2,9 @@
 #include "MenuChoise.h"
 #include <iostream>
 
+// TODO: Make sure timer is correct in first frame (m_frameTimer)
 Editor::Editor(const engine::render::WindowSize<int> &windowSize) 
-	: m_keyInput(m_keyMapper, input::MenuChoise::MAX)
+	: m_frameTimer{ std::chrono::high_resolution_clock::now() }, m_keyInput(m_keyMapper, input::MenuChoise::MAX)
 {
 	GLenum errorCode = glewInit();
 	if (errorCode != 0)

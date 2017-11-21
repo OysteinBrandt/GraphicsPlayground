@@ -38,7 +38,7 @@ namespace engine::render
 
 		void loadColor(const math::Vec3 &color) const
 		{
-			GLint loc = glGetUniformLocation(m_programId, "mycolor");
+			GLint loc = glGetUniformLocation(m_programId, "custom_color");
 			ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named instaColor");
 			glUniform3fv(loc, 1, &color.x);
 		}

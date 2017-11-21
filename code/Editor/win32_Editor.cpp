@@ -81,6 +81,7 @@ mainWindowCallback(HWND window,
 
 	case WM_ACTIVATEAPP:
 	{
+		// TODO: Has focus -> key input & mouse input
 		OutputDebugStringA("WM_ACTIVATEAPP\n");
 	}break;
 

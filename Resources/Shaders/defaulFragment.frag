@@ -1,10 +1,11 @@
 #version 430
 
 out vec4 out_color;
-uniform vec3 mycolor;
+in vec3 color;
+//uniform vec3 custom_color;
 
 void main()
 {
-  //color = vec4(theColor, 1.0);
-  out_color = vec4(mycolor, 1.0);//vec4(1.0, 0.0, 0.0, 1.0);
+  out_color = vec4(color, 1.0);
+  //out_color = vec4(custom_color, 1.0);
 }

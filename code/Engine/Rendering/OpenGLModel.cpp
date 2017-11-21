@@ -5,13 +5,16 @@
 namespace engine::render
 {
 
-	OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices, GLenum renderMode)
+	OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+		const std::vector<math::Vec3> &colors, GLenum renderMode)
 		: m_renderMode(renderMode), m_vertexCount(indices.size()), m_renderOutline{false}
 	{
 		glGenVertexArrays(1, &m_vaoID);
 		glBindVertexArray(m_vaoID);
 
-		storeDataInAttributeList(0, vertices);
+		storeDataInAttributeList(0, vertices, GL_FALSE);
+		if (!colors.empty())
+			storeDataInAttributeList(1, colors, GL_TRUE);
 		bindIndicesBuffer(indices);
 
 		glBindVertexArray(0);
@@ -24,7 +27,21 @@ namespace engine::render
 		glDeleteBuffers(m_vboIDs.size(), m_vboIDs.data());
 	}
 
-	void OpenGLModel::storeDataInAttributeList(GLuint attributeNumber, const std::vector<math::Vec3>& data)
+	void OpenGLModel::bind() const
+	{
+		glBindVertexArray(m_vaoID);
+		for (const auto &attribute : m_attributes)
+			glEnableVertexAttribArray(attribute);
+	}
+
+	void OpenGLModel::unbind() const
+	{
+		for (const auto &attribute : m_attributes)
+			glDisableVertexAttribArray(attribute);
+		glBindVertexArray(0);
+	}
+
+	void OpenGLModel::storeDataInAttributeList(GLuint attributeNumber, const std::vector<math::Vec3>& data, GLboolean normalized)
 	{
 		GLuint vboId;
 		m_vboIDs.push_back(vboId);
@@ -39,7 +56,8 @@ namespace engine::render
 		"represent four-component data represented as ten bits for each of the first three components and two for the last,
 		packed in reverse order into a single 32-bit quantity (a GLuint). GL_BGRA could just have easily been called GL_ZYXW"
 		*/
-		glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+		m_attributes.push_back(attributeNumber);
+		glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, normalized, 0, nullptr);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 

@@ -11,8 +11,9 @@ namespace scenes
 {
 	class Cubes
 	{
-		entities::Entity m_cube;
-		entities::component::Physics m_physics;
+		entities::Entity m_cube1;
+		entities::Entity m_cube2;
+
 		entities::component::Positional m_cube1Transform;
 		entities::component::Positional m_cube2Transform;
 

@@ -8,7 +8,7 @@ namespace engine::render
 
 Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
 {
-	glClearColor(1.f, 1.f, 1.f, 1.f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 	glEnable(GL_DEPTH_TEST);
 }
 
@@ -16,9 +16,10 @@ Renderer::~Renderer()
 {
 }
 
-size_t Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices, GLenum renderMode)
+size_t Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices,
+	const std::vector<math::Vec3> &colors, GLenum renderMode)
 {
-	m_models.emplace_back(vertices, indices, renderMode);
+	m_models.emplace_back(vertices, indices, colors, renderMode);
 	return m_models.size()-1;
 }
 
@@ -45,8 +46,7 @@ void Renderer::render(float width, float height)
 	for (const auto &renderable : m_renderables)
 	{
 		const auto& model = renderable.model();
-		glBindVertexArray(model.vaoID());
-		glEnableVertexAttribArray(0);
+		model.bind();
 
 		const auto* shader = renderable.shader();
 		if (shader == nullptr)
@@ -55,10 +55,11 @@ void Renderer::render(float width, float height)
 		shader->bind();
 		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable.m_matrix;
 		shader->loadMatrix(MVP);
-		shader->loadColor(math::Vec3{ 1.0f, 0.0f, 0.0f });
+		
 
 		glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
 
+#if 0	// TODO: Allow custom color??
 		if (model.renderOutline())
 		{
 			shader->loadColor(math::Vec3{ 0.0f, 1.0f, 0.0f });
@@ -67,9 +68,9 @@ void Renderer::render(float width, float height)
 			glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
+#endif
 
-		glDisableVertexAttribArray(0);
-		glBindVertexArray(0);
+		model.unbind();
 
 		if (shader != nullptr)
 			shader->unbind();
