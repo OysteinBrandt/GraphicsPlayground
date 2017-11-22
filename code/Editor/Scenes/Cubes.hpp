@@ -7,6 +7,12 @@
 
 namespace engine::render { class Renderer; }
 
+struct CubeData
+{
+	entities::Entity entity;
+	entities::component::Positional pos;
+};
+
 namespace scenes
 {
 	class Cubes
@@ -17,10 +23,15 @@ namespace scenes
 		entities::component::Positional m_cube1Transform;
 		entities::component::Positional m_cube2Transform;
 
+		std::vector<CubeData> m_cubes;
+
 	public:
 
 		Cubes(engine::render::Renderer &renderer);
-
 		void update(float dt);
+
+	private:
+
+		void addCube(engine::render::Renderer &renderer, size_t model);
 	};
 }

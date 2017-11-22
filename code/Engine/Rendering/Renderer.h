@@ -32,6 +32,6 @@ namespace engine::render
 		OpenGLModel* getModel(size_t geometryId);
 		Renderable* getRenderable(size_t id);
 
-		void render(float width, float height);
+		void render();
 	};
 }

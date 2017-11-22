@@ -2,12 +2,21 @@
 
 namespace engine::render
 {
-	template<typename T>
-	struct WindowSize
+	namespace details
 	{
-		T startX;
-		T startY;
-		T width;
-		T height;
+		template<typename T>
+		struct WindowSize
+		{
+			T startX;
+			T startY;
+			T width;
+			T height;
+		};
+	}
+
+	struct WindowParam
+	{
+		details::WindowSize<int> size{};
+		bool hasFocus{ false };
 	};
 }

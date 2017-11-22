@@ -16,13 +16,13 @@ class CameraController : public entities::Component
 {
 	const input::KeyInput *m_input;
 	engine::render::Camera *m_camera;
-	const engine::render::WindowSize<int> &m_windowSize;
+	const engine::render::WindowParam &m_window;
 	MousePosition m_oldMousePos{};
 
 public:
 	CameraController(const input::KeyInput &keyInput, 
 									 engine::render::Camera &camera, 
-									 const engine::render::WindowSize<int> &windowSize);
+									 const engine::render::WindowParam &window);
 
 	void update(float dt) override;
 };

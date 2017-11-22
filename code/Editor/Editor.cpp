@@ -3,7 +3,7 @@
 #include <iostream>
 
 // TODO: Make sure timer is correct in first frame (m_frameTimer)
-Editor::Editor(const engine::render::WindowSize<int> &windowSize) 
+Editor::Editor(const engine::render::WindowParam &window) 
 	: m_frameTimer{ std::chrono::high_resolution_clock::now() }, m_keyInput(m_keyMapper, input::MenuChoise::MAX)
 {
 	GLenum errorCode = glewInit();
@@ -11,7 +11,7 @@ Editor::Editor(const engine::render::WindowSize<int> &windowSize)
 		std::cout << "Failed to initialize glew!" << std::endl;
 
 	m_camera = engine::render::Camera{{ 0.f, 3.f, -3.f }};
-	m_cameraController = std::make_unique<CameraController>(m_keyInput, m_camera, windowSize);
+	m_cameraController = std::make_unique<CameraController>(m_keyInput, m_camera, window);
 	m_shader = std::make_unique<engine::render::Shader>("defaultVertex.vert", "defaulFragment.frag");
 
 	m_renderer = std::make_unique<engine::render::Renderer>(m_camera, *m_shader);
@@ -45,6 +45,6 @@ void Editor::render(float width, float height)
 {
 	// TODO: Require fixed size or add flags for resizable/fixed. Ie. do not calculate matrix every frame if not needed.
 	m_camera.updateProjection(width, height);
-	m_renderer->render(width, height);
+	m_renderer->render();
 	//m_gameScene->render(width, height);
 }

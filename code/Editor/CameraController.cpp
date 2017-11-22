@@ -12,8 +12,8 @@
 using engine::render::Camera;
 using namespace input::MenuChoise;
 
-CameraController::CameraController(const input::KeyInput & keyInput, Camera& camera, const engine::render::WindowSize<int> &windowSize)
-	: m_windowSize(windowSize)
+CameraController::CameraController(const input::KeyInput & keyInput, Camera& camera, const engine::render::WindowParam &window)
+	: m_window(window)
 {
 	m_camera = &camera;
 	m_input = &keyInput;
@@ -21,6 +21,9 @@ CameraController::CameraController(const input::KeyInput & keyInput, Camera& cam
 
 void CameraController::update(float dt)
 {
+	if (!m_window.hasFocus)
+		return;
+
 	const float cameraSpeed{ 5.0f * dt };
 	const float cameraMouseSpeed{ 10.0f * dt };
 	if (m_input->isActionsHot(MouseLButtonDown))
@@ -31,12 +34,12 @@ void CameraController::update(float dt)
 		// TODO: Improve
 		// Hide mouse after click
 		// Keep mouse inside view??
-		if (pos.x > m_windowSize.startX && pos.x < (m_windowSize.startX + m_windowSize.width) &&
-			  pos.y > m_windowSize.startY && pos.y < (m_windowSize.startY + m_windowSize.height))
+		if (pos.x > m_window.size.startX && pos.x < (m_window.size.startX + m_window.size.width) &&
+			  pos.y > m_window.size.startY && pos.y < (m_window.size.startY + m_window.size.height))
 		{
 #define FPS_CAMERA
 
-			MousePosition centerSceen{ m_windowSize.startX + m_windowSize.width / 2, m_windowSize.startY + m_windowSize.height / 2 };
+			MousePosition centerSceen{ m_window.size.startX + m_window.size.width / 2, m_window.size.startY + m_window.size.height / 2 };
 			const MousePosition delta = { pos.x - m_oldMousePos.x, pos.y - m_oldMousePos.y };
 			if (sqrt(delta.x * delta.x + delta.y * delta.y) > 5.0)
 			{

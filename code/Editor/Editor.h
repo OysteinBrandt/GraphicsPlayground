@@ -31,7 +31,7 @@ class Editor
 	int frames;
 
 public:
-	Editor(const engine::render::WindowSize<int> &windowSize);
+	Editor(const engine::render::WindowParam &window);
 
 	void update();
 	void render(float width, float height);

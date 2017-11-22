@@ -39,7 +39,7 @@ Renderable* Renderer::getRenderable(size_t id)
 	return &m_renderables.at(id);
 }
 
-void Renderer::render(float width, float height)
+void Renderer::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

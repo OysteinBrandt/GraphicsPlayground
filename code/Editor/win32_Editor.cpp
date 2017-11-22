@@ -5,10 +5,10 @@
 #include <Rendering/WindowSize.h>
 #include <iostream>
 
-static bool running{ true };
+static bool global_running{ true };
 HDC global_deviceContext;
 Editor *global_editor = nullptr;
-engine::render::WindowSize<int> global_windowSize{};
+engine::render::WindowParam global_windowInfo;
 
 void setupPixelFormat(HDC deviceContext)
 {
@@ -23,12 +23,13 @@ void setupPixelFormat(HDC deviceContext)
 	SetPixelFormat(deviceContext, format, &pixelFormatDescriptor);
 }
 
-void mainLoop(Editor &editor, int width, int height)
+void mainLoop()
 {
 	try
 	{
-		editor.update();
-		editor.render(static_cast<float>(width), static_cast<float>(height));
+		global_editor->update();
+		global_editor->render(static_cast<float>(global_windowInfo.size.width), 
+													static_cast<float>(global_windowInfo.size.height));
 	}
 	catch (const std::exception &e)
 	{
@@ -52,8 +53,8 @@ mainWindowCallback(HWND window,
 	{
 	case WM_MOVE:
 	{
-		global_windowSize.startX = LOWORD(lParam);
-		global_windowSize.startY = HIWORD(lParam);
+		global_windowInfo.size.startX = LOWORD(lParam);
+		global_windowInfo.size.startY = HIWORD(lParam);
 	}break;
 
 	case WM_CREATE:
@@ -68,34 +69,33 @@ mainWindowCallback(HWND window,
 
 	case WM_SIZE:
 	{
-		global_windowSize.width = LOWORD(lParam);
-		global_windowSize.height = HIWORD(lParam);
-		glViewport(0, 0, global_windowSize.width, global_windowSize.height);
+		global_windowInfo.size.width = LOWORD(lParam);
+		global_windowInfo.size.height = HIWORD(lParam);
+		glViewport(0, 0, global_windowInfo.size.width, global_windowInfo.size.height);
 	}break;
 
 	case WM_CLOSE:
 	{
 		// TODO: Handle this with a message to the user?
-		running = false;
+		global_running = false;
 	} break;
 
 	case WM_ACTIVATEAPP:
 	{
-		// TODO: Has focus -> key input & mouse input
-		OutputDebugStringA("WM_ACTIVATEAPP\n");
+		global_windowInfo.hasFocus = !global_windowInfo.hasFocus;
 	}break;
 
 	case WM_DESTROY:
 	{
 		OutputDebugStringA("WM_DESTROY\n");
 		// TODO: Handle this as an error - recreate window?
-		running = false;
+		global_running = false;
 	}break;
 
 	case WM_PAINT:
 	{
 		if (global_editor != nullptr)
-			mainLoop(*global_editor, global_windowSize.width, global_windowSize.height);
+			mainLoop();
 	}break;
 
 #pragma region Input
@@ -205,14 +205,14 @@ WinMain(HINSTANCE instance,
 	RECT window;
 	GetWindowRect(windowHandle, &window);
 
-	global_windowSize.startX = window.left;
-	global_windowSize.startY = window.top;
-	global_windowSize.width  = window.right - window.left;
-	global_windowSize.height = window.bottom - window.top;
+	global_windowInfo.size.startX = window.left;
+	global_windowInfo.size.startY = window.top;
+	global_windowInfo.size.width  = window.right - window.left;
+	global_windowInfo.size.height = window.bottom - window.top;
 
 	try
 	{
-		static Editor editor{ global_windowSize };
+		static Editor editor{ global_windowInfo };
 		global_editor = &editor;
 	}
 	catch (const std::exception &e)
@@ -224,7 +224,7 @@ WinMain(HINSTANCE instance,
 		DebugBreak();
 	}
 
-	while (running)
+	while (global_running)
 	{
 		MSG message;
 		BOOL messageResult = PeekMessage(&message, 0, 0, 0, PM_REMOVE);
