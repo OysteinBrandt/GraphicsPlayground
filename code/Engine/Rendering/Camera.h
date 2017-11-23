@@ -26,7 +26,7 @@ namespace engine::render
 
 		Camera(const math::Vec3 &position, const math::Vec3 &target = {0.f, 0.f, 0.f}) 
 			: m_position(position), m_direction{ 0.f, 0.f, 1.f }, m_up{ 0.f, 1.f, 0.f }, 
-			  m_fov{math::PI/2}, m_nearPlane{0.1f}, m_farPlane{10.f}
+			  m_fov{math::PI/2}, m_nearPlane{0.1f}, m_farPlane{100.f}
 		{
 			lookAt(target);
 		}
