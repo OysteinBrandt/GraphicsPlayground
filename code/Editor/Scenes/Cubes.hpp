@@ -17,11 +17,8 @@ namespace scenes
 {
 	class Cubes
 	{
-		entities::Entity m_cube1;
-		entities::Entity m_cube2;
-
-		entities::component::Positional m_cube1Transform;
-		entities::component::Positional m_cube2Transform;
+		entities::Entity m_sphere;
+		entities::component::Positional m_sphereTransform;
 
 		std::vector<CubeData> m_cubes;
 

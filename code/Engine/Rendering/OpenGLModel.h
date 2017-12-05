@@ -14,6 +14,7 @@ namespace engine::render
 		GLenum m_renderMode;
 		GLsizei m_vertexCount;
 		bool m_renderOutline;
+		bool m_usesIndices;
 
 	public:
 
@@ -47,6 +48,11 @@ namespace engine::render
 		bool renderOutline() const
 		{
 			return m_renderOutline;
+		}
+
+		bool usesIndices() const
+		{
+			return m_usesIndices;
 		}
 
 	private:

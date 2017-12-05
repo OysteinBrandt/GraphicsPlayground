@@ -17,8 +17,8 @@ void setupPixelFormat(HDC deviceContext)
 	pixelFormatDescriptor.nVersion = 1;
 	pixelFormatDescriptor.dwFlags = PFD_DRAW_TO_WINDOW|PFD_SUPPORT_OPENGL|PFD_DOUBLEBUFFER;
 	pixelFormatDescriptor.iPixelType = PFD_TYPE_RGBA;
-	pixelFormatDescriptor.cColorBits = 24; // TODO: Check that this works, may be 32 instead
-	pixelFormatDescriptor.cDepthBits = 16; // TODO: Specifies the depth of the depth (z-axis) buffer
+	pixelFormatDescriptor.cColorBits = 32; // TODO: Check that this works, 24 instead?
+	pixelFormatDescriptor.cDepthBits = 24; // TODO: Specifies the depth of the depth (z-axis) buffer, 16 instead?
 	const int format = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
 	SetPixelFormat(deviceContext, format, &pixelFormatDescriptor);
 }
@@ -28,17 +28,30 @@ void mainLoop()
 	try
 	{
 		global_editor->update();
-		global_editor->render(static_cast<float>(global_windowInfo.size.width), 
-													static_cast<float>(global_windowInfo.size.height));
 	}
-	catch (const std::exception &e)
+	catch (const std::exception& e)
 	{
-		// TODO: Handle exception
-		OutputDebugStringA("Exception caught during game loop:\n");
+		const std::string when{ "Exception caught during update loop:\n" };
+		OutputDebugStringA(when.c_str());
 		OutputDebugStringA(e.what());
-		std::cout << "Exception caught during game loop:\n" << e.what() << std::endl;
+		std::cout << when << e.what() << std::endl;
 		DebugBreak();
 	}
+
+	try
+	{
+		global_editor->render(static_cast<float>(global_windowInfo.size.width),
+													static_cast<float>(global_windowInfo.size.height));
+	}
+	catch (const std::exception& e)
+	{
+		const std::string when{ "Exception caught during render loop:\n" };
+		OutputDebugStringA(when.c_str());
+		OutputDebugStringA(e.what());
+		std::cout << when << e.what() << std::endl;
+		DebugBreak();
+	}
+
 	SwapBuffers(global_deviceContext);
 }
 
@@ -213,14 +226,14 @@ WinMain(HINSTANCE instance,
 	try
 	{
 		static Editor editor{ global_windowInfo };
-		global_editor = &editor;
+		global_editor = &editor;	// TODO: Fix, could be usable even though exception occured
 	}
 	catch (const std::exception &e)
 	{
-		// TODO: Handle exception
-		OutputDebugStringA("Exception caught during construction:\n");
+		const std::string when{ "Exception caught during construction:\n" };
+		OutputDebugStringA(when.c_str());
 		OutputDebugStringA(e.what());
-		std::cout << "Exception caught during construction:\n" << e.what() << std::endl;
+		std::cout << when << e.what() << std::endl;
 		DebugBreak();
 	}
 

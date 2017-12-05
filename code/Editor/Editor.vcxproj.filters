@@ -16,6 +16,7 @@
     <ClCompile Include="Scenes\Cubes.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="ShapeController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Scenes\Cubes.hpp">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ShapeController.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

@@ -162,6 +162,7 @@
     <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="Scenes\Cubes.cpp" />
     <ClCompile Include="Scenes\SimpleGame.cpp" />
+    <ClCompile Include="ShapeController.cpp" />
     <ClCompile Include="Shapes\Cube.cpp" />
     <ClCompile Include="win32_Editor.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="Scenes\Cubes.hpp" />
     <ClInclude Include="Scenes\SimpleGame.h" />
+    <ClInclude Include="ShapeController.h" />
     <ClInclude Include="Shapes\Cube.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

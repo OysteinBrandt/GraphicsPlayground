@@ -50,6 +50,9 @@
     <ClCompile Include="Math\Vec3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Shapes\Sphere.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -130,6 +133,12 @@
     <ClInclude Include="Rendering\WindowSize.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Shapes\Shape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Sphere.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -152,6 +161,9 @@
     </Filter>
     <Filter Include="Assert">
       <UniqueIdentifier>{e0391299-ec22-4c9f-bbb0-18ef97e7c58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shapes">
+      <UniqueIdentifier>{70beb02a-147c-464e-977b-4a082dd71ad0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

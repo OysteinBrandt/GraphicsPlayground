@@ -7,7 +7,7 @@ namespace engine::render
 
 	OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
 		const std::vector<math::Vec3> &colors, GLenum renderMode)
-		: m_renderMode(renderMode), m_vertexCount(indices.size()), m_renderOutline{false}
+		: m_renderMode(renderMode), m_renderOutline{false}, m_usesIndices{false}
 	{
 		glGenVertexArrays(1, &m_vaoID);
 		glBindVertexArray(m_vaoID);
@@ -15,7 +15,13 @@ namespace engine::render
 		storeDataInAttributeList(0, vertices, GL_FALSE);
 		if (!colors.empty())
 			storeDataInAttributeList(1, colors, GL_TRUE);
-		bindIndicesBuffer(indices);
+		if (!indices.empty())
+		{
+			m_vertexCount = indices.size();
+			bindIndicesBuffer(indices);
+		}
+		else
+			m_vertexCount = vertices.size();
 
 		glBindVertexArray(0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -50,7 +56,7 @@ namespace engine::render
 		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(math::Vec3), data.data(), GL_STATIC_DRAW);
 		// http://www.informit.com/articles/article.aspx?p=2033340&seqNum=3
 		// https://www.khronos.org/opengl/wiki/Vertex_Specification_Best_Practices
-		// TODO: Consider using 'Packed Data Formats for Vertex Attributes'
+		// TODO: Consider using 'Packed Data Formats for Vertex Attributes', also; packed buffer with offsetof
 		// eg. GL_INT_2_10_10_10_REV or GL_UNSIGNED_INT_2_10_10_10_REV
 		/*
 		"represent four-component data represented as ten bits for each of the first three components and two for the last,
@@ -63,6 +69,7 @@ namespace engine::render
 
 	void OpenGLModel::bindIndicesBuffer(const std::vector<GLushort> &indices)
 	{
+		m_usesIndices = true;
 		GLuint vboId;
 		m_vboIDs.push_back(vboId);
 		glGenBuffers(1, &m_vboIDs.back());

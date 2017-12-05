@@ -29,6 +29,10 @@ namespace input
 				return 'D';
 			case MenuChoise::MouseLButtonDown:
 				return VK_LBUTTON;
+			case MenuChoise::RKeyDown:
+				return 'R';
+			case MenuChoise::FKeyDown:
+				return 'F';
 		}
 
 		assert(false);

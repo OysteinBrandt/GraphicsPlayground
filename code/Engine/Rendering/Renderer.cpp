@@ -56,8 +56,13 @@ void Renderer::render()
 		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable.m_matrix;
 		shader->loadMatrix(MVP);
 		
-
-		glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
+#if 1	// TMP: test
+		glPointSize(3.f);
+#endif
+		if (model.usesIndices())
+			glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
+		else
+			glDrawArrays(model.renderMode(), 0, model.vertexCount());
 
 #if 0	// TODO: Allow custom color??
 		if (model.renderOutline())
