@@ -6,22 +6,22 @@
 
 namespace entities::component
 {
-	class Physics;
-	class OBR_API Lerp : public Component
-	{
-		Physics &m_physics;
-		const std::vector<math::Vec3> &m_points;
-		float m_alpha;
-		size_t m_source;
-		size_t m_destination;
+  class Physics;
+  class OBR_API Lerp : public Component
+  {
+    Physics &m_physics;
+    const std::vector<math::Vec3> &m_points;
+    float m_alpha;
+    size_t m_source;
+    size_t m_destination;
 
-	public:
-		Lerp(const std::vector<math::Vec3> &lerpPoints, Physics &physics);
+  public:
+    Lerp(const std::vector<math::Vec3> &lerpPoints, Physics &physics);
 
-		void update(float dt) override;
+    void update(float dt) override;
 
-	private:
+  private:
 
-		void targetNextLerpPoints();
-	};
+    void targetNextLerpPoints();
+  };
 }

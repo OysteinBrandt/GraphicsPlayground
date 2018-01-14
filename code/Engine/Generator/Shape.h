@@ -7,16 +7,16 @@
 
 namespace engine
 {
-	struct Geometry
-	{
-		std::vector<math::Vec3> vertices;
-		std::vector<unsigned short> indices;
-		std::vector<math::Vec3> normals;
-		std::vector<math::Vec3> colors;
-		std::vector<math::Vec2> textureCoords;
-	};
+  struct Geometry
+  {
+    std::vector<math::Vec3> vertices;
+    std::vector<unsigned short> indices;
+    std::vector<math::Vec3> normals;
+    std::vector<math::Vec3> colors;
+    std::vector<math::Vec2> textureCoords;
+  };
 
-	class Shape
-	{
-	};
+  class Shape
+  {
+  };
 }

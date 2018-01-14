@@ -2,18 +2,18 @@
 
 #include "Engine/DllHelper.h"
 
-namespace obr 
+namespace obr
 {
-	class Engine
-	{
-	private:
+  class Engine
+  {
+  private:
 
-	public:
-		OBR_API Engine();
-		OBR_API ~Engine();
+  public:
+    OBR_API Engine();
+    OBR_API ~Engine();
 
-		OBR_API void update();
-		OBR_API void render();
-	};
+    OBR_API void update();
+    OBR_API void render();
+  };
 
 }

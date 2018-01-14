@@ -15,24 +15,24 @@
 
 class Editor
 {
-	std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
-	input::KeyMapper m_keyMapper;
-	input::KeyInput m_keyInput;
-	std::unique_ptr<CameraController> m_cameraController;
+  std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
+  input::KeyMapper m_keyMapper;
+  input::KeyInput m_keyInput;
+  std::unique_ptr<CameraController> m_cameraController;
 
-	engine::render::Camera m_camera;
+  engine::render::Camera m_camera;
 
-	std::unique_ptr<engine::render::Renderer> m_renderer;
-	//std::unique_ptr<scenes::SimpleGame> m_gameScene;
-	//std::unique_ptr<scenes::Cubes> m_cubeScene;
-	std::unique_ptr<scenes::Collision> m_collisionScene;
-	int frames;
+  std::unique_ptr<engine::render::Renderer> m_renderer;
+  //std::unique_ptr<scenes::SimpleGame> m_gameScene;
+  //std::unique_ptr<scenes::Cubes> m_cubeScene;
+  std::unique_ptr<scenes::Collision> m_collisionScene;
+  int frames;
 
 public:
-	Editor(const engine::render::WindowParam &window);
+  Editor(const engine::render::WindowParam &window);
 
-	void update();
-	void render(float width, float height);
+  void update();
+  void render(float width, float height);
 
 };
 

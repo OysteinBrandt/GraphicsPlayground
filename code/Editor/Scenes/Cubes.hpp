@@ -9,26 +9,26 @@ namespace engine::render { class Renderer; }
 
 struct CubeData
 {
-	entities::Entity entity;
-	entities::component::Positional pos;
+  entities::Entity entity;
+  entities::component::Positional pos;
 };
 
 namespace scenes
 {
-	class Cubes
-	{
-		entities::Entity m_sphere;
-		entities::component::Positional m_sphereTransform;
+  class Cubes
+  {
+    entities::Entity m_sphere;
+    entities::component::Positional m_sphereTransform;
 
-		std::vector<CubeData> m_cubes;
+    std::vector<CubeData> m_cubes;
 
-	public:
+  public:
 
-		Cubes(engine::render::Renderer &renderer);
-		void update(float dt);
+    Cubes(engine::render::Renderer &renderer);
+    void update(float dt);
 
-	private:
+  private:
 
-		void addCube(engine::render::Renderer &renderer, size_t model);
-	};
+    void addCube(engine::render::Renderer &renderer, size_t model);
+  };
 }

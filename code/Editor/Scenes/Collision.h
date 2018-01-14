@@ -9,25 +9,25 @@ namespace engine::render { class OpenGLModel; }
 
 struct Sphere
 {
-	Sphere() : entity(std::make_unique<entities::Entity>()), translator(std::make_unique<entities::component::Positional>())
-	{}
+  Sphere() : entity(std::make_unique<entities::Entity>()), translator(std::make_unique<entities::component::Positional>())
+  {}
 
-	std::unique_ptr<entities::Entity> entity;
-	std::unique_ptr<entities::component::Positional> translator;
+  std::unique_ptr<entities::Entity> entity;
+  std::unique_ptr<entities::component::Positional> translator;
 };
 
 namespace scenes
 {
-	class Collision
-	{
-		std::vector<Sphere> m_spheres;
+  class Collision
+  {
+    std::vector<Sphere> m_spheres;
 
-	public:
-		Collision(engine::render::Renderer &renderer);
-		void update(float dt);
+  public:
+    Collision(engine::render::Renderer &renderer);
+    void update(float dt);
 
-	private:
+  private:
 
-		void addSphere(engine::render::Renderer& renderer, const engine::render::OpenGLModel& model, const math::Vec3& pos);
-	};
+    void addSphere(engine::render::Renderer& renderer, const engine::render::OpenGLModel& model, const math::Vec3& pos);
+  };
 }

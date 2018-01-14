@@ -8,22 +8,22 @@
 
 namespace engine
 {
-	class exception : public std::exception
-	{
-		const std::string m_what;
+  class exception : public std::exception
+  {
+    const std::string m_what;
 
-		exception operator=(const exception&) = delete;
+    exception operator=(const exception&) = delete;
 
-	public:
+  public:
 
-		exception(const std::string &what) : m_what(what)
-		{ }
+    exception(const std::string &what) : m_what(what)
+    { }
 
-		const char *what() const noexcept override
-		{
-			return m_what.c_str();
-		}
-	};
+    const char *what() const noexcept override
+    {
+      return m_what.c_str();
+    }
+  };
 }
 
 #endif

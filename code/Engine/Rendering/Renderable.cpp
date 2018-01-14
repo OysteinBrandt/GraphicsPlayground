@@ -4,9 +4,9 @@
 namespace engine::render
 {
 
-	const Shader* Renderable::customShader() const
-	{
-		return m_customShader;
-	}
+  const Shader* Renderable::customShader() const
+  {
+    return m_customShader;
+  }
 
 }

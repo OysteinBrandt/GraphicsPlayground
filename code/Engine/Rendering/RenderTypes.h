@@ -5,9 +5,9 @@
 
 namespace obr
 {
-	//using uint = unsigned int;
-	typedef unsigned int gluint;
-	typedef unsigned int glenum;
+  //using uint = unsigned int;
+  typedef unsigned int gluint;
+  typedef unsigned int glenum;
 
 }
 #endif

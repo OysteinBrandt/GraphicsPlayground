@@ -7,13 +7,13 @@ namespace math { class Vec3; }
 
 namespace entities::component
 {
-	class OBR_API Positional : public Component
-	{
-		engine::render::Renderable* m_renderable;
+  class OBR_API Positional : public Component
+  {
+    engine::render::Renderable* m_renderable;
 
-	public:
-		void assign(engine::render::Renderable* const renderable);
-		void update(float dt) override;
-		void position(const math::Vec3 &pos);
-	};
+  public:
+    void assign(engine::render::Renderable* const renderable);
+    void update(float dt) override;
+    void position(const math::Vec3 &pos);
+  };
 }

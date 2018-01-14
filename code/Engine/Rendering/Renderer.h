@@ -14,27 +14,27 @@
 
 namespace engine::render
 {
-	class Camera;
-	class OBR_API Renderer
-	{
-		Shader m_defaultShader;
-		const Camera &m_camera;
-		std::vector<std::shared_ptr<OpenGLModel>> m_models;
-		std::vector<std::shared_ptr<Renderable>> m_renderables;
+  class Camera;
+  class OBR_API Renderer
+  {
+    Shader m_defaultShader;
+    const Camera &m_camera;
+    std::vector<std::shared_ptr<OpenGLModel>> m_models;
+    std::vector<std::shared_ptr<Renderable>> m_renderables;
 
-	public:
-		Renderer(const Camera& camera, const Shader& defaultShader);
-		~Renderer();
+  public:
+    Renderer(const Camera& camera, const Shader& defaultShader);
+    ~Renderer();
 
-		Renderer operator=(const Renderer&) = delete;
-		Renderer& opearator(const Renderer&) = delete;
+    Renderer operator=(const Renderer&) = delete;
+    Renderer& opearator(const Renderer&) = delete;
 
-		const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
-		const std::shared_ptr<OpenGLModel> addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-											 const std::vector<math::Vec3>& colors, GLenum renderMode);
+    const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
+    const std::shared_ptr<OpenGLModel> addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+      const std::vector<math::Vec3>& colors, GLenum renderMode);
 
-		const std::shared_ptr<Renderable> addRenderable(const OpenGLModel &model, Shader *shader = nullptr);
+    const std::shared_ptr<Renderable> addRenderable(const OpenGLModel &model, Shader *shader = nullptr);
 
-		void render();
-	};
+    void render();
+  };
 }
