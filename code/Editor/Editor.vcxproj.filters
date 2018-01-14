@@ -6,9 +6,6 @@
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="win32_Editor.cpp" />
-    <ClCompile Include="Shapes\Cube.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\SimpleGame.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -27,9 +24,6 @@
     <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="CameraController.h" />
-    <ClInclude Include="Shapes\Cube.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\SimpleGame.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -45,9 +39,6 @@
   <ItemGroup>
     <Filter Include="Scenes">
       <UniqueIdentifier>{17a21551-e84d-4bd2-b376-91d77fda0991}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shapes">
-      <UniqueIdentifier>{221ef2c2-c319-437e-86dd-efc681d311ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

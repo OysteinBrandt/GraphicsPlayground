@@ -1,24 +1,49 @@
 #include "Cube.h"
-#include <Engine/Math/Vec3.h>
 
-namespace shapes
+namespace engine::generator
 {
-  Cube::Cube(float size)
+  Cube::Cube(float size) : m_size(size)
   {
-    float dist = size / 2;
-    vertices =
+  }
+
+  Geometry Cube::generate() const
+  {
+    const float dist = m_size / 2;
+    Geometry geometry;
+    geometry.vertices =
     {
       math::Vec3{ -dist, -dist, -dist },
-      math::Vec3{  dist, -dist, -dist },
-      math::Vec3{  dist,  dist, -dist },
+      math::Vec3{ dist, -dist, -dist },
+      math::Vec3{ dist,  dist, -dist },
       math::Vec3{ -dist,  dist, -dist },
-      math::Vec3{  dist, -dist,  dist },
+      math::Vec3{ dist, -dist,  dist },
       math::Vec3{ -dist, -dist,  dist },
       math::Vec3{ -dist,  dist,  dist },
-      math::Vec3{  dist,  dist,  dist }
+      math::Vec3{ dist,  dist,  dist }
     };
 
-    colors =
+    geometry.indices =
+    {
+      0, 2, 3,
+      0, 1, 2,
+
+      1, 7, 2,
+      1, 4, 7,
+
+      4, 6, 7,
+      4, 5, 6,
+
+      5, 3, 6,
+      5, 0, 3,
+
+      3, 7, 6,
+      3, 2, 7,
+
+      4, 0, 5,
+      4, 1, 0
+    };
+
+    geometry.colors =
     {
       math::Vec3{ 1, 0, 0 },
       math::Vec3{ 1, 0, 0 },
@@ -39,25 +64,6 @@ namespace shapes
       //math::Vec3{ 253, 97, 61 }
     };
 
-    indices =
-    {
-      0, 2, 3,
-      0, 1, 2,
-
-      1, 7, 2,
-      1, 4, 7,
-
-      4, 6, 7,
-      4, 5, 6,
-
-      5, 3, 6,
-      5, 0, 3,
-
-      3, 7, 6,
-      3, 2, 7,
-
-      4, 0, 5,
-      4, 1, 0
-    };
+    return geometry;
   }
 }

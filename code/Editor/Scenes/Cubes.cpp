@@ -1,17 +1,15 @@
 #include "Cubes.hpp"
-#include "Editor/Shapes/Cube.h"
+#include <Engine/Generator/Cube.h>
 #include <Engine/Rendering/Renderer.h>
 #include <Engine/Rendering/OpenGLModel.h>
-#include <Engine/Generator/Sphere.h>
 
 namespace scenes
 {
   Cubes::Cubes(engine::render::Renderer &renderer)
   {
-    auto sphereGeo = engine::generator::Sphere(1.f).generate(254, 254);
-    auto sphereModel = renderer.addGeometry(sphereGeo.vertices, sphereGeo.indices, sphereGeo.colors, GL_TRIANGLES);
+    auto geometry = engine::generator::Cube(1.f).generate();
+    auto sphereModel = renderer.add(geometry, GL_TRIANGLES);
     /*auto instance = */renderer.addRenderable(*sphereModel);
-
 
 #if 0
     shapes::Cube cube{ 1.0f };

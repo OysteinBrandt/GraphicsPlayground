@@ -53,6 +53,9 @@
     <ClCompile Include="Generator\Sphere.cpp">
       <Filter>Generator</Filter>
     </ClCompile>
+    <ClCompile Include="Generator\Cube.cpp">
+      <Filter>Generator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -137,6 +140,9 @@
       <Filter>Generator</Filter>
     </ClInclude>
     <ClInclude Include="Generator\Sphere.h">
+      <Filter>Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="Generator\Cube.h">
       <Filter>Generator</Filter>
     </ClInclude>
   </ItemGroup>

@@ -32,6 +32,7 @@
     <ClInclude Include="Entities\Components\Physics.h" />
     <ClInclude Include="Entities\Components\Positional.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Generator\Cube.h" />
     <ClInclude Include="Generator\Shape.h" />
     <ClInclude Include="Generator\Sphere.h" />
     <ClInclude Include="Input\KeyInput.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Entities\Components\Physics.cpp" />
     <ClCompile Include="Entities\Components\Positional.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="Generator\Cube.cpp" />
     <ClCompile Include="Generator\Sphere.cpp" />
     <ClCompile Include="Input\KeyInput.cpp" />
     <ClCompile Include="Math\Mat2.cpp" />
