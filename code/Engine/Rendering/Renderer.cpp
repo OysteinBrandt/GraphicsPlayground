@@ -19,6 +19,11 @@ Renderer::~Renderer()
 {
 }
 
+const std::shared_ptr<OpenGLModel> Renderer::add(const engine::Geometry& data, GLenum renderMode)
+{
+	return addGeometry(data.vertices, data.indices, data.colors, renderMode);
+}
+
 const std::shared_ptr<OpenGLModel> Renderer::addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
 	const std::vector<math::Vec3>& colors, GLenum renderMode)
 {

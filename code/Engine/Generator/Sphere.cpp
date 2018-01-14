@@ -7,12 +7,12 @@
 
 namespace engine::generator
 {
-	SphereGeometry Sphere::generate(unsigned int widthPrecision, unsigned int heightPrecision)
+	Geometry Sphere::generate(unsigned int widthPrecision, unsigned int heightPrecision)
 	{
 		ENGINE_ASSERT_EXCEPTION_IF(widthPrecision == 0, "Invalid input, devision by 0");
 		ENGINE_ASSERT_EXCEPTION_IF(heightPrecision == 0, "Invalid input, devision by 0");
 
-		SphereGeometry result;
+		Geometry result;
 #if 0
 		result.vertices.reserve((widthPrecision * heightPrecision) + 2);
 		
