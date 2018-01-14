@@ -50,8 +50,8 @@
     <ClCompile Include="Math\Vec3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Shapes\Sphere.cpp">
-      <Filter>Shapes</Filter>
+    <ClCompile Include="Generator\Sphere.cpp">
+      <Filter>Generator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,11 +133,11 @@
     <ClInclude Include="Rendering\WindowSize.h">
       <Filter>Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Shape.h">
-      <Filter>Shapes</Filter>
+    <ClInclude Include="Generator\Shape.h">
+      <Filter>Generator</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\Sphere.h">
-      <Filter>Shapes</Filter>
+    <ClInclude Include="Generator\Sphere.h">
+      <Filter>Generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +162,8 @@
     <Filter Include="Assert">
       <UniqueIdentifier>{e0391299-ec22-4c9f-bbb0-18ef97e7c58e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shapes">
-      <UniqueIdentifier>{70beb02a-147c-464e-977b-4a082dd71ad0}</UniqueIdentifier>
+    <Filter Include="Generator">
+      <UniqueIdentifier>{53ac3ce0-d470-4836-abeb-80a4cb4dfb1f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

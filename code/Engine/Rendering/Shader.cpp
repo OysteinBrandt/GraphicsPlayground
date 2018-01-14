@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "Assert/AssertException.h"
+#include "Engine/Assert/AssertException.h"
 
 #include <fstream>
 
@@ -7,14 +7,34 @@ namespace engine::render
 {
 
 	Shader::Shader(const std::string & vertexShaderPath, const std::string & fragmentShaderPath)
+		: m_initialized(false), m_vertexShaderName(vertexShaderPath), m_fragmentShaderName(fragmentShaderPath)
 	{
+	}
+
+	Shader::~Shader()
+	{
+		if (m_initialized)
+		{
+			unbind();
+			glDetachShader(m_programId, m_vertexShaderId);
+			glDetachShader(m_programId, m_fragmentShaderId);
+			glDeleteProgram(m_programId);
+			glDeleteShader(m_vertexShaderId);
+			glDeleteShader(m_fragmentShaderId);
+		}
+	}
+
+	void Shader::initialize()
+	{
+		ENGINE_ASSERT_EXCEPTION_IF(m_initialized, "Shader already initialized.");
+		m_initialized = true;
 		m_vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 		m_fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
-		std::string vertexShader = readShaderCode(vertexShaderPath);
+		std::string vertexShader = readShaderCode(m_vertexShaderName);
 		glShaderSource(m_vertexShaderId, 1, OglStringHelper(vertexShader), nullptr);
 
-		std::string fragmentShader = readShaderCode(fragmentShaderPath);
+		std::string fragmentShader = readShaderCode(m_fragmentShaderName);
 		glShaderSource(m_fragmentShaderId, 1, OglStringHelper(fragmentShader), nullptr);
 
 		glCompileShader(m_vertexShaderId);
@@ -31,16 +51,6 @@ namespace engine::render
 
 		// TODO: Validate that this function works
 		checkProgramStatus(m_programId);
-	}
-
-	Shader::~Shader()
-	{
-		unbind();
-		glDetachShader(m_programId, m_vertexShaderId);
-		glDetachShader(m_programId, m_fragmentShaderId);
-		glDeleteProgram(m_programId);
-		glDeleteShader(m_vertexShaderId);
-		glDeleteShader(m_fragmentShaderId);
 	}
 
 	void Shader::bind() const

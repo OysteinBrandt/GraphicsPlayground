@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Shape.h"
-#include "Math/Vec2.h"
-#include "Math/Vec3.h"
-#include <vector>
-#include "DllHelper.h"
+#include "Engine/Math/Vec2.h"
+#include "Engine/Math/Vec3.h"
+#include "Engine/DllHelper.h"
 
-namespace engine::shape
+#include <vector>
+
+namespace engine::generator
 {
 	struct SphereGeometry
 	{
@@ -32,11 +33,16 @@ namespace engine::shape
 		Sphere() : m_radius{1.f}
 		{ }
 
-		SphereGeometry generateGeometry(unsigned int precision)
+		float radius() const
 		{
-			return generateGeometry(precision, precision);
+			return m_radius;
 		}
 
-		SphereGeometry generateGeometry(unsigned int widthPrecision, unsigned int heightPrecision);
+		SphereGeometry generate(unsigned int precision)
+		{
+			return generate(precision, precision);
+		}
+
+		SphereGeometry generate(unsigned int widthPrecision, unsigned int heightPrecision);
 	};
 }

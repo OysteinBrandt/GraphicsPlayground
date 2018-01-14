@@ -1,12 +1,13 @@
 
 #include "Sphere.h"
-#include "Math/Constants.h"
-#include "Assert/AssertException.h"
+#include "Engine/Math/Constants.h"
+#include "Engine/Assert/AssertException.h"
+
 #include <cmath>
 
-namespace engine::shape
+namespace engine::generator
 {
-	SphereGeometry Sphere::generateGeometry(unsigned int widthPrecision, unsigned int heightPrecision)
+	SphereGeometry Sphere::generate(unsigned int widthPrecision, unsigned int heightPrecision)
 	{
 		ENGINE_ASSERT_EXCEPTION_IF(widthPrecision == 0, "Invalid input, devision by 0");
 		ENGINE_ASSERT_EXCEPTION_IF(heightPrecision == 0, "Invalid input, devision by 0");

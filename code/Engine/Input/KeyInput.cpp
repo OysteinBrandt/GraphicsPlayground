@@ -3,7 +3,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h> // TODO: Make platform independent?
-#include "Assert/AssertException.h"
+#include "Engine/Assert/AssertException.h"
 
 namespace input
 {

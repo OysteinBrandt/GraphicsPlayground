@@ -1,5 +1,5 @@
 #include "Lerp.h"
-#include "Entities/Entity.h"
+#include "Engine/Entities/Entity.h"
 
 #include <cassert> // TODO: Assert rewrite
 

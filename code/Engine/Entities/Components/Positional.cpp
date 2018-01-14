@@ -1,20 +1,18 @@
 #include "Positional.h"
-#include "Rendering/Renderer.h"
-#include "Entities/Entity.h"
+#include "Engine/Rendering/Renderer.h"
+#include "Engine/Entities/Entity.h"
 
 namespace entities::component
 {
 
-void Positional::assign(engine::render::Renderer *renderer, size_t instance)
+void Positional::assign(engine::render::Renderable* const renderable)
 {
-	m_renderer = renderer;
-	m_instance = instance;
+	m_renderable = renderable;
 }
 
 void Positional::update(float)
 {
-	auto *renderable = m_renderer->getRenderable(m_instance);
-	renderable->m_matrix = math::Mat4::translate(getParent()->position) *
+	m_renderable->m_matrix = math::Mat4::translate(getParent()->position) *
 												 math::Mat4::rotate(getParent()->orientation, math::Mat4::Axis::Z);
 }
 

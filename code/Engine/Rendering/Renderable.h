@@ -1,7 +1,6 @@
 #pragma once
 
-#include <memory>
-#include <Math/Mat4.h>
+#include <Engine/Math/Mat4.h>
 
 namespace engine::render
 {
@@ -26,6 +25,6 @@ namespace engine::render
 			return m_model;
 		}
 
-		const Shader* shader() const;
+		const Shader* customShader() const;
 	};
 }

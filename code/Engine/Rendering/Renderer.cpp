@@ -1,42 +1,33 @@
 #include "Renderer.h"
-#include "Camera.h"
-#include "Shader.h"
-#include "OpenGLModel.h"
+#include "Engine/Rendering/Camera.h"
+#include "Engine/Rendering/OpenGLModel.h"
 
 namespace engine::render
 {
 
-Renderer::Renderer(const Camera &camera, const Shader &defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
+Renderer::Renderer(const Camera& camera, const Shader& defaultShader) : m_camera(camera), m_defaultShader(defaultShader)
 {
+	m_defaultShader.initialize();
 	glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CW);	// TODO: Make sure all models are rendered with the correct winding order
+	glPointSize(3.f);
 }
 
 Renderer::~Renderer()
 {
 }
 
-size_t Renderer::addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices,
-	const std::vector<math::Vec3> &colors, GLenum renderMode)
+const std::shared_ptr<OpenGLModel> Renderer::addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+	const std::vector<math::Vec3>& colors, GLenum renderMode)
 {
-	m_models.emplace_back(vertices, indices, colors, renderMode);
-	return m_models.size()-1;
+	return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, colors, renderMode));
 }
 
-size_t Renderer::addRenderable(size_t modelId, Shader *shader)
+const std::shared_ptr<Renderable> Renderer::addRenderable(const OpenGLModel &model, Shader *shader)
 {
-	m_renderables.emplace_back(m_models[modelId], shader);
-	return m_renderables.size()-1;
-}
-
-OpenGLModel* Renderer::getModel(size_t geometryId)
-{
-	return &m_models.at(geometryId);
-}
-
-Renderable* Renderer::getRenderable(size_t id)
-{
-	return &m_renderables.at(id);
+	return m_renderables.emplace_back(std::make_shared<Renderable>(model, shader));
 }
 
 void Renderer::render()
@@ -45,20 +36,17 @@ void Renderer::render()
 
 	for (const auto &renderable : m_renderables)
 	{
-		const auto& model = renderable.model();
+		const auto& model = renderable->model();
 		model.bind();
 
-		const auto* shader = renderable.shader();
+		const auto* shader = renderable->customShader();
 		if (shader == nullptr)
 			shader = &m_defaultShader;
 
 		shader->bind();
-		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable.m_matrix;
+		const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable->m_matrix;
 		shader->loadMatrix(MVP);
 		
-#if 1	// TMP: test
-		glPointSize(3.f);
-#endif
 		if (model.usesIndices())
 			glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
 		else

@@ -1,20 +1,19 @@
 #pragma once
 
-#include "Entities/Component.h"
+#include "Engine/Entities/Component.h"
 
-namespace engine::render { class Renderer; }
+namespace engine::render { class Renderable; }
 namespace math { class Vec3; }
 
 namespace entities::component
 {
 	class OBR_API Positional : public Component
 	{
-		engine::render::Renderer *m_renderer;
-		size_t m_instance;
+		engine::render::Renderable* m_renderable;
 
 	public:
-		void assign(engine::render::Renderer *renderer, size_t instance);
-		void update(float) override;
+		void assign(engine::render::Renderable* const renderable);
+		void update(float dt) override;
 		void position(const math::Vec3 &pos);
 	};
 }

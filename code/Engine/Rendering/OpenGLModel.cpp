@@ -1,6 +1,6 @@
 #include <GL/glew.h>
+#include "Engine/Math/Vec3.h"
 #include "OpenGLModel.h"
-#include "Math/Vec3.h"
 
 namespace engine::render
 {

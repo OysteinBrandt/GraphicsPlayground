@@ -17,6 +17,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="ShapeController.cpp" />
+    <ClCompile Include="Scenes\Collision.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
@@ -35,6 +38,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="ShapeController.h" />
+    <ClInclude Include="Scenes\Collision.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

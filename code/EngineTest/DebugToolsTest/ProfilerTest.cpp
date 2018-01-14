@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "DebugTools/Profiler.h"
+#include "Engine/DebugTools/Profiler.h"
 #ifdef PROFILING
 #include <fstream>
 

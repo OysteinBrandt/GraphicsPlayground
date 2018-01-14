@@ -1,6 +1,6 @@
 #include "Boundary.h"
-#include "Entities/Entity.h"
-#include "Entities/Components/Physics.h"
+#include "Engine/Entities/Entity.h"
+#include "Engine/Entities/Components/Physics.h"
 
 namespace entities::component
 {

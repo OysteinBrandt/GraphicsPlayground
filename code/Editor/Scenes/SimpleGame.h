@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Rendering/Renderer.h>
-#include <Rendering/Shader.h>
-#include <Rendering/Camera.h>
-#include <Entities/Entity.h>
-#include <Entities/Components/Positional.h>
-#include <Entities/Components/Physics.h>
-#include <Entities/Components/Boundary.h>
-#include <Entities/Components/Lerp.h>
+#include <Engine/Rendering/Renderer.h>
+#include <Engine/Rendering/Shader.h>
+#include <Engine/Rendering/Camera.h>
+#include <Engine/Entities/Entity.h>
+#include <Engine/Entities/Components/Positional.h>
+#include <Engine/Entities/Components/Physics.h>
+#include <Engine/Entities/Components/Boundary.h>
+#include <Engine/Entities/Components/Lerp.h>
 //#include "CameraController.h"
 #include "ControllerComponent.h"
 

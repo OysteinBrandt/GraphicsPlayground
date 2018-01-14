@@ -32,6 +32,8 @@
     <ClInclude Include="Entities\Components\Physics.h" />
     <ClInclude Include="Entities\Components\Positional.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Generator\Shape.h" />
+    <ClInclude Include="Generator\Sphere.h" />
     <ClInclude Include="Input\KeyInput.h" />
     <ClInclude Include="Input\KeyMapperInterface.h" />
     <ClInclude Include="Math\Constants.h" />
@@ -47,8 +49,6 @@
     <ClInclude Include="Rendering\RenderTypes.h" />
     <ClInclude Include="Rendering\Shader.h" />
     <ClInclude Include="Rendering\WindowSize.h" />
-    <ClInclude Include="Shapes\Shape.h" />
-    <ClInclude Include="Shapes\Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugTools\Profiler.cpp" />
@@ -58,6 +58,7 @@
     <ClCompile Include="Entities\Components\Physics.cpp" />
     <ClCompile Include="Entities\Components\Positional.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="Generator\Sphere.cpp" />
     <ClCompile Include="Input\KeyInput.cpp" />
     <ClCompile Include="Math\Mat2.cpp" />
     <ClCompile Include="Math\Mat3.cpp" />
@@ -68,7 +69,6 @@
     <ClCompile Include="Rendering\Renderable.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\Shader.cpp" />
-    <ClCompile Include="Shapes\Sphere.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -136,7 +136,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PreprocessorDefinitions>OBR_DLL;OBR_DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -155,7 +155,7 @@
       <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PreprocessorDefinitions>ENGINE_DEBUG;OBR_DLL;OBR_DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -172,7 +172,7 @@
       <WarningLevel>Level1</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PreprocessorDefinitions>ENGINE_DEBUG;OBR_DLL;OBR_DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -191,7 +191,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\3rdParty\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PreprocessorDefinitions>OBR_DLL;OBR_DLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

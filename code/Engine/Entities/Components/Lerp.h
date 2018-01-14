@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entities/Component.h"
-#include "Math/Vec3.h"
+#include "Engine/Entities/Component.h"
+#include "Engine/Math/Vec3.h"
 #include <vector>
 
 namespace entities::component

@@ -1,19 +1,17 @@
 #pragma once
 
 #include "KeyMapper.h"
-#include "Input/KeyInput.h"
+#include <Engine/Input/KeyInput.h>
 #include "CameraController.h"
 #include "Scenes/SimpleGame.h"
 #include "Scenes/Cubes.hpp"
-#include <Rendering/Renderer.h>
-#include <Rendering/Camera.h>
-#include <Rendering/Shader.h>
-#include <Rendering/WindowSize.h>
+#include "Scenes/Collision.h"
+#include <Engine/Rendering/Renderer.h>
+#include <Engine/Rendering/Camera.h>
+#include <Engine/Rendering/WindowSize.h>
 
 #include <memory>
 #include <chrono>
-
-namespace engine::render { class Renderable; }
 
 class Editor
 {
@@ -23,11 +21,11 @@ class Editor
 	std::unique_ptr<CameraController> m_cameraController;
 
 	engine::render::Camera m_camera;
-	std::unique_ptr<engine::render::Shader> m_shader;
 
 	std::unique_ptr<engine::render::Renderer> m_renderer;
 	//std::unique_ptr<scenes::SimpleGame> m_gameScene;
-	std::unique_ptr<scenes::Cubes> m_cubeScene;
+	//std::unique_ptr<scenes::Cubes> m_cubeScene;
+	std::unique_ptr<scenes::Collision> m_collisionScene;
 	int frames;
 
 public:

@@ -1,10 +1,10 @@
 #include "ControllerComponent.h"
 
-#include <Entities/Entity.h>
-#include <Entities/Components/Physics.h>
-#include <Input/KeyInput.h>
+#include <Engine/Entities/Entity.h>
+#include <Engine/Entities/Components/Physics.h>
+#include <Engine/Input/KeyInput.h>
+#include <Engine/Math/Vec3.h>
 #include "MenuChoise.h"
-#include <Math/Vec3.h>
 
 using entities::component::Physics;
 

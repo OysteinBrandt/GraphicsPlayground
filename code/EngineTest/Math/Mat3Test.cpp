@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
-#include "Math/Mat3.h"
-#include "Math/Vec3.h"
-#include "Math/Vec2.h"
-#include "Math/Constants.h"
+#include "Engine/Math/Mat3.h"
+#include "Engine/Math/Vec3.h"
+#include "Engine/Math/Vec2.h"
+#include "Engine/Math/Constants.h"
 #include "MathTestHelper.h"
 
 using math::Mat3;

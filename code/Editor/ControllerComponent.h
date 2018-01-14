@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Entities/Component.h>
+#include <Engine/Entities/Component.h>
 
 namespace input { class KeyInput; }
 namespace entities::component { class Physics; }

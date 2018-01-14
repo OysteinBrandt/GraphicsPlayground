@@ -3,7 +3,7 @@
 #ifndef _ENGINE_ASSERTEXCEPTION_H_
 #define _ENGINE_ASSERTEXCEPTION_H_
 
-#include "EngineException.h"
+#include <Engine/EngineException.h>
 
 namespace engine::assert
 {

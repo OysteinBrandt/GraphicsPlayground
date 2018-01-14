@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include <Math/Mat4.h>
-#include <Math/Vec3.h>
-#include <Math/Constants.h>
+#include <Engine/Math/Mat4.h>
+#include <Engine/Math/Vec3.h>
+#include <Engine/Math/Constants.h>
 #include "MathTestHelper.h"
 
 using math::Mat4;

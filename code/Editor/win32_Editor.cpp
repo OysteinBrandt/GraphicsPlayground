@@ -1,8 +1,8 @@
 #include <Windows.h>
 //#include <Windowsx.h>
 #include "IORedirect.h"
-#include "Editor.h"
-#include <Rendering/WindowSize.h>
+#include "Editor/Editor.h"
+#include <Engine/Rendering/WindowSize.h>
 #include <iostream>
 
 static bool global_running{ true };

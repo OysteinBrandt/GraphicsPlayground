@@ -1,10 +1,10 @@
 #pragma once
 
+#include <Engine/DllHelper.h>
+#include "DebugTools.h"
 #include <string>
 #include <chrono>
 #include <array>
-#include "DllHelper.h"
-#include "DebugTools.h"
 
 namespace debug { namespace details {
 

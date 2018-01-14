@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Math/Vec3.h>
+#include <Engine/Math/Vec3.h>
+#include <Engine/DllHelper.h>
 #include <vector>
-#include "DllHelper.h"
 
 namespace entities
 {

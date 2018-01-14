@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Entities/Entity.h>
-#include <Entities/Components/Positional.h>
-#include <Entities/Components/Physics.h>
-#include <Rendering/Renderable.h>
+#include <Engine/Entities/Entity.h>
+#include <Engine/Entities/Components/Positional.h>
+#include <Engine/Entities/Components/Physics.h>
+#include <Engine/Rendering/Renderable.h>
 
 namespace engine::render { class Renderer; }
 

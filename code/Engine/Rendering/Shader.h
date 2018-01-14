@@ -2,9 +2,9 @@
 
 #include <GL/glew.h>
 
-#include "Math/Mat4.h"
-#include "DllHelper.h"
-#include "Assert/AssertException.h"
+#include "Engine/Math/Mat4.h"
+#include "Engine/DllHelper.h"
+#include "Engine/Assert/AssertException.h"
 #include <string>
 
 namespace engine::render
@@ -17,15 +17,19 @@ namespace engine::render
 			operator const char**() { return &p; }
 		};
 
+		bool m_initialized;
 		GLuint m_vertexShaderId;
 		GLuint m_fragmentShaderId;
 		GLuint m_programId;
+		std::string m_vertexShaderName;
+		std::string m_fragmentShaderName;
 
 	public:
 
 		Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
 		~Shader();
 
+		void initialize();
 		void bind() const;
 		void unbind() const;
 

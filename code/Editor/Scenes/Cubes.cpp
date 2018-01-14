@@ -1,18 +1,16 @@
 #include "Cubes.hpp"
-#include "Shapes/Cube.h"
-#include <Rendering/Renderer.h>
-#include <Rendering/OpenGLModel.h>
-#include <Shapes/Sphere.h>
+#include "Editor/Shapes/Cube.h"
+#include <Engine/Rendering/Renderer.h>
+#include <Engine/Rendering/OpenGLModel.h>
+#include <Engine/Generator/Sphere.h>
 
 namespace scenes
 {
-
 	Cubes::Cubes(engine::render::Renderer &renderer)
 	{
-		engine::shape::Sphere sphere{ 1.f };
-		auto sphereGeo = sphere.generateGeometry(254, 254);
+		auto sphereGeo = engine::generator::Sphere(1.f).generate(254, 254);
 		auto sphereModel = renderer.addGeometry(sphereGeo.vertices, sphereGeo.indices, sphereGeo.colors, GL_TRIANGLES);
-		/*auto instance = */renderer.addRenderable(sphereModel);
+		/*auto instance = */renderer.addRenderable(*sphereModel);
 		
 
 #if 0
@@ -44,12 +42,12 @@ namespace scenes
 	static float incPos{ 0.f };
 	void Cubes::addCube(engine::render::Renderer &renderer, size_t model)
 	{
-		auto &cube = m_cubes.emplace_back(CubeData{});
-		auto instance = renderer.addRenderable(model);
-		cube.pos.assign(&renderer, instance);
-		cube.entity.addComponent(&cube.pos);	// TODO: * Component becomes invalid when reallocation happens
-		cube.entity.position = { incPos, incPos, incPos };
-		incPos++;
+		//auto &cube = m_cubes.emplace_back(CubeData{});
+		//auto instance = renderer.addRenderable(model);
+		//cube.pos.assign(&renderer, instance);
+		//cube.entity.addComponent(&cube.pos);	// TODO: * Component becomes invalid when reallocation happens
+		//cube.entity.position = { incPos, incPos, incPos };
+		//incPos++;
 	}
 
 }

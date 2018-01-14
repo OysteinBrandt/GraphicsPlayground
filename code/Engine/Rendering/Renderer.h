@@ -1,36 +1,36 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "Renderable.h"
-#include "OpenGLModel.h"
-#include <vector>
-#include "DllHelper.h"
+#include "Engine/Rendering/Renderable.h"
+#include "Engine/Rendering/OpenGLModel.h"
+#include "Engine/DllHelper.h"
 
-#include <Math/Vec3.h>
+#include <Engine/Math/Vec3.h>
+#include "Engine/Rendering/Shader.h"
+
+#include <vector>
+#include <memory>
 
 namespace engine::render
 {
-	class Shader;
 	class Camera;
 	class OBR_API Renderer
 	{
-		const Shader &m_defaultShader;
+		Shader m_defaultShader;
 		const Camera &m_camera;
-		std::vector<OpenGLModel> m_models;
-		std::vector<Renderable> m_renderables;
+		std::vector<std::shared_ptr<OpenGLModel>> m_models;
+		std::vector<std::shared_ptr<Renderable>> m_renderables;
 
 	public:
-		Renderer(const Camera &camera, const Shader &defaultShader);
+		Renderer(const Camera& camera, const Shader& defaultShader);
 		~Renderer();
 
 		Renderer operator=(const Renderer&) = delete;
 		Renderer& opearator(const Renderer&) = delete;
 
-		size_t addGeometry(const std::vector<math::Vec3> &vertices, const std::vector<unsigned short> &indices,
-											 const std::vector<math::Vec3> &colors, GLenum renderMode);
-		size_t addRenderable(size_t modelId, Shader *shader = nullptr);
-		OpenGLModel* getModel(size_t geometryId);
-		Renderable* getRenderable(size_t id);
+		const std::shared_ptr<OpenGLModel> addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+											 const std::vector<math::Vec3>& colors, GLenum renderMode);
+		const std::shared_ptr<Renderable> addRenderable(const OpenGLModel &model, Shader *shader = nullptr);
 
 		void render();
 	};

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Math/Mat4.h"
-#include "DllHelper.h"
-#include "Math/Constants.h"
-#include "Assert/AssertException.h"
+#include "Engine/Math/Mat4.h"
+#include "Engine/DllHelper.h"
+#include "Engine/Math/Constants.h"
+#include "Engine/Assert/AssertException.h"
 
 namespace engine::render
 {

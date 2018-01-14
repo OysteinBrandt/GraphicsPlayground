@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <Math/Vec3.h>
-#include <Math/Constants.h>
+#include <Engine/Math/Vec3.h>
+#include <Engine/Math/Constants.h>
 
 using math::Vec3;
 
