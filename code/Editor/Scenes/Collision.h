@@ -9,11 +9,11 @@ namespace engine::render { class OpenGLModel; }
 
 struct Sphere
 {
-  Sphere() : entity(std::make_unique<entities::Entity>()), translator(std::make_unique<entities::component::Positional>())
+  Sphere() : entity(std::make_unique<entities::Entity>())
   {}
 
+  // TODO: Investigate reallocation problems when using stack
   std::unique_ptr<entities::Entity> entity;
-  std::unique_ptr<entities::component::Positional> translator;
 };
 
 namespace scenes

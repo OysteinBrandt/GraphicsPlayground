@@ -10,16 +10,12 @@ namespace engine::render { class Renderer; }
 struct CubeData
 {
   entities::Entity entity;
-  entities::component::Positional pos;
 };
 
 namespace scenes
 {
   class Cubes
   {
-    entities::Entity m_sphere;
-    entities::component::Positional m_sphereTransform;
-
     std::vector<CubeData> m_cubes;
 
   public:

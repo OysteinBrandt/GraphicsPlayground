@@ -10,6 +10,7 @@ namespace entities
     friend class Entity;
     Entity *m_parent;
   public:
+
     Entity *getParent() const
     {
       return m_parent;

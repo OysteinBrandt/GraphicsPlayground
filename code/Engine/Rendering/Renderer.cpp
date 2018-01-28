@@ -21,16 +21,16 @@ namespace engine::render
 
   const std::shared_ptr<OpenGLModel> Renderer::add(const engine::Geometry& data, GLenum renderMode)
   {
-    return addGeometry(data.vertices, data.indices, data.colors, renderMode);
+    return add(data.vertices, data.indices, data.colors, renderMode);
   }
 
-  const std::shared_ptr<OpenGLModel> Renderer::addGeometry(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-    const std::vector<math::Vec3>& colors, GLenum renderMode)
+  const std::shared_ptr<OpenGLModel> Renderer::add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+                                                   const std::vector<math::Vec3>& colors, GLenum renderMode)
   {
     return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, colors, renderMode));
   }
 
-  const std::shared_ptr<Renderable> Renderer::addRenderable(const OpenGLModel &model, Shader *shader)
+  const std::shared_ptr<Renderable> Renderer::add(const OpenGLModel &model, Shader *shader)
   {
     return m_renderables.emplace_back(std::make_shared<Renderable>(model, shader));
   }

@@ -8,17 +8,17 @@ namespace entities
   {
   }
 
-  void Entity::addComponent(Component * component)
+  void Entity::add(const std::shared_ptr<Component>& component)
   {
     // TODO: Make API less error prone by not allowing multiple components of same type?
     // eg. Disallow one entity to have two Positional components?
     m_components.push_back(component);
-    component->m_parent = this;
+    m_components.back()->m_parent = this;
   }
 
   void Entity::update(float dt)
   {
-    for (const auto &component : m_components)
+    for (auto &component : m_components)
       component->update(dt);
   }
 

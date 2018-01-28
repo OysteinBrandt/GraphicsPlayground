@@ -9,8 +9,7 @@ namespace scenes
   Collision::Collision(engine::render::Renderer & renderer)
   {
     const int numSpheres{ 50 };
-    //m_spheres.reserve(numSpheres);	// TODO: !! This is a workaround, see comment in addSphere(...)
-    auto geometry = engine::generator::Sphere(1.f).generate(10, 10);
+    auto geometry = engine::generator::Sphere(0.5f).generate(10, 10);
     auto sphereModel = renderer.add(geometry, GL_TRIANGLES);
     for (int i = 0; i < numSpheres; ++i)
       addSphere(renderer, *sphereModel, { static_cast<float>(i), 0.f, 0.f });
@@ -25,10 +24,9 @@ namespace scenes
   void Collision::addSphere(engine::render::Renderer& renderer, const engine::render::OpenGLModel& model, const math::Vec3& pos)
   {
     auto &sphere = m_spheres.emplace_back(Sphere{});
-    auto renderable = renderer.addRenderable(model);
-    sphere.translator->assign(renderable.get());
-    sphere.entity->addComponent(sphere.translator.get());	// TODO: Parent of Component and Component becomes
-    sphere.entity->position = pos;												//			 invalid when reallocation happens (workaround; reserve on m_spheres/unique pointers)
+    auto renderable = renderer.add(model);
+    sphere.entity->position = pos;
+    sphere.entity->add(std::make_shared<entities::component::Positional>(renderable.get()));
   }
 
 }

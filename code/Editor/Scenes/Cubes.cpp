@@ -8,8 +8,8 @@ namespace scenes
   Cubes::Cubes(engine::render::Renderer &renderer)
   {
     auto geometry = engine::generator::Cube(1.f).generate();
-    auto sphereModel = renderer.add(geometry, GL_TRIANGLES);
-    /*auto instance = */renderer.addRenderable(*sphereModel);
+    auto model = renderer.add(geometry, GL_TRIANGLES);
+    /*auto instance = */renderer.add(*model);
 
 #if 0
     shapes::Cube cube{ 1.0f };
@@ -38,7 +38,7 @@ namespace scenes
   }
 
   static float incPos{ 0.f };
-  void Cubes::addCube(engine::render::Renderer &renderer, size_t model)
+  void Cubes::addCube(engine::render::Renderer &, size_t)
   {
     //auto &cube = m_cubes.emplace_back(CubeData{});
     //auto instance = renderer.addRenderable(model);

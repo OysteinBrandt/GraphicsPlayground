@@ -12,8 +12,12 @@ namespace entities::component
     engine::render::Renderable* m_renderable;
 
   public:
+
+    Positional(engine::render::Renderable* const renderable) : m_renderable(renderable)
+    { }
+
     void assign(engine::render::Renderable* const renderable);
     void update(float dt) override;
-    void position(const math::Vec3 &pos);
+    void position(const math::Vec3 &pos) const;
   };
 }
