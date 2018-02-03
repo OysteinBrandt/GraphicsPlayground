@@ -1,11 +1,11 @@
 #include "Cubes.hpp"
 #include <Engine/Generator/Cube.h>
-#include <Engine/Rendering/Renderer.h>
-#include <Engine/Rendering/OpenGLModel.h>
+#include <Engine/Render/OpenGL/Renderer.h>
+#include <Engine/Render/OpenGL/OpenGLModel.h>
 
 namespace scenes
 {
-  Cubes::Cubes(engine::render::Renderer &renderer)
+  Cubes::Cubes(engine::render::opengl::Renderer &renderer)
   {
     auto geometry = engine::generator::Cube(1.f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
@@ -38,7 +38,7 @@ namespace scenes
   }
 
   static float incPos{ 0.f };
-  void Cubes::addCube(engine::render::Renderer &, size_t)
+  void Cubes::addCube(engine::render::opengl::Renderer &, size_t)
   {
     //auto &cube = m_cubes.emplace_back(CubeData{});
     //auto instance = renderer.addRenderable(model);

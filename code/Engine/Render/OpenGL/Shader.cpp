@@ -3,7 +3,7 @@
 
 #include <fstream>
 
-namespace engine::render
+namespace engine::render::opengl
 {
 
   Shader::Shader(const std::string & vertexShaderPath, const std::string & fragmentShaderPath)

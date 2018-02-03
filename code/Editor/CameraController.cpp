@@ -1,7 +1,7 @@
 #include "CameraController.h"
 
 #include <Engine/Input/KeyInput.h>
-#include <Engine/Rendering/Camera.h>
+#include <Engine/Render/Camera.h>
 #include <Engine/Math/Vec3.h>
 #include <Engine/Math/Constants.h>
 #include "MenuChoise.h"

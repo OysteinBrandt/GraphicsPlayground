@@ -4,27 +4,27 @@
 
 namespace engine::render
 {
-  class OpenGLModel;
-  class Shader;
+  namespace opengl { class OpenGLModel; }
+  namespace opengl { class Shader; }
   class Renderable
   {
-    const OpenGLModel &m_model;
-    const Shader *m_customShader;
+    const opengl::OpenGLModel &m_model;
+    const opengl::Shader *m_customShader;
   public:
     math::Mat4 m_matrix;
 
-    Renderable(const OpenGLModel &model, const Shader *shader = nullptr)
+    Renderable(const opengl::OpenGLModel &model, const opengl::Shader *shader = nullptr)
       : m_model(model), m_customShader(shader)
     { }
 
     Renderable operator=(const Renderable&) = delete;
     Renderable& opearator(const Renderable&) = delete;
 
-    const OpenGLModel& model() const
+    const opengl::OpenGLModel& model() const
     {
       return m_model;
     }
 
-    const Shader* customShader() const;
+    const opengl::Shader* customShader() const;
   };
 }

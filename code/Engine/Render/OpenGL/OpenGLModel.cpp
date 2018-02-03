@@ -2,7 +2,7 @@
 #include "Engine/Math/Vec3.h"
 #include "OpenGLModel.h"
 
-namespace engine::render
+namespace engine::render::opengl
 {
 
   OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,

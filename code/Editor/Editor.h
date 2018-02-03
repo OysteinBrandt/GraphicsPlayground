@@ -1,14 +1,15 @@
 #pragma once
 
 #include "KeyMapper.h"
+#include <Engine/Engine.h>
 #include <Engine/Input/KeyInput.h>
 #include "CameraController.h"
 #include "Scenes/SimpleGame.h"
 #include "Scenes/Cubes.hpp"
 #include "Scenes/Collision.h"
-#include <Engine/Rendering/Renderer.h>
-#include <Engine/Rendering/Camera.h>
-#include <Engine/Rendering/WindowSize.h>
+#include <Engine/Render/OpenGL/Renderer.h>
+#include <Engine/Render/Camera.h>
+#include <Engine/Render/WindowSize.h>
 
 #include <memory>
 #include <chrono>
@@ -22,7 +23,7 @@ class Editor
 
   engine::render::Camera m_camera;
 
-  std::unique_ptr<engine::render::Renderer> m_renderer;
+  std::unique_ptr<engine::render::opengl::Renderer> m_renderer;
   //std::unique_ptr<scenes::SimpleGame> m_gameScene;
   //std::unique_ptr<scenes::Cubes> m_cubeScene;
   std::unique_ptr<scenes::Collision> m_collisionScene;

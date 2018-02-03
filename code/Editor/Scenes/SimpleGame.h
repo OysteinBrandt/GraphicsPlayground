@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Engine/Rendering/Renderer.h>
-#include <Engine/Rendering/Shader.h>
-#include <Engine/Rendering/Camera.h>
+#include <Engine/Render/OpenGL/Renderer.h>
+#include <Engine/Render/OpenGL/Shader.h>
+#include <Engine/Render/Camera.h>
 #include <Engine/Entities/Entity.h>
 #include <Engine/Entities/Components/Positional.h>
 #include <Engine/Entities/Components/Physics.h>

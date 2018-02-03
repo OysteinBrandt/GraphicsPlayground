@@ -7,14 +7,12 @@
 Editor::Editor(const engine::render::WindowParam &window)
   : m_frameTimer{ std::chrono::high_resolution_clock::now() }, m_keyInput(m_keyMapper, input::MenuChoise::MAX)
 {
-  GLenum errorCode = glewInit();
-  if (errorCode != 0)
-    std::cout << "Failed to initialize glew!" << std::endl;
+  engine::init(engine::Renderer::OpenGL);
 
   m_camera = engine::render::Camera{ { 0.f, 0.f, -3.f } };
   m_cameraController = std::make_unique<CameraController>(m_keyInput, m_camera, window);
 
-  m_renderer = std::make_unique<engine::render::Renderer>(m_camera, engine::render::Shader("defaultVertex.vert", "defaulFragment.frag"));
+  m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader("defaultVertex.vert", "defaulFragment.frag"));
   //m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);
   //m_cubeScene = std::make_unique<scenes::Cubes>(*m_renderer);
   m_collisionScene = std::make_unique<scenes::Collision>(*m_renderer);
@@ -28,12 +26,12 @@ void Editor::update()
   m_frameTimer = now;
   const auto dt = deltaTime.count();
 
-  ++frames;
-  if (frames % 100 == 0)
-  {
-    //std::cout << (1 / dt) << std::endl;
-    frames = 0;
-  }
+  //++frames;
+  //if (frames % 100 == 0)
+  //{
+  //  std::cout << (1 / dt) << std::endl;
+  //  frames = 0;
+  //}
 
   m_cameraController->update(dt);
   m_keyInput.update();

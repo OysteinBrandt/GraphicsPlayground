@@ -1,20 +1,21 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "Engine/Rendering/Renderable.h"
-#include "Engine/Rendering/OpenGLModel.h"
+#include "Engine/Render/Renderable.h"
+#include "Engine/Render/OpenGL/OpenGLModel.h"
 #include "Engine/DllHelper.h"
 
 #include <Engine/Math/Vec3.h>
-#include "Engine/Rendering/Shader.h"
+#include "Engine/Render/OpenGL/Shader.h"
 #include <Engine/Generator/Shape.h>
 
 #include <vector>
 #include <memory>
 
-namespace engine::render
+namespace engine::render{ class Camera; }
+
+namespace engine::render::opengl
 {
-  class Camera;
   class OBR_API Renderer
   {
     Shader m_defaultShader;

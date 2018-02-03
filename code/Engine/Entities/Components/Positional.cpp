@@ -1,5 +1,5 @@
 #include "Positional.h"
-#include "Engine/Rendering/Renderer.h"
+#include "Engine/Render/OpenGL/Renderer.h"
 #include "Engine/Entities/Entity.h"
 
 namespace entities::component

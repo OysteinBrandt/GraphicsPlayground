@@ -7,7 +7,7 @@
 #include "Engine/Assert/AssertException.h"
 #include <string>
 
-namespace engine::render
+namespace engine::render::opengl
 {
   class OBR_API Shader
   {

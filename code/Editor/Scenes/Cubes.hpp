@@ -3,9 +3,9 @@
 #include <Engine/Entities/Entity.h>
 #include <Engine/Entities/Components/Positional.h>
 #include <Engine/Entities/Components/Physics.h>
-#include <Engine/Rendering/Renderable.h>
+#include <Engine/Render/Renderable.h>
 
-namespace engine::render { class Renderer; }
+namespace engine::render::opengl { class Renderer; }
 
 struct CubeData
 {
@@ -20,11 +20,11 @@ namespace scenes
 
   public:
 
-    Cubes(engine::render::Renderer &renderer);
+    Cubes(engine::render::opengl::Renderer &renderer);
     void update(float dt);
 
   private:
 
-    void addCube(engine::render::Renderer &renderer, size_t model);
+    void addCube(engine::render::opengl::Renderer &renderer, size_t model);
   };
 }

@@ -4,7 +4,7 @@
 
 namespace math { class Vec3; }
 
-namespace engine::render
+namespace engine::render::opengl
 {
   class OpenGLModel
   {

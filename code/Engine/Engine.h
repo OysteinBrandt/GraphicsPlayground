@@ -1,19 +1,27 @@
 #pragma once
 
 #include "Engine/DllHelper.h"
+#include <ostream>
 
-namespace obr
+namespace engine
 {
-  class Engine
+  enum class Renderer
   {
-  private:
-
-  public:
-    OBR_API Engine();
-    OBR_API ~Engine();
-
-    OBR_API void update();
-    OBR_API void render();
+    OpenGL
   };
+
+  class OBR_API Engine
+  {
+  public:
+
+    Engine();
+    ~Engine();
+
+    void update();
+    void render();
+  };
+
+  OBR_API void init(Renderer renderer);
+  OBR_API void init(Renderer renderer, std::ostream& os, bool outputSuccess = false);
 
 }

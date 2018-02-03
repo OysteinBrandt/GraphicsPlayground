@@ -1,12 +1,12 @@
 #include "Collision.h"
 
-#include <Engine/Rendering/Renderer.h>
-#include <Engine/Rendering/OpenGLModel.h>
+#include <Engine/Render/OpenGL/Renderer.h>
+#include <Engine/Render/OpenGL/OpenGLModel.h>
 #include <Engine/Generator/Sphere.h>
 
 namespace scenes
 {
-  Collision::Collision(engine::render::Renderer & renderer)
+  Collision::Collision(engine::render::opengl::Renderer& renderer)
   {
     const int numSpheres{ 50 };
     auto geometry = engine::generator::Sphere(0.5f).generate(10, 10);
@@ -21,7 +21,7 @@ namespace scenes
       sphere.entity->update(dt);
   }
 
-  void Collision::addSphere(engine::render::Renderer& renderer, const engine::render::OpenGLModel& model, const math::Vec3& pos)
+  void Collision::addSphere(engine::render::opengl::Renderer& renderer, const engine::render::opengl::OpenGLModel& model, const math::Vec3& pos)
   {
     auto &sphere = m_spheres.emplace_back(Sphere{});
     auto renderable = renderer.add(model);

@@ -20,7 +20,7 @@
 #endif
 #endif
 
-#ifdef OBR_DLL														// Defined if compiled as a DLL
+#ifdef OBR_DLL													// Defined if compiled as a DLL
 #ifdef OBR_DLL_EXPORTS									// Defined if building the DLL (instead of using it)
 #define OBR_API OBR_HELPER_DLL_EXPORT
 #else

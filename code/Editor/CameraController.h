@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Engine/Entities/Component.h>
-#include <Engine/Rendering/WindowSize.h>
+#include <Engine/Render/WindowSize.h>
 
 namespace input { class KeyInput; }
 namespace engine::render { class Camera; }

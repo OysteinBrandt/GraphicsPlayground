@@ -1,8 +1,8 @@
 #include "Renderer.h"
-#include "Engine/Rendering/Camera.h"
-#include "Engine/Rendering/OpenGLModel.h"
+#include "Engine/Render/Camera.h"
+#include "Engine/Render/OpenGL/OpenGLModel.h"
 
-namespace engine::render
+namespace engine::render::opengl
 {
 
   Renderer::Renderer(const Camera& camera, const Shader& defaultShader) : m_camera(camera), m_defaultShader(defaultShader)

@@ -2,7 +2,7 @@
 //#include <Windowsx.h>
 #include "IORedirect.h"
 #include "Editor/Editor.h"
-#include <Engine/Rendering/WindowSize.h>
+#include <Engine/Render/WindowSize.h>
 #include <iostream>
 
 static bool global_running{ true };

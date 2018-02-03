@@ -11,9 +11,6 @@
     <ClCompile Include="DebugTools\Profiler.cpp">
       <Filter>DebugTools</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\Renderer.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Entities\Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -22,9 +19,6 @@
     </ClCompile>
     <ClCompile Include="Math\Mat4.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\Shader.cpp">
-      <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Entities\Components\Boundary.cpp">
       <Filter>Entities\Components</Filter>
@@ -38,15 +32,6 @@
     <ClCompile Include="Entities\Components\Lerp.cpp">
       <Filter>Entities\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\Renderable.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\OpenGLModel.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\Camera.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Vec3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -55,6 +40,21 @@
     </ClCompile>
     <ClCompile Include="Generator\Cube.cpp">
       <Filter>Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Camera.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\OpenGL\OpenGLModel.cpp">
+      <Filter>Render\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Renderable.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\OpenGL\Renderer.cpp">
+      <Filter>Render\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\OpenGL\Shader.cpp">
+      <Filter>Render\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,12 +87,6 @@
     <ClInclude Include="DebugTools\Profile.h">
       <Filter>DebugTools</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\Renderable.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Renderer.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Entities\Entity.h">
       <Filter>Entities</Filter>
     </ClInclude>
@@ -104,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="Input\KeyInput.h">
       <Filter>Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Shader.h">
-      <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="EngineException.h" />
     <ClInclude Include="Assert\AssertException.h">
@@ -124,18 +115,6 @@
     <ClInclude Include="Entities\Components\Lerp.h">
       <Filter>Entities\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\OpenGLModel.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Camera.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\RenderTypes.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\WindowSize.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="Generator\Shape.h">
       <Filter>Generator</Filter>
     </ClInclude>
@@ -145,6 +124,30 @@
     <ClInclude Include="Generator\Cube.h">
       <Filter>Generator</Filter>
     </ClInclude>
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\OpenGL\OpenGLModel.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Renderable.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\OpenGL\Renderer.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderMode.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderTypes.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\OpenGL\Shader.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\WindowSize.h">
+      <Filter>Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -152,9 +155,6 @@
     </Filter>
     <Filter Include="DebugTools">
       <UniqueIdentifier>{83870d44-0a00-481c-a2cd-0bb3e2352bd0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering">
-      <UniqueIdentifier>{6a84ab91-3ca7-458e-b1c1-40dcc9ef807a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Entities">
       <UniqueIdentifier>{dd914229-8d86-45bb-a6d1-001be722fe5c}</UniqueIdentifier>
@@ -170,6 +170,12 @@
     </Filter>
     <Filter Include="Generator">
       <UniqueIdentifier>{53ac3ce0-d470-4836-abeb-80a4cb4dfb1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{6a84ab91-3ca7-458e-b1c1-40dcc9ef807a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL">
+      <UniqueIdentifier>{78873fb9-d4ae-4392-b129-dea14d66b054}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
