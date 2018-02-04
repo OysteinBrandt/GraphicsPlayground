@@ -8,14 +8,17 @@
   #define ENGINE_HELPER_DLL_IMPORT __declspec(dllimport)
   #define ENGINE_HELPER_DLL_EXPORT __declspec(dllexport)
   #define ENGINE_HELPER_DLL_LOCAL
+  #define ENGINE_HELPER_DLL_DEPRECATED __declspec(deprecated)
 #elif __GNUC__ >= 4
   #define ENGINE_HELPER_DLL_IMPORT __attribute__ ((visibility ("default")))
   #define ENGINE_HELPER_DLL_EXPORT __attribute__ ((visibility ("default")))
   #define ENGINE_HELPER_DLL_LOCAL  __attribute__ ((visibility ("hidden")))
+  #define ENGINE_HELPER_DLL_DEPRECATED __attribute__ ((deprecated ("This function is deprecated.")))
 #else
   #define ENGINE_HELPER_DLL_IMPORT
   #define ENGINE_HELPER_DLL_EXPORT
   #define ENGINE_HELPER_DLL_LOCAL
+  #define ENGINE_HELPER_DLL_DEPRECATED
   #error Unknown dynamic link import/export semantics.
 #endif
 
@@ -26,6 +29,7 @@
     #define ENGINE_API ENGINE_HELPER_DLL_IMPORT
   #endif
   #define ENGINE_LOCAL ENGINE_HELPER_DLL_LOCAL
+  #define ENGINE_DEPRECATED ENGINE_HELPER_DLL_DEPRECATED
 #else																			      // Static lib
   #define ENGINE_API
   #define ENGINE_LOCAL
