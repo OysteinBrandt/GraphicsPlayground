@@ -5,7 +5,7 @@
 namespace entities
 {
   class Entity;
-  class OBR_API Component
+  class ENGINE_API Component
   {
     friend class Entity;
     Entity *m_parent;

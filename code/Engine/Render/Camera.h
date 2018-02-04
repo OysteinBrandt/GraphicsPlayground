@@ -46,7 +46,7 @@ namespace engine::render
       m_viewMatrix = lookAt(m_position, m_position + m_direction, m_up);
     }
 
-    OBR_API void updateProjection(float width, float height);
+    ENGINE_API void updateProjection(float width, float height);
 
     math::Mat4 viewMatrix() const
     {
@@ -80,7 +80,7 @@ namespace engine::render
 
   private:
 
-    OBR_API math::Mat4 lookAt(const math::Vec3 &pos, const math::Vec3 &target, const math::Vec3 &up);
+    ENGINE_API math::Mat4 lookAt(const math::Vec3 &pos, const math::Vec3 &target, const math::Vec3 &up);
 
   };
 }

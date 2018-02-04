@@ -9,7 +9,7 @@
 
 namespace engine::render::opengl
 {
-  class OBR_API Shader
+  class ENGINE_API Shader
   {
     struct OglStringHelper {
       const char *p;

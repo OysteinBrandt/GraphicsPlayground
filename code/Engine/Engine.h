@@ -10,7 +10,7 @@ namespace engine
     OpenGL
   };
 
-  class OBR_API Engine
+  class ENGINE_API Engine
   {
   public:
 
@@ -21,7 +21,7 @@ namespace engine
     void render();
   };
 
-  OBR_API void init(Renderer renderer);
-  OBR_API void init(Renderer renderer, std::ostream& os, bool outputSuccess = false);
+  ENGINE_API void init(Renderer renderer);
+  ENGINE_API void init(Renderer renderer, std::ostream& os, bool outputSuccess = false);
 
 }

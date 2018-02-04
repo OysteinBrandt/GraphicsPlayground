@@ -63,7 +63,7 @@ namespace math {
 
     inline Vec3 projectOnto(const Vec3 &target) const;
 
-    OBR_API std::ostream& print(std::ostream &stream) const;
+    ENGINE_API std::ostream& print(std::ostream &stream) const;
   };
 
   /***********************************************************/

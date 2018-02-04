@@ -9,7 +9,7 @@
 namespace debug {
   namespace details {
 
-    class OBR_API Profiler
+    class ENGINE_API Profiler
     {
     public:
       static const int MAX_FRAME_SAMPLES = 1000;
@@ -63,7 +63,7 @@ namespace debug {
 
 namespace debug {
 
-  struct OBR_API ProfilerSingleton
+  struct ENGINE_API ProfilerSingleton
   {
     static details::Profiler& instance();
 

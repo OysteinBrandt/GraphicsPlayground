@@ -16,7 +16,7 @@ namespace engine::render{ class Camera; }
 
 namespace engine::render::opengl
 {
-  class OBR_API Renderer
+  class ENGINE_API Renderer
   {
     Shader m_defaultShader;
     const Camera &m_camera;

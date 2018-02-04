@@ -34,7 +34,7 @@ namespace math {
     }
 
     // TODO (obr): Replace enum with a unit vector? (eg. rotate around a custom axis)
-    OBR_API static Mat3 rotate(float radians, Axis axis);
+    ENGINE_API static Mat3 rotate(float radians, Axis axis);
 
     inline static Mat3 translate(float x, float y)
     {

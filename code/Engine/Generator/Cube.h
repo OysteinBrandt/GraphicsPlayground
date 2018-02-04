@@ -5,7 +5,7 @@
 
 namespace engine::generator
 {
-  class OBR_API Cube : public Shape
+  class ENGINE_API Cube : public Shape
   {
   private:
     float m_size;

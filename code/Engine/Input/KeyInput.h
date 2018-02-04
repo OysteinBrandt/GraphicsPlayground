@@ -5,7 +5,7 @@
 namespace input
 {
   class KeyMapperInterface;
-  class OBR_API KeyInput
+  class ENGINE_API KeyInput
   {
     const KeyMapperInterface *m_keyMapper;
     int m_maxActionValue;

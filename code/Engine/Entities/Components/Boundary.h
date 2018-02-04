@@ -7,7 +7,7 @@
 namespace entities::component
 {
   class Physics;
-  class OBR_API Boundary : public Component
+  class ENGINE_API Boundary : public Component
   {
     Physics &m_physics;
     math::Vec3 prevFramePos;

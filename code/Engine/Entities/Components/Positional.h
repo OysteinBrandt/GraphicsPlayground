@@ -7,7 +7,7 @@ namespace math { class Vec3; }
 
 namespace entities::component
 {
-  class OBR_API Positional : public Component
+  class ENGINE_API Positional : public Component
   {
     engine::render::Renderable* m_renderable;
 

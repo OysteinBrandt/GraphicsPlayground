@@ -7,7 +7,7 @@
 namespace entities::component
 {
   class Physics;
-  class OBR_API Lerp : public Component
+  class ENGINE_API Lerp : public Component
   {
     Physics &m_physics;
     const std::vector<math::Vec3> &m_points;

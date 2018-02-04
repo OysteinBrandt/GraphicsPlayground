@@ -8,7 +8,7 @@
 namespace entities
 {
   class Component;
-  class OBR_API Entity
+  class ENGINE_API Entity
   {
     std::vector<std::shared_ptr<Component>> m_components;
 

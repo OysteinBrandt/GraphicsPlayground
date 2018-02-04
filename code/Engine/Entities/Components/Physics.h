@@ -5,7 +5,7 @@
 
 namespace entities::component
 {
-  class OBR_API Physics : public Component
+  class ENGINE_API Physics : public Component
   {
   public:
     math::Vec3 velocity;

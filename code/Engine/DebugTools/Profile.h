@@ -8,7 +8,7 @@
 
 namespace debug {
 
-  class OBR_API Profile
+  class ENGINE_API Profile
   {
     std::chrono::time_point<std::chrono::steady_clock> m_timer;
     std::string m_category;

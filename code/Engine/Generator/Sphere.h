@@ -7,7 +7,7 @@ namespace engine::generator
 {
   // TODO: UVSphere and IcoSphere, ref. http://blog.andreaskahler.com/2009/06/creating-icosphere-mesh-in-code.html
   // Consider subdivide Octahedron and extrude points with radius like in master thesis
-  class OBR_API Sphere : public Shape
+  class ENGINE_API Sphere : public Shape
   {
     float m_radius;
 

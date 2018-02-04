@@ -19,7 +19,7 @@ namespace math
       return Vec2(x1 * vec.x + y1 * vec.y, x2 * vec.x + y2 * vec.y);
     }
 
-    OBR_API static Mat2 rotate(float radians);
+    ENGINE_API static Mat2 rotate(float radians);
 
   };
 }
