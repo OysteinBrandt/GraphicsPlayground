@@ -3,7 +3,6 @@
 #ifndef _ENGINE_DLLHELPER_H_
 #define _ENGINE_DLLHELPER_H_
 
-//TODO: Add declspec deprectated
 #if defined _WIN32 || defined __CYGWIN__
   #define ENGINE_HELPER_DLL_IMPORT __declspec(dllimport)
   #define ENGINE_HELPER_DLL_EXPORT __declspec(dllexport)
