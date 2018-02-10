@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <vector>
 
 namespace math { class Vec3; }
