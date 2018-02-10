@@ -45,6 +45,7 @@
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\OpenGL\OpenGLModel.h" />
+    <ClInclude Include="Render\OpenGL\Texture.h" />
     <ClInclude Include="Render\Renderable.h" />
     <ClInclude Include="Render\OpenGL\Renderer.h" />
     <ClInclude Include="Render\RenderMode.h" />

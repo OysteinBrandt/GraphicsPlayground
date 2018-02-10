@@ -145,6 +145,9 @@
     <ClInclude Include="Render\OpenGL\Shader.h">
       <Filter>Render\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Render\OpenGL\Texture.h">
+      <Filter>Render\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
