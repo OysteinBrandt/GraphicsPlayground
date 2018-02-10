@@ -21,8 +21,8 @@ class Editor
 
   std::unique_ptr<engine::render::opengl::Renderer> m_renderer;
   //std::unique_ptr<scenes::SimpleGame> m_gameScene;
-  //std::unique_ptr<scenes::Cubes> m_cubeScene;
-  std::unique_ptr<scenes::Collision> m_collisionScene;
+  std::unique_ptr<scenes::Cubes> m_cubeScene;
+  //std::unique_ptr<scenes::Collision> m_collisionScene;
   int frames;
 
 public:

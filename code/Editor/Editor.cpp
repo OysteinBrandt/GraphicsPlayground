@@ -13,8 +13,8 @@ Editor::Editor(const ApplicationParam &param)
 
   m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader("defaultVertex.vert", "defaulFragment.frag"));
   //m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);
-  //m_cubeScene = std::make_unique<scenes::Cubes>(*m_renderer);
-  m_collisionScene = std::make_unique<scenes::Collision>(*m_renderer);
+  m_cubeScene = std::make_unique<scenes::Cubes>(*m_renderer);
+  //m_collisionScene = std::make_unique<scenes::Collision>(*m_renderer);
   frames = 0;
 }
 
@@ -35,8 +35,8 @@ void Editor::update()
   m_cameraController->update(dt);
   m_camera.update();
   //m_gameScene->update(dt);
-  //m_cubeScene->update(dt);
-  m_collisionScene->update(dt);
+  m_cubeScene->update(dt);
+  //m_collisionScene->update(dt);
 }
 
 void Editor::render(float width, float height)

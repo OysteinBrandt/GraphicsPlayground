@@ -9,7 +9,7 @@ namespace engine::render::opengl { class Renderer; }
 
 struct CubeData
 {
-  entities::Entity entity;
+  std::unique_ptr<entities::Entity> entity;
 };
 
 namespace scenes

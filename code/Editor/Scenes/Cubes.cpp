@@ -26,11 +26,11 @@ namespace scenes
     for (size_t i = 0; i < m_cubes.size(); ++i)
     {
       if (i % 2 == 0)
-        m_cubes.at(i).entity.orientation += 0.5f * dt;
+        m_cubes.at(i).entity->orientation += 0.5f * dt;
     }
 
     for (auto &cube : m_cubes)
-      cube.entity.update(dt);
+      cube.entity->update(dt);
     //m_cube1.position -= math::Vec3{ 0.05f, 0.f, 0.f } * dt;
     //m_cube1.update(dt);
     //m_cube2.position += math::Vec3{ 0.05f, 0.f, 0.f } * dt;
