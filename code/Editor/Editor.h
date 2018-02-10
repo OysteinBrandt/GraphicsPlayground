@@ -1,15 +1,13 @@
 #pragma once
 
-#include "KeyMapper.h"
+#include "ApplicationParam.h"
 #include <Engine/Engine.h>
-#include <Engine/Input/KeyInput.h>
 #include "CameraController.h"
 #include "Scenes/SimpleGame.h"
 #include "Scenes/Cubes.hpp"
 #include "Scenes/Collision.h"
 #include <Engine/Render/OpenGL/Renderer.h>
 #include <Engine/Render/Camera.h>
-#include <Engine/Render/WindowSize.h>
 
 #include <memory>
 #include <chrono>
@@ -17,8 +15,6 @@
 class Editor
 {
   std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
-  input::KeyMapper m_keyMapper;
-  input::KeyInput m_keyInput;
   std::unique_ptr<CameraController> m_cameraController;
 
   engine::render::Camera m_camera;
@@ -30,7 +26,7 @@ class Editor
   int frames;
 
 public:
-  Editor(const engine::render::WindowParam &window);
+  Editor(const ApplicationParam &param);
 
   void update();
   void render(float width, float height);

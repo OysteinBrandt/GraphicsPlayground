@@ -50,7 +50,6 @@
     <ClInclude Include="Render\RenderMode.h" />
     <ClInclude Include="Render\RenderTypes.h" />
     <ClInclude Include="Render\OpenGL\Shader.h" />
-    <ClInclude Include="Render\WindowSize.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugTools\Profiler.cpp" />

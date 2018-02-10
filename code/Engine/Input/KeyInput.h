@@ -14,12 +14,12 @@ namespace input
   public:
     KeyInput(const KeyMapperInterface &keyMapper, int maxActionValue);
 
-    void update();
+    ENGINE_DEPRECATED void update();
     int actionsThisFrame() const
     {
       return m_actionsThisFrame;
     }
 
-    bool isActionsHot(int actions) const;
+    ENGINE_DEPRECATED bool isActionsHot(int actions) const;
   };
 }

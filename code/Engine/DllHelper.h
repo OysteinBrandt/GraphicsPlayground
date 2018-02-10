@@ -7,7 +7,7 @@
   #define ENGINE_HELPER_DLL_IMPORT __declspec(dllimport)
   #define ENGINE_HELPER_DLL_EXPORT __declspec(dllexport)
   #define ENGINE_HELPER_DLL_LOCAL
-  #define ENGINE_HELPER_DLL_DEPRECATED __declspec(deprecated)
+  #define ENGINE_HELPER_DLL_DEPRECATED __declspec(deprecated("This function is deprecated."))
 #elif __GNUC__ >= 4
   #define ENGINE_HELPER_DLL_IMPORT __attribute__ ((visibility ("default")))
   #define ENGINE_HELPER_DLL_EXPORT __attribute__ ((visibility ("default")))

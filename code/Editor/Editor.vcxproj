@@ -163,7 +163,6 @@
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="IORedirect.cpp" />
-    <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="Scenes\Collision.cpp" />
     <ClCompile Include="Scenes\Cubes.cpp" />
     <ClCompile Include="Scenes\SimpleGame.cpp" />
@@ -176,12 +175,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ApplicationParam.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="IORedirect.h" />
-    <ClInclude Include="KeyMapper.h" />
-    <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="Scenes\Collision.h" />
     <ClInclude Include="Scenes\Cubes.hpp" />
     <ClInclude Include="Scenes\SimpleGame.h" />

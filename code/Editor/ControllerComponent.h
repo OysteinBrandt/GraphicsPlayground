@@ -2,16 +2,16 @@
 
 #include <Engine/Entities/Component.h>
 
-namespace input { class KeyInput; }
+struct ApplicationParam;
 namespace entities::component { class Physics; }
 
 class ControllerComponent : public entities::Component
 {
-  const input::KeyInput *m_input;
-  entities::component::Physics *m_physics;
+  const ApplicationParam& m_application;
+  entities::component::Physics& m_physics;
 
 public:
-  ControllerComponent(const input::KeyInput &keyInput, entities::component::Physics& physics);
+  ControllerComponent(const ApplicationParam &application, entities::component::Physics& physics);
 
   void update(float) override;
 };

@@ -1,14 +1,13 @@
 #include <Windows.h>
-//#include <Windowsx.h>
+#include <Windowsx.h>
 #include "IORedirect.h"
 #include "Editor/Editor.h"
-#include <Engine/Render/WindowSize.h>
 #include <iostream>
 
 static bool global_running{ true };
 HDC global_deviceContext;
 Editor *global_editor = nullptr;
-engine::render::WindowParam global_windowInfo;
+ApplicationParam global_applicationParam;
 
 void setupPixelFormat(HDC deviceContext)
 {
@@ -40,8 +39,8 @@ void mainLoop()
 
   try
   {
-    global_editor->render(static_cast<float>(global_windowInfo.size.width),
-      static_cast<float>(global_windowInfo.size.height));
+    global_editor->render(static_cast<float>(global_applicationParam.window.size.width),
+      static_cast<float>(global_applicationParam.window.size.height));
   }
   catch (const std::exception& e)
   {
@@ -55,6 +54,18 @@ void mainLoop()
   SwapBuffers(global_deviceContext);
 }
 
+void keyEvent(unsigned int key, bool isPressed)
+{
+  if (key == 'W')
+    global_applicationParam.input.keyboard.W.isDown = isPressed;
+  else if (key == 'A')
+    global_applicationParam.input.keyboard.A.isDown = isPressed;
+  else if (key == 'S')
+    global_applicationParam.input.keyboard.S.isDown = isPressed;
+  else if (key == 'D')
+    global_applicationParam.input.keyboard.D.isDown = isPressed;
+}
+
 LRESULT CALLBACK
 mainWindowCallback(HWND window,
   UINT message,
@@ -66,8 +77,8 @@ mainWindowCallback(HWND window,
   {
   case WM_MOVE:
   {
-    global_windowInfo.size.startX = LOWORD(lParam);
-    global_windowInfo.size.startY = HIWORD(lParam);
+    global_applicationParam.window.size.startX = LOWORD(lParam);
+    global_applicationParam.window.size.startY = HIWORD(lParam);
   }break;
 
   case WM_CREATE:
@@ -82,9 +93,9 @@ mainWindowCallback(HWND window,
 
   case WM_SIZE:
   {
-    global_windowInfo.size.width = LOWORD(lParam);
-    global_windowInfo.size.height = HIWORD(lParam);
-    glViewport(0, 0, global_windowInfo.size.width, global_windowInfo.size.height);
+    global_applicationParam.window.size.width = LOWORD(lParam);
+    global_applicationParam.window.size.height = HIWORD(lParam);
+    glViewport(0, 0, global_applicationParam.window.size.width, global_applicationParam.window.size.height);
   }break;
 
   case WM_CLOSE:
@@ -95,7 +106,7 @@ mainWindowCallback(HWND window,
 
   case WM_ACTIVATEAPP:
   {
-    global_windowInfo.hasFocus = !global_windowInfo.hasFocus;
+    global_applicationParam.window.hasFocus = !global_applicationParam.window.hasFocus;
   }break;
 
   case WM_DESTROY:
@@ -114,27 +125,37 @@ mainWindowCallback(HWND window,
 #pragma region Input
   case WM_SYSKEYDOWN:
   case WM_SYSKEYUP:
+  {}break;
   case WM_KEYDOWN:
+  {
+    // TODO: Make sure that key press is interpreted correctly after window manipulation.
+    // Consider resetting input between each update
+    keyEvent(wParam, true);
+  }break;
   case WM_KEYUP:
   {
-    if (wParam == 'W')
-    {
+    keyEvent(wParam, false);
+  }break;
 
-    }
-    else if (wParam == 'A') {}
-    else if (wParam == 'S') {}
-    else if (wParam == 'D') {}
+  case WM_LBUTTONDOWN:
+  {
+    global_applicationParam.input.mouse.leftButtonDown = true;
+  }break;
+
+  case WM_LBUTTONUP:
+  {
+    global_applicationParam.input.mouse.leftButtonDown = false;
   }break;
 
   case WM_MOUSEMOVE:
   {
+    // TODO: Consider replacing #include <Windowsx.h> and retrieve mouse input differently.
+    global_applicationParam.input.mouse.x = GET_X_LPARAM(lParam);
+    global_applicationParam.input.mouse.y = GET_Y_LPARAM(lParam);
     switch (wParam)
     {
     case MK_LBUTTON:
     {
-      // TODO: Consider replacing #include <Windowsx.h> and retrieve mouse input differently.
-      //int mouseX = GET_X_LPARAM(lParam);
-      //int mouseY = GET_Y_LPARAM(lParam);
     }break;
 
     case MK_CONTROL:
@@ -218,14 +239,14 @@ WinMain(HINSTANCE instance,
   RECT window;
   GetWindowRect(windowHandle, &window);
 
-  global_windowInfo.size.startX = window.left;
-  global_windowInfo.size.startY = window.top;
-  global_windowInfo.size.width = window.right - window.left;
-  global_windowInfo.size.height = window.bottom - window.top;
+  global_applicationParam.window.size.startX = window.left;
+  global_applicationParam.window.size.startY = window.top;
+  global_applicationParam.window.size.width = window.right - window.left;
+  global_applicationParam.window.size.height = window.bottom - window.top;
 
   try
   {
-    static Editor editor{ global_windowInfo };
+    static Editor editor{ global_applicationParam };
     global_editor = &editor;	// TODO: Fix, could be usable even though exception occured
   }
   catch (const std::exception &e)

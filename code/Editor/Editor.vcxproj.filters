@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Editor.cpp" />
-    <ClCompile Include="KeyMapper.cpp" />
     <ClCompile Include="ControllerComponent.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="win32_Editor.cpp" />
@@ -20,8 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
-    <ClInclude Include="KeyMapper.h" />
-    <ClInclude Include="MenuChoise.h" />
     <ClInclude Include="ControllerComponent.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="Scenes\SimpleGame.h">
@@ -35,6 +32,7 @@
     <ClInclude Include="Scenes\Collision.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ApplicationParam.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">

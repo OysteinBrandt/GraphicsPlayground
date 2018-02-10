@@ -23,7 +23,7 @@ namespace scenes
 
   void Cubes::update(float dt)
   {
-    for (int i = 0; i < m_cubes.size(); ++i)
+    for (size_t i = 0; i < m_cubes.size(); ++i)
     {
       if (i % 2 == 0)
         m_cubes.at(i).entity.orientation += 0.5f * dt;

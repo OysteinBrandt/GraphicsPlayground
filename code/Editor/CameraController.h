@@ -1,28 +1,25 @@
 #pragma once
 
 #include <Engine/Entities/Component.h>
-#include <Engine/Render/WindowSize.h>
 
-namespace input { class KeyInput; }
 namespace engine::render { class Camera; }
-
-struct MousePosition
-{
-  int x;
-  int y;
-};
+namespace details { struct Window; }
+struct ApplicationParam;
 
 class CameraController : public entities::Component
 {
-  const input::KeyInput *m_input;
-  engine::render::Camera *m_camera;
-  const engine::render::WindowParam &m_window;
-  MousePosition m_oldMousePos{};
+  struct Point
+  {
+    int x;
+    int y;
+  };
+
+  engine::render::Camera* const m_camera;
+  const ApplicationParam* const m_application;
+  Point m_oldMousePos{};
 
 public:
-  CameraController(const input::KeyInput &keyInput,
-    engine::render::Camera &camera,
-    const engine::render::WindowParam &window);
+  CameraController(engine::render::Camera* const camera, const ApplicationParam* const appParam);
 
   void update(float dt) override;
 };

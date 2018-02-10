@@ -1,50 +1,40 @@
 #include "CameraController.h"
 
-#include <Engine/Input/KeyInput.h>
+#include "ApplicationParam.h"
 #include <Engine/Render/Camera.h>
 #include <Engine/Math/Vec3.h>
+#include <Engine/Math/Vec2.h>
 #include <Engine/Math/Constants.h>
-#include "MenuChoise.h"
 
 #include <Windows.h> // TODO: Refactor
-#include <iostream> // TODO: For debugging, remove
 
 using engine::render::Camera;
-using namespace input::MenuChoise;
 
-CameraController::CameraController(const input::KeyInput & keyInput, Camera& camera, const engine::render::WindowParam &window)
-  : m_window(window)
-{
-  m_camera = &camera;
-  m_input = &keyInput;
-}
+CameraController::CameraController(Camera* const camera, const ApplicationParam* const appParam)
+  : m_camera(camera), m_application(appParam)
+{ }
 
 void CameraController::update(float dt)
 {
-  if (!m_window.hasFocus)
+  if (!m_application->window.hasFocus)
     return;
 
-  const float cameraSpeed{ 5.0f * dt };
-  const float cameraMouseSpeed{ 10.0f * dt };
-  if (m_input->isActionsHot(MouseLButtonDown))
+  if (m_application->input.mouse.leftButtonDown)
   {
-    POINT pos;
-    GetCursorPos(&pos);
-
     // TODO: Improve
     // Hide mouse after click
     // Keep mouse inside view??
-    if (pos.x > m_window.size.startX && pos.x < (m_window.size.startX + m_window.size.width) &&
-      pos.y > m_window.size.startY && pos.y < (m_window.size.startY + m_window.size.height))
+    const auto *mouse = &m_application->input.mouse;
+    if (mouse->isInside(m_application->window))
     {
 #define FPS_CAMERA
 
-      MousePosition centerSceen{ m_window.size.startX + m_window.size.width / 2, m_window.size.startY + m_window.size.height / 2 };
-      const MousePosition delta = { pos.x - m_oldMousePos.x, pos.y - m_oldMousePos.y };
-      if (sqrt(delta.x * delta.x + delta.y * delta.y) > 5.0)
+      //MousePosition centerSceen{ m_window.size.startX + m_window.size.width / 2, m_window.size.startY + m_window.size.height / 2 };
+      const Point deltaMousePos{ mouse->x - m_oldMousePos.x, mouse->y - m_oldMousePos.y };
+      if (sqrt(deltaMousePos.x * deltaMousePos.x + deltaMousePos.y * deltaMousePos.y) > 5.0)
       {
         //SetCursorPos(centerSceen.x, centerSceen.y);
-        m_oldMousePos = /*centerSceen;*/{ pos.x, pos.y };
+        m_oldMousePos = /*centerSceen;*/{ mouse->x, mouse->y };
         return;
       }
 #ifdef FPS_CAMERA
@@ -52,12 +42,13 @@ void CameraController::update(float dt)
 
       //std::cout << "deltaX: " << delta.x << "/tdeltaY: " << delta.y << std::endl;
 
-      m_camera->rotate(-delta.x * cameraMouseSpeed, m_camera->up());
+      const float speed{ 10.0f * dt };
+      m_camera->rotate(-deltaMousePos.x * speed, m_camera->up());
 
       const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
-      m_camera->rotate(-delta.y * cameraMouseSpeed, rightDir);
+      m_camera->rotate(-deltaMousePos.y * speed, rightDir);
 
-      m_oldMousePos = /*centerSceen;*/{ pos.x, pos.y };
+      m_oldMousePos = /*centerSceen;*/{ mouse->x, mouse->y };
 #else // orbit
       m_camera->rotate(-delta.x * cameraMouseSpeed, m_camera->up());
       const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
@@ -66,23 +57,27 @@ void CameraController::update(float dt)
 #endif
     }
   }
-  if (m_input->isActionsHot(CameraRight))	// TODO: Should only work when window has focus
+  if (m_application->input.keyboard.D.isDown)
   {
-    const auto rightDir = math::cross(m_camera->direction(), m_camera->up());
-    m_camera->translate(rightDir * cameraSpeed);
+    const auto direction = math::cross(m_camera->direction(), m_camera->up());
+    const auto speed{ 5.0f * dt };
+    m_camera->translate(direction * speed);
   }
-  if (m_input->isActionsHot(CameraLeft))
+  if (m_application->input.keyboard.A.isDown)
   {
-    const auto leftDir = math::cross(m_camera->direction(), m_camera->up())  * (-1.f);
-    m_camera->translate(leftDir * cameraSpeed);
+    const auto direction = math::cross(m_camera->direction(), m_camera->up())  * (-1.f);
+    const auto speed{ 5.0f * dt };
+    m_camera->translate(direction * speed);
   }
-  if (m_input->isActionsHot(CameraForward))
+  if (m_application->input.keyboard.W.isDown)
   {
-    m_camera->translate(m_camera->direction() * cameraSpeed);
+    const auto speed{ 5.0f * dt };
+    m_camera->translate(m_camera->direction() * speed);
   }
 
-  if (m_input->isActionsHot(CameraBackward))
+  if (m_application->input.keyboard.S.isDown)
   {
-    m_camera->translate(m_camera->direction() * (-cameraSpeed));
+    const auto speed{ 5.0f * dt };
+    m_camera->translate(m_camera->direction() * (-speed));
   }
 }

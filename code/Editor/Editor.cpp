@@ -1,16 +1,15 @@
 #include "Editor.h"
 
-#include "MenuChoise.h"
 #include <iostream>
 
 // TODO: Make sure timer is correct in first frame (m_frameTimer)
-Editor::Editor(const engine::render::WindowParam &window)
-  : m_frameTimer{ std::chrono::high_resolution_clock::now() }, m_keyInput(m_keyMapper, input::MenuChoise::MAX)
+Editor::Editor(const ApplicationParam &param)
+  : m_frameTimer{ std::chrono::high_resolution_clock::now() }
 {
   engine::init(engine::Renderer::OpenGL);
 
   m_camera = engine::render::Camera{ { 0.f, 0.f, -3.f } };
-  m_cameraController = std::make_unique<CameraController>(m_keyInput, m_camera, window);
+  m_cameraController = std::make_unique<CameraController>(&m_camera, &param);
 
   m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader("defaultVertex.vert", "defaulFragment.frag"));
   //m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);
@@ -34,7 +33,6 @@ void Editor::update()
   //}
 
   m_cameraController->update(dt);
-  m_keyInput.update();
   m_camera.update();
   //m_gameScene->update(dt);
   //m_cubeScene->update(dt);
