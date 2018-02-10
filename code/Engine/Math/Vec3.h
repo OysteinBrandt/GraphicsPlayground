@@ -6,6 +6,7 @@
 
 namespace math {
 
+  // TODO: Template with default arguments for Vec3
   class Vec3
   {
   public:
