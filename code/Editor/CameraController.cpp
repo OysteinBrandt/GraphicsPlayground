@@ -22,6 +22,7 @@ void CameraController::update(float dt)
   if (m_application->input.mouse.leftButtonDown)
   {
     // TODO: Improve
+    // Take into consideration the placement of the window (eg. if not fullscreen the top left of screen is not always the top left of window)
     // Hide mouse after click
     // Keep mouse inside view??
     const auto *mouse = &m_application->input.mouse;
