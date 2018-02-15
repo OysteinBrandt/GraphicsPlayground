@@ -2,23 +2,23 @@
 #include <Engine/Generator/Cube.h>
 #include <Engine/Render/OpenGL/Renderer.h>
 #include <Engine/Render/OpenGL/OpenGLModel.h>
+#include <Engine/Render/Color.h>
 
+using engine::render::opengl::Texture;
 namespace scenes
 {
   Cubes::Cubes(engine::render::opengl::Renderer &renderer)
   {
+    addAxis(renderer);
+
     auto geometry = engine::generator::Cube(1.f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
-    /*auto instance = */renderer.add(*model);
+    model->apply(Texture{ "", Texture::FileType::Png });
+    auto renderable = renderer.add(*model);
 
-#if 0
-    shapes::Cube cube{ 1.0f };
-    auto model = renderer.addGeometry(cube.vertices, cube.indices, cube.colors, GL_TRIANGLES);
-
-    m_cubes.reserve(50);
-    for (int i = 0; i < 50; ++i)
-      addCube(renderer, model);
-#endif
+    auto &cube = m_cubes.emplace_back(CubeData{});
+    cube.entity->position = { 1.f, 2.f, 0.f };
+    cube.entity->add(std::make_shared<entities::component::Positional>(renderable.get()));
   }
 
   void Cubes::update(float dt)
@@ -31,21 +31,14 @@ namespace scenes
 
     for (auto &cube : m_cubes)
       cube.entity->update(dt);
-    //m_cube1.position -= math::Vec3{ 0.05f, 0.f, 0.f } * dt;
-    //m_cube1.update(dt);
-    //m_cube2.position += math::Vec3{ 0.05f, 0.f, 0.f } * dt;
-    //m_cube2.update(dt);
   }
 
-  static float incPos{ 0.f };
-  void Cubes::addCube(engine::render::opengl::Renderer &, size_t)
+  void Cubes::addAxis(engine::render::opengl::Renderer &renderer) const
   {
-    //auto &cube = m_cubes.emplace_back(CubeData{});
-    //auto instance = renderer.addRenderable(model);
-    //cube.pos.assign(&renderer, instance);
-    //cube.entity.addComponent(&cube.pos);	// TODO: * Component becomes invalid when reallocation happens
-    //cube.entity.position = { incPos, incPos, incPos };
-    //incPos++;
+    std::vector<math::Vec3> axisLines{ {}, {1.f, 0.f, 0.f}, {}, {0.f, 1.f, 0.f}, {}, {0.f, 0.f, 1.f} };
+    std::vector<math::Vec3> axisColors{ color::Red, color::Red, color::Green, color::Green, color::Blue, color::Blue };
+    auto axisModel = renderer.add(axisLines, {}, axisColors, {}, GL_LINES);
+    renderer.add(*axisModel);
   }
 
 }

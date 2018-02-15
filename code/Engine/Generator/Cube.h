@@ -9,6 +9,7 @@ namespace engine::generator
   {
   private:
     float m_size;
+
   public:
 
     Cube(float size = 1.f);

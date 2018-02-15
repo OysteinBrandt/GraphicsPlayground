@@ -11,7 +11,9 @@ namespace engine::render::opengl
     glClearColor(0.5f, 0.5f, 0.5f, 1.f);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glFrontFace(GL_CW);	// TODO: Make sure all models are rendered with the correct winding order
+    glCullFace(GL_BACK);
+    //glFrontFace(GL_CW);	// TODO: Make sure all models are rendered with the correct winding order
+    glLineWidth(3.f);
     glPointSize(3.f);
   }
 
@@ -21,13 +23,13 @@ namespace engine::render::opengl
 
   const std::shared_ptr<OpenGLModel> Renderer::add(const engine::Geometry& data, GLenum renderMode)
   {
-    return add(data.vertices, data.indices, data.colors, renderMode);
+    return add(data.vertices, data.indices, data.colors, data.textureCoords, renderMode);
   }
 
   const std::shared_ptr<OpenGLModel> Renderer::add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-                                                   const std::vector<math::Vec3>& colors, GLenum renderMode)
+                                                   const std::vector<math::Vec3>& colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode)
   {
-    return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, colors, renderMode));
+    return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, colors, textureCoords, renderMode));
   }
 
   const std::shared_ptr<Renderable> Renderer::add(const OpenGLModel &model, Shader *shader)

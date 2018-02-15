@@ -6,6 +6,7 @@
 #include "Engine/DllHelper.h"
 
 #include <Engine/Math/Vec3.h>
+#include <Engine/Math/Vec2.h>
 #include "Engine/Render/OpenGL/Shader.h"
 #include <Engine/Generator/Shape.h>
 
@@ -32,7 +33,7 @@ namespace engine::render::opengl
 
     const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
     const std::shared_ptr<OpenGLModel> add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-                                           const std::vector<math::Vec3>& colors, GLenum renderMode);
+                                           const std::vector<math::Vec3>& colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode);
 
     const std::shared_ptr<Renderable> add(const OpenGLModel &model, Shader *shader = nullptr);
 

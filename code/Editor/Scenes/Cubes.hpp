@@ -9,6 +9,9 @@ namespace engine::render::opengl { class Renderer; }
 
 struct CubeData
 {
+  CubeData() : entity(std::make_unique<entities::Entity>())
+  { }
+
   std::unique_ptr<entities::Entity> entity;
 };
 
@@ -25,6 +28,6 @@ namespace scenes
 
   private:
 
-    void addCube(engine::render::opengl::Renderer &renderer, size_t model);
+    void addAxis(engine::render::opengl::Renderer &renderer) const;
   };
 }
