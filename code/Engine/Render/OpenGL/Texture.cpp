@@ -83,6 +83,11 @@ namespace engine::render::opengl
     else
     {
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_BGR, GL_UNSIGNED_BYTE, m_data.data());
+
+      // If known number of mipmaps
+      //glTexStorage2D(GL_TEXTURE_2D, num_mipmaps, GL_RGBA8, width, height);
+      //glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_BYTE, pixels);
+
       if (GL_ARB_framebuffer_object)
         glGenerateMipmap(GL_TEXTURE_2D);
       else
@@ -91,10 +96,10 @@ namespace engine::render::opengl
         //glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
         //gluBuild2DMipmaps
 
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);  //GL_REPEAT
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);  //GL_LINEAR GL_LINEAR_MIPMAP_LINEAR
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
 
     unbind();
