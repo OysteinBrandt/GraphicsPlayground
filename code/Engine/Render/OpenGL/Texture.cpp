@@ -29,10 +29,8 @@ namespace engine::render::opengl
         break;
       }
 
-      auto dataPos = *(int*)&(header[0x0A]);
-      auto size    = *(int*)&(header[0x22]);
-      m_width      = *(int*)&(header[0x12]);
-      m_height     = *(int*)&(header[0x16]);
+      m_width      = *reinterpret_cast<int*>(&header[0x12]);
+      m_height     = *reinterpret_cast<int*>(&header[0x16]);
 
       if (size == 0) 
         size = m_width * m_height * 3;
@@ -40,7 +38,7 @@ namespace engine::render::opengl
         dataPos = 54;
 
       m_data = std::string( size, '\0' );
-      fileStream.seekg(54);
+      fileStream.seekg(dataPos);
       fileStream.read(m_data.data(), size);
     }
     break;
