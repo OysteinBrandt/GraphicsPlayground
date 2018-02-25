@@ -61,9 +61,9 @@ namespace engine::render::opengl
     glBindVertexArray(0);
   }
 
-  void OpenGLModel::apply(const Texture& texture)
+  void OpenGLModel::apply(Texture texture)
   {
-    m_texture = texture;
+    m_texture = std::move(texture);
     m_texture.install();
   }
 

@@ -31,7 +31,7 @@ namespace engine::render::opengl
     void bind() const;
     void unbind() const;
 
-    ENGINE_API void apply(const Texture& texture);
+    ENGINE_API void apply(Texture texture);
 
     GLenum renderMode() const
     {

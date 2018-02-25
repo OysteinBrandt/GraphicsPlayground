@@ -59,7 +59,7 @@ namespace engine::generator
     for (int i = 0; i < indices.size(); i++)
       geometry.normals.push_back(normals[indices[i / 6]]);
 
-    geometry.colors = std::vector<math::Vec3>(36, math::Vec3{ 0.f, 1.f, 0.f });
+    geometry.colors = std::vector<math::Vec3>(36, math::Vec3{ 1.f, 1.f, 1.f });
 
     geometry.textureCoords.reserve(indices.size());
     for (int i = 0; i < indices.size(); i++)

@@ -1,11 +1,18 @@
 #include "Editor.h"
 
+#include "Engine/Assert.h"
 #include <iostream>
 
 // TODO: Make sure timer is correct in first frame (m_frameTimer)
 Editor::Editor(const ApplicationParam &param)
   : m_frameTimer{ std::chrono::high_resolution_clock::now() }
 {
+  //auto handler = [](const engine::assert::HandlerParam& hp)
+  //{
+  //  std::cout << "what: " << hp.what << "\n";
+  //};
+  // TODO: Find best way to add assert handler (consider renaming HandlerParam to Assert?)
+  //engine::Assert::add(handler);
   engine::init(engine::Renderer::OpenGL);
 
   m_camera = engine::render::Camera{ { 0.f, 0.f, 3.f } };

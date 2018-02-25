@@ -13,7 +13,7 @@ namespace scenes
 
     auto geometry = engine::generator::Cube(1.f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
-    model->apply(Texture{ "", Texture::FileType::Png });
+    model->apply(Texture{ "D:/src/GraphicsPlayground/Resources/Textures/UV-24-bit.bmp", Texture::FileFormat::Bmp });
     auto renderable = renderer.add(*model);
 
     auto &cube = m_cubes.emplace_back(CubeData{});
@@ -23,11 +23,11 @@ namespace scenes
 
   void Cubes::update(float dt)
   {
-    for (size_t i = 0; i < m_cubes.size(); ++i)
-    {
-      if (i % 2 == 0)
-        m_cubes.at(i).entity->orientation += 0.5f * dt;
-    }
+    //for (size_t i = 0; i < m_cubes.size(); ++i)
+    //{
+    //  if (i % 2 == 0)
+    //    m_cubes.at(i).entity->orientation += 0.5f * dt;
+    //}
 
     for (auto &cube : m_cubes)
       cube.entity->update(dt);

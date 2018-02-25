@@ -56,6 +56,10 @@
     <ClCompile Include="Render\OpenGL\Shader.cpp">
       <Filter>Render\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Render\OpenGL\Texture.cpp">
+      <Filter>Render\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Assert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h" />
@@ -148,6 +152,7 @@
     <ClInclude Include="Render\Color.h">
       <Filter>Render</Filter>
     </ClInclude>
+    <ClInclude Include="Assert.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">

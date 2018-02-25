@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef _ENGINE_ASSERTEXCEPTION_H_
 #define _ENGINE_ASSERTEXCEPTION_H_
 
@@ -18,14 +16,14 @@ namespace engine::assert
 
   public:
 
-    exception(const std::string &message, const std::string &function, const std::string &file, unsigned int line)
-      : engine::exception("Message: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line)),
+    exception(const std::string &message, const std::string &function, const std::string &file, long int line)
+      : engine::exception("Message: " + message + "\nFunction: " + function + "\nFile: " + file + "\nLine: " + std::to_string(line) + "\n"),
       m_message(message), m_function(function), m_file(file), m_line(line)
     { }
   };
 }
 
-#if defined ENGINE_DEBUG
+#if defined ENGINE_DEBUG 
 #define ENGINE_ASSERT_EXCEPTION(message) throw engine::assert::exception(message, __FUNCTION__, __FILE__, __LINE__)
 #define ENGINE_ASSERT_EXCEPTION_IF(expression, message) ((expression) ? ENGINE_ASSERT_EXCEPTION(message) : (void)0)
 #else

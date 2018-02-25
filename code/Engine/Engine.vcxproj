@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assert.h" />
     <ClInclude Include="Assert\AssertException.h" />
     <ClInclude Include="DebugTools\DebugTools.h" />
     <ClInclude Include="DebugTools\Profile.h" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Render\OpenGL\Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assert.cpp" />
     <ClCompile Include="DebugTools\Profiler.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entities\Components\Boundary.cpp" />
@@ -69,6 +71,7 @@
     <ClCompile Include="Math\Vec3.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\OpenGL\OpenGLModel.cpp" />
+    <ClCompile Include="Render\OpenGL\Texture.cpp" />
     <ClCompile Include="Render\Renderable.cpp" />
     <ClCompile Include="Render\OpenGL\Renderer.cpp" />
     <ClCompile Include="Render\OpenGL\Shader.cpp" />
