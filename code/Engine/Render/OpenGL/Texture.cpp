@@ -29,6 +29,8 @@ namespace engine::render::opengl
         break;
       }
 
+      int dataPos  = *reinterpret_cast<int*>(&header[0x0A]);
+      int size     = *reinterpret_cast<int*>(&header[0x22]);
       m_width      = *reinterpret_cast<int*>(&header[0x12]);
       m_height     = *reinterpret_cast<int*>(&header[0x16]);
 
