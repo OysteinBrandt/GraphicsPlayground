@@ -27,7 +27,7 @@ namespace engine::render::opengl
   public:
 
     // TODO: Use std::filesystem::path when supported equally on all compilers
-    ENGINE_API Texture(std::string file, FileFormat fileType);
+    ENGINE_API Texture(const std::string& file, FileFormat fileType);
 
     Texture()
     { }
@@ -72,5 +72,9 @@ namespace engine::render::opengl
     // TODO: Consider a layer of abstraction for general graphics API
     // TODO: Prevent user from having access to bind(), unbind(), install() ?
     void install();
+
+  private:
+
+    void loadBmp(const std::string& file);
   };
 }

@@ -7,42 +7,12 @@
 
 namespace engine::render::opengl
 {
-  Texture::Texture(std::string file, FileFormat fileType)
+  Texture::Texture(const std::string& file, FileFormat fileType)
   {
     switch (fileType)
     {
     case FileFormat::Bmp:
-    {
-      std::ifstream fileStream(file, std::ios::binary);
-      if (!fileStream.good())
-      {
-        ENGINE_ASSERT_WARNING("Failed to load texture from: \"" + file + "\"");
-        break;
-      }
-
-      char header[54];
-      fileStream.get(header, 54);
-
-      if (header[0] != 'B' || header[1] != 'M')
-      {
-        ENGINE_ASSERT_WARNING("File did not contain values expected from BMP format!");
-        break;
-      }
-
-      int dataPos  = *reinterpret_cast<int*>(&header[0x0A]);
-      int size     = *reinterpret_cast<int*>(&header[0x22]);
-      m_width      = *reinterpret_cast<int*>(&header[0x12]);
-      m_height     = *reinterpret_cast<int*>(&header[0x16]);
-
-      if (size == 0) 
-        size = m_width * m_height * 3;
-      if (dataPos == 0)
-        dataPos = 54;
-
-      m_data = std::string( size, '\0' );
-      fileStream.seekg(dataPos);
-      fileStream.read(m_data.data(), size);
-    }
+      loadBmp(file);
     break;
 
     default:
@@ -103,5 +73,38 @@ namespace engine::render::opengl
     }
 
     unbind();
+  }
+
+  void Texture::loadBmp(const std::string& file)
+  {
+    std::ifstream fileStream(file, std::ios::binary);
+    if (!fileStream.good())
+    {
+      ENGINE_ASSERT_WARNING("Failed to load texture from: \"" + file + "\"");
+      return;
+    }
+
+    char header[54];
+    fileStream.get(header, 54);
+
+    if (header[0] != 'B' || header[1] != 'M')
+    {
+      ENGINE_ASSERT_WARNING("File did not contain values expected from BMP format!");
+      return;
+    }
+
+    int dataPos = *reinterpret_cast<int*>(&header[0x0A]);
+    int size = *reinterpret_cast<int*>(&header[0x22]);
+    m_width = *reinterpret_cast<int*>(&header[0x12]);
+    m_height = *reinterpret_cast<int*>(&header[0x16]);
+
+    if (size == 0)
+      size = m_width * m_height * 3;
+    if (dataPos == 0)
+      dataPos = 54;
+
+    m_data = std::string(size, '\0');
+    fileStream.seekg(dataPos);
+    fileStream.read(m_data.data(), size);
   }
 }
