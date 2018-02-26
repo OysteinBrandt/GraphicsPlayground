@@ -15,11 +15,11 @@ class CameraController : public entities::Component
   };
 
   engine::render::Camera* const m_camera;
-  const ApplicationParam* const m_application;
+  const ApplicationParam& m_application;
   Point m_oldMousePos{};
 
 public:
-  CameraController(engine::render::Camera* const camera, const ApplicationParam* const appParam);
+  CameraController(engine::render::Camera* const camera, const ApplicationParam& appParam);
 
   void update(float dt) override;
 };

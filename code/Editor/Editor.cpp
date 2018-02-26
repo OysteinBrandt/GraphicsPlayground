@@ -16,7 +16,7 @@ Editor::Editor(const ApplicationParam &param)
   engine::init(engine::Renderer::OpenGL);
 
   m_camera = engine::render::Camera{ { 0.f, 0.f, 3.f } };
-  m_cameraController = std::make_unique<CameraController>(&m_camera, &param);
+  m_cameraController = std::make_unique<CameraController>(&m_camera, param);
 
   m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader("defaultVertex.vert", "defaulFragment.frag"));
   //m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);

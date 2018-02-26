@@ -39,8 +39,8 @@ namespace details
   {
     Key W;
     Key A;
-    Key D;
     Key S;
+    Key D;
   };
 
   /**************************************************************/
@@ -52,10 +52,15 @@ namespace details
     bool leftButtonDown;
     bool rightButtonDown;
 
-    bool isInside(const details::Window& window) const
+    bool isInside(const details::Window& /*window*/) const
     {
+#if 1 // TODO: Remove this function if it turns out we do not need this check
+      return true;
+#else
+      // This only makes sense to do if we do not retrieve mouse position in WM_MOUSEMOVE
       return (x > window.size.startX && x < (window.size.startX + window.size.width) &&
               y > window.size.startY && y < (window.size.startY + window.size.height));
+#endif
     }
 
   };
