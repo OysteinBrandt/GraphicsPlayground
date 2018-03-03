@@ -22,7 +22,7 @@ namespace engine::render::opengl
     Shader m_defaultShader;
     const Camera &m_camera;
     std::vector<std::shared_ptr<OpenGLModel>> m_models;
-    std::vector<std::shared_ptr<Renderable>> m_renderables;
+    std::vector<std::shared_ptr<Renderable>> m_renderables; // Multiple renderables can refer to the same model
 
   public:
     Renderer(const Camera& camera, const Shader& defaultShader);
