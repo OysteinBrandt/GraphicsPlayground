@@ -9,34 +9,34 @@ namespace engine::generator
   Geometry Cube::generate() const
   {
     std::array<math::Vec3, 8> vertices
-    {
-      math::Vec3{-1, -1,  1 },
-      math::Vec3{ 1, -1,  1 },
-      math::Vec3{ 1,  1,  1 },
-      math::Vec3{-1,  1,  1 },
-      math::Vec3{-1, -1, -1 },
-      math::Vec3{ 1, -1, -1 },
-      math::Vec3{ 1,  1, -1 },
-      math::Vec3{-1,  1, -1 }
-    };
+    {{
+      {-m_size, -m_size,  m_size },
+      { m_size, -m_size,  m_size },
+      { m_size,  m_size,  m_size },
+      {-m_size,  m_size,  m_size },
+      {-m_size, -m_size, -m_size },
+      { m_size, -m_size, -m_size },
+      { m_size,  m_size, -m_size },
+      {-m_size,  m_size, -m_size }
+    }};
 
     std::array<math::Vec2, 4> texCoords
-    {
-      math::Vec2{0, 0},
-      math::Vec2{1, 0},
-      math::Vec2{1, 1},
-      math::Vec2{0, 1}
-    };
+    {{
+      {0, 0},
+      {1, 0},
+      {1, 1},
+      {0, 1}
+    }};
 
     std::array<math::Vec3, 6> normals
-    {
-      math::Vec3{ 0,  0,  1},
-      math::Vec3{ 1,  0,  0},
-      math::Vec3{ 0,  0, -1},
-      math::Vec3{-1,  0,  0},
-      math::Vec3{ 0,  1,  0},
-      math::Vec3{ 0, -1,  0}
-    };
+    {{
+      { 0,  0,  1},
+      { 1,  0,  0},
+      { 0,  0, -1},
+      {-1,  0,  0},
+      { 0,  1,  0},
+      { 0, -1,  0}
+    }};
 
     std::array<unsigned short, 36> indices
     {
@@ -52,8 +52,8 @@ namespace engine::generator
 
     Geometry geometry;
     geometry.vertices.reserve(indices.size());
-    for (int i = 0; i < indices.size(); i++)
-      geometry.vertices.push_back(vertices[indices[i]]);
+    for (auto index : indices)
+      geometry.vertices.push_back(vertices.at(index));
 
     geometry.normals.reserve(indices.size());
     for (int i = 0; i < indices.size(); i++)

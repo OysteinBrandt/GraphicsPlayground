@@ -11,13 +11,13 @@ namespace scenes
   {
     addAxis(renderer);
 
-    auto geometry = engine::generator::Cube(1.f).generate();
+    auto geometry = engine::generator::Cube(0.5f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
     model->apply(Texture{ "D:/src/GraphicsPlayground/Resources/Textures/UV-24-bit.bmp", Texture::FileFormat::Bmp });
     auto renderable = renderer.add(*model);
 
     auto &cube = m_cubes.emplace_back(CubeData{});
-    cube.entity->position = { 1.f, 2.f, 0.f };
+    cube.entity->position = { 0.f, 0.f, 0.f };
     cube.entity->add(std::make_shared<entities::component::Positional>(renderable.get()));
   }
 
