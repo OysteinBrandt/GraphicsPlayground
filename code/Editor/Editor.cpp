@@ -7,12 +7,15 @@
 Editor::Editor(const ApplicationParam &param)
   : m_frameTimer{ std::chrono::high_resolution_clock::now() }
 {
-  //auto handler = [](const engine::assert::HandlerParam& hp)
-  //{
-  //  std::cout << "what: " << hp.what << "\n";
-  //};
-  // TODO: Find best way to add assert handler (consider renaming HandlerParam to Assert?)
-  //engine::Assert::add(handler);
+  auto handler = [](const engine::Assert& assert)
+  {
+    std::cout << "=============================\n"
+      << "Assert detected!" << "\n"
+      << assert.what << "\n"
+      << "function: " << assert.functionName << "\n"
+      << "file: " << assert.fileName << " (" << assert.line << ")\n";
+  };
+  engine::assert::HandlerContainer::attach(handler);
   engine::init(engine::Renderer::OpenGL);
 
   m_camera = engine::render::Camera{ { 0.f, 0.f, 3.f } };

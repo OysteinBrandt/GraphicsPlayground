@@ -5,7 +5,6 @@
 #include <Engine/Math/Vec3.h>
 #include <Engine/Math/Vec2.h>
 #include <Engine/Math/Constants.h>
-#include <Engine/Assert.h>
 
 CameraController::CameraController(engine::render::Camera* const camera, const ApplicationParam& appParam)
   : m_camera(camera), m_application(appParam)

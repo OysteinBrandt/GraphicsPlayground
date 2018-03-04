@@ -1,5 +1,5 @@
 #include "Shader.h"
-#include "Engine/Assert/AssertException.h"
+#include "Engine/Assert.h"
 
 #include <fstream>
 
@@ -69,7 +69,7 @@ namespace engine::render::opengl
     const std::string filePath{ "D:/src/GraphicsPlayground/Resources/Shaders/" };
     std::ifstream stream(filePath + fileName);
     if (!stream.good())
-      ENGINE_ASSERT_EXCEPTION("Failed to load shader: \"" + fileName + "\" from folder \"" + filePath + "\"");
+      ENGINE_ASSERT_WARNING("Failed to load shader: \"" + fileName + "\" from folder \"" + filePath + "\"");
 
     return std::string(std::istreambuf_iterator<char>{stream}, {});
   }
@@ -97,7 +97,7 @@ namespace engine::render::opengl
       std::string log;
       log.reserve(infoLogLength);
       getInfoLogFunc(objectId, infoLogLength, &bufferSize, &log[0]);
-      ENGINE_ASSERT_EXCEPTION(log.c_str());
+      ENGINE_ASSERT_ERROR(log.c_str());
     }
   }
 

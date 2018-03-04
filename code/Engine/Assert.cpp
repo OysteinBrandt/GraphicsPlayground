@@ -2,22 +2,14 @@
 
 #include "Assert/AssertException.h"
 
-namespace engine
+namespace engine::assert
 {
-  thread_local std::vector<std::function<void(const std::string&, Assert::Level, const std::string&, const std::string&, long int)>> Assert::s_handlers;
-  std::vector<std::function<void(const std::string&, Assert::Level, const std::string&, const std::string&, long int)>> Assert::s_handlersForAllThreads;
+  thread_local std::vector<std::function<void(Assert)>> HandlerContainer::s_handlers;
+  std::vector<std::function<void(Assert)>> HandlerContainer::s_handlersForAllThreads;
 
-  //void Assert::add(std::function<void(assert::HandlerParam)> /*handler*/, bool /*allThreads*/)
-  //{
-  //}
+  /********************************************************************************************************/
 
-
-  template <typename HandlerFunc>
-  void Assert::attach(HandlerFunc& func)
-  {
-  }
-
-  void Assert::attach(std::function<void(const std::string&, Level, const std::string&, const std::string&, long int)> handler, bool allThreads)
+  void HandlerContainer::attach(std::function<void(Assert)> handler, bool allThreads)
   {
     if (allThreads)
       s_handlersForAllThreads.push_back(handler);
@@ -25,21 +17,25 @@ namespace engine
       s_handlers.push_back(handler);
   }
 
-  void Assert::add(const std::string& what, Level severity, const std::string& function, const std::string& file, long int line)
+  /********************************************************************************************************/
+
+  void HandlerContainer::handle(const Assert& assert)
   {
 #if defined ENGINE_DEBUG
     if (s_handlers.empty())
     {
-      if (severity == Level::Error)
-        throw engine::assert::exception(what, function, file, line);
+      if (assert.severity == Assert::Severity::Error)
+        throw engine::assert::exception(assert.what, assert.functionName, assert.fileName, assert.line);
     }
 #endif
 
     // The registered handler must be able to deal with multithreading
     for (const auto& handler : s_handlersForAllThreads)
-      handler(what, severity, function, file, line);
+      handler(assert);
 
     for (const auto& handler : s_handlers)
-      handler(what, severity, function, file, line);
+      handler(assert);
   }
+
+  /********************************************************************************************************/
 }
