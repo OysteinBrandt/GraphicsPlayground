@@ -30,7 +30,7 @@ Editor::Editor(const ApplicationParam &param)
 
 void Editor::update()
 {
-  auto now = std::chrono::high_resolution_clock::now();
+  auto now = std::chrono::steady_clock::now();
   const std::chrono::duration<float> deltaTime = now - m_frameTimer;
   m_frameTimer = now;
   const auto dt = deltaTime.count();

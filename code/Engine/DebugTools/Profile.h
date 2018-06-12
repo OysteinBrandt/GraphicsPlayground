@@ -17,12 +17,12 @@ namespace debug {
     Profile(const std::string &category)
     {
       m_category = category;
-      m_timer = std::chrono::high_resolution_clock::now();
+      m_timer = std::chrono::steady_clock::now();
     }
 
     ~Profile()
     {
-      auto now = std::chrono::high_resolution_clock::now();
+      auto now = std::chrono::steady_clock::now();
       const std::chrono::duration<float> diff = now - m_timer;
       ProfilerSingleton::instance().addEntry(m_category, std::chrono::duration_cast<std::chrono::milliseconds>(diff));
     }
