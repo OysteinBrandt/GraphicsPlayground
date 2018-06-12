@@ -1,7 +1,14 @@
+********* Inspiration ****************
+Prototyping:
+https://gfycat.com/yearlyfatalfireant
+
+GUI:
+https://store.steampowered.com/app/800860/Omnicube/
+
+
+
+********* Code ****************
 http://nadeausoftware.com/articles/2012/01/c_c_tip_how_use_compiler_predefined_macros_detect_operating_system
-
-Add glm to Engine project?
-
 
 Gameplay
 Engine ==> Editor
