@@ -7,7 +7,7 @@
 namespace math {
 
   // TODO: Template with default arguments for Vec3
-  class Vec3
+  class ENGINE_API Vec3
   {
   public:
 
@@ -64,7 +64,7 @@ namespace math {
 
     inline Vec3 projectOnto(const Vec3 &target) const;
 
-    ENGINE_API std::ostream& print(std::ostream &stream) const;
+    std::ostream& print(std::ostream &stream) const;
   };
 
   /***********************************************************/

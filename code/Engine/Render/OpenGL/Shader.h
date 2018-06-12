@@ -9,7 +9,7 @@
 
 namespace engine::render::opengl
 {
-  class ENGINE_API Shader
+  class Shader
   {
     struct OglStringHelper {
       const char *p;
@@ -26,26 +26,15 @@ namespace engine::render::opengl
 
   public:
 
-    Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
-    ~Shader();
+    ENGINE_API Shader(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+    ENGINE_API ~Shader();
 
     void initialize();
     void bind() const;
     void unbind() const;
 
-    void loadMatrix(const math::Mat4 &matrix) const
-    {
-      GLint loc = glGetUniformLocation(m_programId, "MVP");
-      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named MVP");
-      glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix.x[0]);
-    }
-
-    void loadColor(const math::Vec3 &color) const
-    {
-      GLint loc = glGetUniformLocation(m_programId, "custom_color");
-      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named custom_color");
-      glUniform3fv(loc, 1, &color.x);
-    }
+    void loadMatrix(const math::Mat4 &matrix) const;
+    void loadColor(const math::Vec3 &color) const;
 
   private:
     std::string readShaderCode(const std::string &fileName) const;

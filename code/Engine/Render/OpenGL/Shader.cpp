@@ -63,6 +63,20 @@ namespace engine::render::opengl
     glUseProgram(0);
   }
 
+  void Shader::loadMatrix(const math::Mat4 &matrix) const
+  {
+    GLint loc = glGetUniformLocation(m_programId, "MVP");
+    ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named MVP");
+    glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix.x[0]);
+  }
+
+  void Shader::loadColor(const math::Vec3 &color) const
+  {
+    GLint loc = glGetUniformLocation(m_programId, "custom_color");
+    ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named custom_color");
+    glUniform3fv(loc, 1, &color.x);
+  }
+
   std::string Shader::readShaderCode(const std::string &fileName) const
   {
     // TODO: Add Shader folder path to configuration

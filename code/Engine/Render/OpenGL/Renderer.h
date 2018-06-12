@@ -17,7 +17,7 @@ namespace engine::render{ class Camera; }
 
 namespace engine::render::opengl
 {
-  class ENGINE_API Renderer
+  class Renderer
   {
     Shader m_defaultShader;
     const Camera &m_camera;
@@ -25,18 +25,18 @@ namespace engine::render::opengl
     std::vector<std::shared_ptr<Renderable>> m_renderables; // Multiple renderables can refer to the same model
 
   public:
-    Renderer(const Camera& camera, const Shader& defaultShader);
-    ~Renderer();
+    ENGINE_API Renderer(const Camera& camera, const Shader& defaultShader);
+    ENGINE_API ~Renderer();
 
     Renderer operator=(const Renderer&) = delete;
     Renderer& opearator(const Renderer&) = delete;
 
-    const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
-    const std::shared_ptr<OpenGLModel> add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
+    ENGINE_API const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
+    ENGINE_API const std::shared_ptr<OpenGLModel> add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
                                            const std::vector<math::Vec3>& colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode);
 
-    const std::shared_ptr<Renderable> add(const OpenGLModel &model, Shader *shader = nullptr);
+    ENGINE_API const std::shared_ptr<Renderable> add(const OpenGLModel &model, Shader *shader = nullptr);
 
-    void render();
+    ENGINE_API void render();
   };
 }

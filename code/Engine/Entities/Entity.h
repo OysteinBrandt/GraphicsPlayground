@@ -8,7 +8,7 @@
 namespace entities
 {
   class Component;
-  class ENGINE_API Entity
+  class Entity
   {
     std::vector<std::shared_ptr<Component>> m_components;
 
@@ -16,9 +16,9 @@ namespace entities
     math::Vec3 position;
     float orientation;
 
-    Entity();
-    void add(const std::shared_ptr<Component>& component);
-    void update(float dt);
+    ENGINE_API Entity();
+    ENGINE_API void add(const std::shared_ptr<Component>& component);
+    ENGINE_API void update(float dt);
 
     template<class T>
     T* getComponent() const;
