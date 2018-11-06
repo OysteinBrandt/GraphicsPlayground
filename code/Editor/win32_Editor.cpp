@@ -207,7 +207,7 @@ WinMain(HINSTANCE instance,
   if (!RegisterClassEx(&windowClass))
   {
     // TODO: Logging
-    MessageBoxA(NULL, "Call to RegisterClassEx failed!", "Win32 Guided Tour", NULL);
+    MessageBoxA(NULL, "Failed to register window class!", "Error", MB_ICONERROR);
 
     return 1;
   }
@@ -229,7 +229,7 @@ WinMain(HINSTANCE instance,
   if (!windowHandle)
   {
     // TODO: Logging
-    MessageBoxA(NULL, "Call to CreateWindow failed!", "Win32 Guided Tour", NULL);
+    MessageBoxA(NULL, "Failed to create window!", "Error", MB_ICONERROR);
     return 1;
   }
 
