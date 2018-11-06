@@ -18,8 +18,14 @@ void setupPixelFormat(HDC deviceContext)
   pixelFormatDescriptor.iPixelType = PFD_TYPE_RGBA;
   pixelFormatDescriptor.cColorBits = 32; // TODO: Check that this works, 24 instead?
   pixelFormatDescriptor.cDepthBits = 24; // TODO: Specifies the depth of the depth (z-axis) buffer, 16 instead?
+
+  // TODO: Proper logging of results
   const int format = ChoosePixelFormat(deviceContext, &pixelFormatDescriptor);
-  SetPixelFormat(deviceContext, format, &pixelFormatDescriptor);
+  if (format == 0)
+    std::cerr << "ChoosePixelFormat failed\n";
+
+  if (SetPixelFormat(deviceContext, format, &pixelFormatDescriptor) == FALSE)
+    std::cerr << "SetPixelFormat failed\n";
 }
 
 void mainLoop()
