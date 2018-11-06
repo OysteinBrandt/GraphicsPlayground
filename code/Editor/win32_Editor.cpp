@@ -116,6 +116,11 @@ mainWindowCallback(HWND window,
     global_running = false;
   }break;
 
+  case WM_ERASEBKGND:
+  {
+    // Do nothing as our default result is 0.
+  }break;
+
   case WM_PAINT:
   {
     if (global_editor != nullptr)
