@@ -24,11 +24,12 @@ namespace engine::render
     Camera()
     { }
 
+    // TODO: Create math helper function (degree to radian) for setting FOV
     Camera(const math::Vec3 &position, const math::Vec3 &target = {})
-      : m_position(position), m_direction{ 0.f, 0.f, 1.f }, m_up{ 0.f, 1.f, 0.f },
+      : m_position(position), m_direction{ 0.f, 0.f, -1.f }, m_up{ 0.f, 1.f, 0.f },
       m_fov{ math::PI / 2 }, m_nearPlane{ 0.1f }, m_farPlane{ 100.f }
     {
-      lookAt(target);
+      lookAt(m_position, target, m_up);
     }
 
     const math::Vec3& direction() const
@@ -65,17 +66,21 @@ namespace engine::render
       m_up = rotation * m_up;
     }
 
-    void translate(const math::Vec3 &position)
+    void rotate(float radians, math::Mat4::Axis axis)
     {
-      m_position += position;
+      const auto rotation = math::Mat4::rotate(radians, axis);
+      m_direction = rotation * m_direction;
+      m_up = rotation * m_up;
     }
 
-    void lookAt(const math::Vec3 &target)
+    void translate(const math::Vec3 &translation)
     {
-      const auto direction = target - m_position;
-      m_direction = direction.normalized();
-      const auto rightDir = math::cross(m_up, m_direction);
-      m_up = math::cross(m_direction, rightDir);
+      m_position += translation;
+    }
+
+    void setPosition(const math::Vec3& position)
+    {
+      m_position = position;
     }
 
   private:

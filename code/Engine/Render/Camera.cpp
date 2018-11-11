@@ -8,12 +8,12 @@ void engine::render::Camera::updateProjection(float width, float height)
   float xScale = yScale / aspectRatio;
   float frustumLength = m_farPlane - m_nearPlane;
 
-  m_projectionMatrix.x.at(0) = xScale;
-  m_projectionMatrix.y.at(1) = yScale;
-  m_projectionMatrix.z.at(2) = -((m_farPlane + m_nearPlane) / frustumLength);
-  m_projectionMatrix.z.at(3) = -1.f;
-  m_projectionMatrix.w.at(2) = -((2 * m_nearPlane * m_farPlane) / frustumLength);
-  m_projectionMatrix.w.at(3) = 0.f;
+  m_projectionMatrix.x[0] = xScale;
+  m_projectionMatrix.y[1] = yScale;
+  m_projectionMatrix.z[2] = -((m_farPlane + m_nearPlane) / frustumLength);
+  m_projectionMatrix.z[3] = -1.f;
+  m_projectionMatrix.w[2] = -((2 * m_nearPlane * m_farPlane) / frustumLength);
+  m_projectionMatrix.w[3] = 0.f;
 }
 
 math::Mat4 engine::render::Camera::lookAt(const math::Vec3 & pos, const math::Vec3 & target, const math::Vec3 & up)
