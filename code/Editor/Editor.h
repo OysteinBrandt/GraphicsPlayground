@@ -14,7 +14,7 @@
 
 class Editor
 {
-  std::chrono::time_point<std::chrono::steady_clock> m_frameTimer;
+  std::chrono::time_point<std::chrono::steady_clock> m_previousFrame;
   std::unique_ptr<CameraController> m_cameraController;
 
   engine::render::Camera m_camera;

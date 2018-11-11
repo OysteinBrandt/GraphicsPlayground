@@ -3,9 +3,10 @@
 #include "Engine/Assert.h"
 #include <iostream>
 
-// TODO: Make sure timer is correct in first frame (m_frameTimer)
+// TODO: Make sure timer is correct in first frame (m_previousFrame)
+//       There could be a large gap between initialization and update
 Editor::Editor(const ApplicationParam &param)
-  : m_frameTimer{ std::chrono::high_resolution_clock::now() }
+  : m_previousFrame{ std::chrono::high_resolution_clock::now() }
 {
   auto handler = [](const engine::Assert& assert)
   {
@@ -30,10 +31,10 @@ Editor::Editor(const ApplicationParam &param)
 
 void Editor::update()
 {
-  auto now = std::chrono::steady_clock::now();
-  const std::chrono::duration<float> deltaTime = now - m_frameTimer;
-  m_frameTimer = now;
-  const auto dt = deltaTime.count();
+  auto current_frame = std::chrono::steady_clock::now();
+  const std::chrono::duration<float> deltaTime = current_frame - m_previousFrame;
+  m_previousFrame = current_frame;
+  const auto dt = deltaTime.count();   // std::min(std::chrono::milliseconds(15), diff);
 
   //++frames;
   //if (frames % 100 == 0)
