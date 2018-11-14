@@ -80,7 +80,7 @@ namespace engine::render::opengl
   std::string Shader::readShaderCode(const std::string &fileName) const
   {
     // TODO: Add Shader folder path to configuration
-    const std::string filePath{ "D:/src/GraphicsPlayground/Resources/Shaders/" };
+    const std::string filePath{ "../../../Resources/Shaders/" };
     std::ifstream stream(filePath + fileName);
     if (!stream.good())
       ENGINE_ASSERT_WARNING("Failed to load shader: \"" + fileName + "\" from folder \"" + filePath + "\"");
