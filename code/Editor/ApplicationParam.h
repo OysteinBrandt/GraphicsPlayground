@@ -47,10 +47,12 @@ namespace details
 
   struct Mouse
   {
-    int x;
-    int y;
-    bool leftButtonDown;
-    bool rightButtonDown;
+    int x{};
+    int y{};
+    int delta_x{};
+    int delta_y{};
+    bool leftButtonDown{ false };
+    bool rightButtonDown{ false };
 
     bool isInside(const details::Window& /*window*/) const
     {

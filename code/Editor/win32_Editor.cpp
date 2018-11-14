@@ -9,6 +9,9 @@ HDC global_deviceContext;
 Editor *global_editor = nullptr;
 ApplicationParam global_applicationParam;
 
+HCURSOR global_initial_loaded_cursor;
+POINT cursor_down_location{};
+
 void setupPixelFormat(HDC deviceContext)
 {
   PIXELFORMATDESCRIPTOR pixelFormatDescriptor{};
@@ -151,11 +154,32 @@ mainWindowCallback(HWND window,
   case WM_LBUTTONDOWN:
   {
     global_applicationParam.input.mouse.leftButtonDown = true;
+    GetCursorPos(&cursor_down_location);
   }break;
 
   case WM_LBUTTONUP:
   {
     global_applicationParam.input.mouse.leftButtonDown = false;
+  }break;
+
+  case WM_SETCURSOR:
+  {
+    if (LOWORD(lParam) == HTCLIENT)
+    {
+      if (global_applicationParam.input.mouse.leftButtonDown)
+      {
+        SetCursor(NULL);
+        
+        POINT current_cursor_location{};
+        GetCursorPos(&current_cursor_location);
+        global_applicationParam.input.mouse.delta_x = current_cursor_location.x - cursor_down_location.x;
+        global_applicationParam.input.mouse.delta_y = current_cursor_location.y - cursor_down_location.y;
+
+        SetCursorPos(cursor_down_location.x, cursor_down_location.y);
+      }
+      else
+        SetCursor(global_initial_loaded_cursor);
+    }
   }break;
 
   case WM_MOUSEMOVE:
@@ -209,7 +233,7 @@ WinMain(HINSTANCE instance,
   windowClass.lpfnWndProc = mainWindowCallback;
   windowClass.hInstance = instance;
   windowClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-  windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+  windowClass.hCursor = global_initial_loaded_cursor = LoadCursor(NULL, IDC_ARROW);  // TODO: This function has been superseded by the LoadImage function
   windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
   windowClass.lpszMenuName = NULL;
   windowClass.lpszClassName = "GraphicsPlaygroundEditorWindowClass";

@@ -153,6 +153,15 @@
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Assert.h" />
+    <ClInclude Include="Math\Trigonometric.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\stl_util.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\TypeTraits.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Math">
@@ -181,6 +190,9 @@
     </Filter>
     <Filter Include="Render\OpenGL">
       <UniqueIdentifier>{78873fb9-d4ae-4392-b129-dea14d66b054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{748614fb-15f0-4ae1-8a5f-dd89cc00a36d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

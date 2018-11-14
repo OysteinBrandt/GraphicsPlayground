@@ -42,6 +42,7 @@
     <ClInclude Include="Math\Mat2.h" />
     <ClInclude Include="Math\Mat3.h" />
     <ClInclude Include="Math\Mat4.h" />
+    <ClInclude Include="Math\Trigonometric.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Math\Vec3.h" />
     <ClInclude Include="Render\Camera.h" />
@@ -52,6 +53,8 @@
     <ClInclude Include="Render\RenderMode.h" />
     <ClInclude Include="Render\Color.h" />
     <ClInclude Include="Render\OpenGL\Shader.h" />
+    <ClInclude Include="Utilities\stl_util.h" />
+    <ClInclude Include="Utilities\TypeTraits.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assert.cpp" />

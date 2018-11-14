@@ -21,38 +21,30 @@ void CameraController::update(float dt)
   {
     if (mouse.isInside(window))
     {
-      const Point deltaMousePos{ mouse.x - m_oldMousePos.x, mouse.y - m_oldMousePos.y };
-      if (sqrt(deltaMousePos.x * deltaMousePos.x + deltaMousePos.y * deltaMousePos.y) > 5.0)
-      {
-        m_oldMousePos = { mouse.x, mouse.y };
-        return;
-      }
+      const float sensitivity{ 50.0f * dt };
+      m_yaw += math::Degrees(mouse.delta_x * sensitivity);
+      m_pitch += math::Degrees(-mouse.delta_y * sensitivity);
 
-      // TODO: Hide mouse on LB pressed and keep it at it's location
+      m_pitch = std::clamp(m_pitch, -89.0_degrees, 89.0_degrees);
 
-      // TODO: Limit pitch to be between 89 and -89 degrees
-
-      const float speed{ 10.0f * dt };
-      m_camera->rotate(-deltaMousePos.x * speed, math::Mat4::Axis::Y);  // static up vector works when we do not roll
-      
-      // TODO: Ensure same pitch and yaw when mouse distance traveled is equal
-
-      const auto rightDir = math::cross(m_camera->direction(), m_camera->up().normalized());
-      m_camera->rotate(-deltaMousePos.y * speed, rightDir);
-
-      m_oldMousePos = { mouse.x, mouse.y };
+      const math::Vec3 front(
+        std::cos(math::to_radians(m_pitch).get()) * std::cos(math::to_radians(m_yaw).get()),
+        std::sin(math::to_radians(m_pitch).get()),
+        std::cos(math::to_radians(m_pitch).get()) * std::sin(math::to_radians(m_yaw).get())
+      );
+      m_camera->setDirection(front.normalized());
     }
   }
 
   const auto& keyboard = m_application.input.keyboard;
-  const auto speed{ 5.0f * dt };
+  const auto speed{ 2.0f * dt };
   if (keyboard.W.isDown)
   {
     m_camera->translate(m_camera->direction() * speed);
   }
   if (keyboard.A.isDown)
   {
-    const auto left = math::cross(m_camera->direction(), m_camera->up()).normalized()  * (-1.f);
+    const auto left = math::cross(m_camera->direction(), {0.f, 1.f, 0.f}).normalized()  * (-1.f);
     m_camera->translate(left * speed);
   }
   if (keyboard.S.isDown)
@@ -61,7 +53,7 @@ void CameraController::update(float dt)
   }
   if (keyboard.D.isDown)
   {
-    const auto right = math::cross(m_camera->direction(), m_camera->up().normalized());
+    const auto right = math::cross(m_camera->direction(), { 0.f, 1.f, 0.f }).normalized();
     m_camera->translate(right * speed);
   }
 }

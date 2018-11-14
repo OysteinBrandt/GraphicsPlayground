@@ -3,6 +3,7 @@
 #include "Engine/Math/Mat4.h"
 #include "Engine/DllHelper.h"
 #include "Engine/Math/Constants.h"
+#include "Engine/Math/Trigonometric.h"
 #include "Engine/Assert/AssertException.h"
 
 namespace engine::render
@@ -15,22 +16,15 @@ namespace engine::render
     math::Vec3 m_position;
     math::Vec3 m_direction;
     math::Vec3 m_up;
-    float m_fov;
-    float m_nearPlane;
-    float m_farPlane;
+    math::Radians m_fov{ 0.f };
+    float m_nearPlane{ 0.f };
+    float m_farPlane{ 0.f };
 
   public:
 
-    Camera()
-    { }
+    Camera() = default;
 
-    // TODO: Create math helper function (degree to radian) for setting FOV
-    Camera(const math::Vec3 &position, const math::Vec3 &target = {})
-      : m_position(position), m_direction{ 0.f, 0.f, -1.f }, m_up{ 0.f, 1.f, 0.f },
-      m_fov{ math::PI / 2 }, m_nearPlane{ 0.1f }, m_farPlane{ 100.f }
-    {
-      lookAt(m_position, target, m_up);
-    }
+    ENGINE_API Camera(const math::Vec3 &position, const math::Vec3 &target = {});
 
     const math::Vec3& direction() const
     {
@@ -59,16 +53,26 @@ namespace engine::render
       return m_projectionMatrix;
     }
 
-    void rotate(float radians, const math::Vec3 &axis)
+    void rotate(const math::Degrees& deg, const math::Vec3 &axis)
     {
-      const auto rotation = math::Mat4::rotate(radians, axis);
+      rotate(math::to_radians(deg), axis);
+    }
+
+    void rotate(const math::Radians& rad, const math::Vec3 &axis)
+    {
+      const auto rotation = math::Mat4::rotate(rad.get(), axis);
       m_direction = rotation * m_direction;
       m_up = rotation * m_up;
     }
 
-    void rotate(float radians, math::Mat4::Axis axis)
+    void rotate(const math::Degrees& deg, math::Mat4::Axis axis)
     {
-      const auto rotation = math::Mat4::rotate(radians, axis);
+      rotate(math::to_radians(deg), axis);
+    }
+
+    void rotate(const math::Radians rad, math::Mat4::Axis axis)
+    {
+      const auto rotation = math::Mat4::rotate(rad.get(), axis);
       m_direction = rotation * m_direction;
       m_up = rotation * m_up;
     }
@@ -81,6 +85,11 @@ namespace engine::render
     void setPosition(const math::Vec3& position)
     {
       m_position = position;
+    }
+
+    void setDirection(const math::Vec3& dir)
+    {
+      m_direction = dir;
     }
 
   private:
