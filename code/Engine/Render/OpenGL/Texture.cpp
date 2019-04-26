@@ -7,12 +7,12 @@
 
 namespace engine::render::opengl
 {
-  Texture::Texture(const std::string& file, FileFormat fileType)
+  Texture::Texture(const std::filesystem::path& filePath, FileFormat fileType)
   {
     switch (fileType)
     {
     case FileFormat::Bmp:
-      loadBmp(file);
+      loadBmp(filePath);
     break;
 
     default:
@@ -75,12 +75,12 @@ namespace engine::render::opengl
     unbind();
   }
 
-  void Texture::loadBmp(const std::string& file)
+  void Texture::loadBmp(const std::filesystem::path& filePath)
   {
-    std::ifstream fileStream(file, std::ios::binary);
+    std::ifstream fileStream(filePath, std::ios::binary);
     if (!fileStream.good())
     {
-      ENGINE_ASSERT_WARNING("Failed to load texture from: \"" + file + "\"");
+      ENGINE_ASSERT_WARNING("Failed to load texture from: \"" + filePath.u8string() + "\"");
       return;
     }
 

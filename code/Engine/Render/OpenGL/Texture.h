@@ -4,6 +4,7 @@
 #include "Engine/DllHelper.h"
 
 #include <string>
+#include <filesystem>
 
 namespace engine::render::opengl
 {
@@ -27,7 +28,7 @@ namespace engine::render::opengl
   public:
 
     // TODO: Use std::filesystem::path when supported equally on all compilers
-    ENGINE_API Texture(const std::string& file, FileFormat fileType);
+    ENGINE_API Texture(const std::filesystem::path& filePath, FileFormat fileType);
 
     Texture()
     { }
@@ -75,6 +76,6 @@ namespace engine::render::opengl
 
   private:
 
-    void loadBmp(const std::string& file);
+    void loadBmp(const std::filesystem::path& filePath);
   };
 }

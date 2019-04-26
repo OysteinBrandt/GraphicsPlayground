@@ -13,7 +13,7 @@ namespace scenes
 
     auto geometry = engine::generator::Cube(0.5f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
-    model->apply(Texture{ "../../../Resources/Textures/UV-24-bit.bmp", Texture::FileFormat::Bmp });
+    model->apply(Texture{ std::filesystem::u8path(u8"Resources") /= u8"UV-24-bit.bmp", Texture::FileFormat::Bmp });
     auto renderable = renderer.add(*model);
 
     auto &cube = m_cubes.emplace_back(CubeData{});
