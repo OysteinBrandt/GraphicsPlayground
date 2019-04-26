@@ -29,7 +29,6 @@ see https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object
 glGenVertexArrays, glDeleteVertexArrays, and glBindVertexArray
 
 
-
 # Optimize Matrix class
  * Mat2H ==> Homogeneous ==> can remove last row of a Mat3
 [a b c]
@@ -37,3 +36,5 @@ glGenVertexArrays, glDeleteVertexArrays, and glBindVertexArray
 [0 0 1] <- remove this line
 
 # Make exception safe profiler
+# Fixed update rate, async?
+# Memory allocator for STL (fixed amount of memory allocated at startup?)
