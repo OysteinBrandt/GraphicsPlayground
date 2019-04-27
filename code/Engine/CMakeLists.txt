@@ -1,5 +1,3 @@
-project( Engine CXX )
-
 add_library( Engine SHARED )
 
 set(
