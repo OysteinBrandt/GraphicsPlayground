@@ -167,7 +167,6 @@ mainWindowCallback(HWND window,
   case WM_MOUSEWHEEL:
   {
     global_applicationParam.input.mouse.delta_scroll = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
-    std::cout << global_applicationParam.input.mouse.delta_scroll << std::endl;
     switch (wParam)
     {
     case MK_LBUTTON:
