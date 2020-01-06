@@ -50,6 +50,8 @@ void mainLoop()
   {
     global_editor->render(static_cast<float>(global_applicationParam.window.size.width),
       static_cast<float>(global_applicationParam.window.size.height));
+
+    global_applicationParam.input.mouse.reset();
   }
   catch (const std::exception& e)
   {
@@ -160,6 +162,31 @@ mainWindowCallback(HWND window,
   case WM_LBUTTONUP:
   {
     global_applicationParam.input.mouse.leftButtonDown = false;
+  }break;
+
+  case WM_MOUSEWHEEL:
+  {
+    global_applicationParam.input.mouse.delta_scroll = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
+    std::cout << global_applicationParam.input.mouse.delta_scroll << std::endl;
+    switch (wParam)
+    {
+    case MK_LBUTTON:
+    {
+    }break;
+
+    case MK_CONTROL:
+    case MK_MBUTTON:
+    case MK_RBUTTON:
+    case MK_SHIFT:
+    case MK_XBUTTON1:
+    case MK_XBUTTON2:
+    {
+
+    }break;
+
+    default:
+      break;
+    }
   }break;
 
   case WM_SETCURSOR:

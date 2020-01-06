@@ -51,8 +51,14 @@ namespace details
     int y{};
     int delta_x{};
     int delta_y{};
+    short delta_scroll{};
     bool leftButtonDown{ false };
     bool rightButtonDown{ false };
+
+    void reset()
+    {
+      delta_scroll = 0;
+    }
 
     bool isInside(const details::Window& /*window*/) const
     {

@@ -36,6 +36,13 @@ void CameraController::update(float dt)
     }
   }
 
+  if (mouse.delta_scroll != 0)
+  {
+    //TODO: Scroll speed should dynamic. Perhaps use the largest bounding box in view to scale speed?
+    const auto scroll_speed{ 300.0f * dt };
+    m_camera->translate(m_camera->direction() * mouse.delta_scroll * scroll_speed);
+  }
+
   const auto& keyboard = m_application.input.keyboard;
   const auto speed{ 2.0f * dt };
   if (keyboard.W.isDown)
