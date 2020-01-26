@@ -32,8 +32,14 @@ namespace engine::render::opengl
     Renderer& opearator(const Renderer&) = delete;
 
     ENGINE_API const std::shared_ptr<OpenGLModel> add(const engine::Geometry& data, GLenum renderMode);
-    ENGINE_API const std::shared_ptr<OpenGLModel> add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-                                           const std::vector<math::Vec3>& colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode);
+    ENGINE_API const std::shared_ptr<OpenGLModel> add(
+      const std::vector<math::Vec3>& vertices,
+      const std::vector<unsigned short>& indices,
+      const std::vector<math::Vec3> &normals,
+      const std::vector<math::Vec3>& colors,
+      const std::vector<math::Vec2>& textureCoords,
+      GLenum renderMode
+    );
 
     ENGINE_API const std::shared_ptr<Renderable> add(const OpenGLModel &model, Shader *shader = nullptr);
 

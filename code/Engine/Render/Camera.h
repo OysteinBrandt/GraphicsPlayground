@@ -31,6 +31,11 @@ namespace engine::render
       return m_direction;
     }
 
+    const math::Vec3& position() const
+    {
+      return m_position;
+    }
+
     const math::Vec3& up() const
     {
       return m_up;

@@ -62,7 +62,7 @@ namespace engine::generator
     }
     ENGINE_ASSERT_EXCEPTION_IF(result.vertices.size() > std::numeric_limits<unsigned short>::max(), "Exceeded max number of supported vertices");
 
-    result.indices.reserve(widthPrecision * heightPrecision * 6);
+    result.indices.reserve(widthPrecision * heightPrecision * 6u);
     for (int i = 0; i < widthPrecision; ++i)
     {
       for (int j = 0; j < heightPrecision; ++j)

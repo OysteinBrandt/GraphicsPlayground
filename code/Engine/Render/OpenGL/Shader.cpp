@@ -7,8 +7,8 @@
 namespace engine::render::opengl
 {
 
-  Shader::Shader(const std::string & vertexShaderPath, const std::string & fragmentShaderPath)
-    : m_initialized(false), m_vertexShaderName(vertexShaderPath), m_fragmentShaderName(fragmentShaderPath)
+  Shader::Shader(ShaderConfiguration config)
+    : m_initialized(false), m_config(config)
   {
   }
 
@@ -32,10 +32,10 @@ namespace engine::render::opengl
     m_vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
     m_fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
-    std::string vertexShader = readShaderCode(m_vertexShaderName);
+    std::string vertexShader = readShaderCode(m_config.vertexShader);
     glShaderSource(m_vertexShaderId, 1, OglStringHelper(vertexShader), nullptr);
 
-    std::string fragmentShader = readShaderCode(m_fragmentShaderName);
+    std::string fragmentShader = readShaderCode(m_config.fragmentShader);
     glShaderSource(m_fragmentShaderId, 1, OglStringHelper(fragmentShader), nullptr);
 
     glCompileShader(m_vertexShaderId);
@@ -64,26 +64,48 @@ namespace engine::render::opengl
     glUseProgram(0);
   }
 
-  void Shader::loadMatrix(const math::Mat4 &matrix) const
+  void Shader::loadMVPMatrices(
+    const math::Mat4& model,
+    const math::Mat4& view,
+    const math::Mat4& projection
+  ) const
   {
-    GLint loc = glGetUniformLocation(m_programId, "MVP");
-    ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named MVP");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, &matrix.x[0]);
+    if (m_config.useCombinedMvpMatrix)
+    {
+      auto MVP = projection * view * model;
+      GLint loc = glGetUniformLocation(m_programId, "MVP");
+      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named MVP");
+      glUniformMatrix4fv(loc, 1, GL_FALSE, &MVP.x[0]);
+    }
+    else
+    {
+      GLint loc = glGetUniformLocation(m_programId, "model");
+      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named model");
+      glUniformMatrix4fv(loc, 1, GL_FALSE, &model.x[0]);
+
+      loc = glGetUniformLocation(m_programId, "view");
+      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named view");
+      glUniformMatrix4fv(loc, 1, GL_FALSE, &view.x[0]);
+
+      loc = glGetUniformLocation(m_programId, "projection");
+      ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named projection");
+      glUniformMatrix4fv(loc, 1, GL_FALSE, &projection.x[0]);
+    }
   }
 
-  void Shader::loadColor(const math::Vec3 &color) const
+  void Shader::loadUniform3fv(std::string_view uniform_name, const math::Vec3& vec) const
   {
-    GLint loc = glGetUniformLocation(m_programId, "custom_color");
-    ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named custom_color");
-    glUniform3fv(loc, 1, &color.x);
+    GLint loc = glGetUniformLocation(m_programId, uniform_name.data());
+    ENGINE_ASSERT_EXCEPTION_IF(loc == -1, "No uniform named '" + std::string(uniform_name) + "'");
+    glUniform3fv(loc, 1, &vec.x);
   }
 
-  std::string Shader::readShaderCode(const std::string &fileName) const
+  std::string Shader::readShaderCode(const std::filesystem::path& shader) const
   {
 	const auto resources = std::filesystem::u8path(u8"Resources");
-    std::ifstream stream(resources / fileName);
+    std::ifstream stream(resources / shader);
     if (!stream.good())
-      ENGINE_ASSERT_WARNING("Failed to load shader: \"" + fileName + "\" from folder \"" + resources.u8string() + "\"");
+      ENGINE_ASSERT_WARNING("Failed to load shader: \"" + shader.u8string() + "\" from folder \"" + resources.u8string() + "\"");
 
     return std::string(std::istreambuf_iterator<char>{stream}, {});
   }

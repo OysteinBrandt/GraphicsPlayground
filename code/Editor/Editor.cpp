@@ -22,7 +22,13 @@ Editor::Editor(const ApplicationParam &param)
   m_camera = engine::render::Camera{ { 0.f, 0.f, 3.f } };
   m_cameraController = std::make_unique<CameraController>(&m_camera, param);
 
-  m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader("defaultVertex.vert", "defaulFragment.frag"));
+  engine::render::opengl::ShaderConfiguration sc;
+  sc.vertexShader = "phong.vert";
+  sc.fragmentShader = "phong.frag";
+  sc.useCombinedMvpMatrix = false;
+  sc.type = engine::render::opengl::ShaderType::PHONG;
+  m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader(sc));
+  //m_renderer = std::make_unique<engine::render::opengl::Renderer>(m_camera, engine::render::opengl::Shader({ "defaultVertex.vert", "defaultFragment.frag" }));
   //m_gameScene = std::make_unique<scenes::SimpleGame>(m_keyInput);
   m_cubeScene = std::make_unique<scenes::Cubes>(*m_renderer);
   //m_collisionScene = std::make_unique<scenes::Collision>(*m_renderer);

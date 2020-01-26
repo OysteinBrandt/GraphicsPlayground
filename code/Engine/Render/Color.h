@@ -36,9 +36,10 @@ namespace color
   //static render::Color3<float> Red  { 1.f, 0.f, 0.f };
   //static render::Color3<float> Green{ 0.f, 1.f, 0.f };
   //static render::Color3<float> Blue { 0.f, 0.f, 1.f };
-  static math::Vec3 Red  { 1.f, 0.f, 0.f };
-  static math::Vec3 Green{ 0.f, 1.f, 0.f };
-  static math::Vec3 Blue { 0.f, 0.f, 1.f };
+  static math::Vec3 White  { 1.f, 1.f, 1.f };
+  static math::Vec3 Red    { 1.f, 0.f, 0.f };
+  static math::Vec3 Green  { 0.f, 1.f, 0.f };
+  static math::Vec3 Blue   { 0.f, 0.f, 1.f };
 }
 
 

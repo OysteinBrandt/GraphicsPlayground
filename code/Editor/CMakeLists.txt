@@ -40,10 +40,13 @@ set_target_properties( Editor PROPERTIES RESOURCE "${RESOURCE_FILES}" )
 
 set( BIN_RESOURCE_FOLDER_CONFIG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>/Resources/)
 
-add_custom_command(TARGET Editor POST_BUILD
+# Note: Must trigger a build for this command to take effect
+add_custom_command(TARGET Editor PRE_BUILD
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${BIN_RESOURCE_FOLDER_CONFIG}
 )
-add_custom_command(TARGET Editor POST_BUILD
+
+# Note: Must trigger a build for this command to take effect
+add_custom_command(TARGET Editor PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${RESOURCE_FILES} ${BIN_RESOURCE_FOLDER_CONFIG}
 )
 

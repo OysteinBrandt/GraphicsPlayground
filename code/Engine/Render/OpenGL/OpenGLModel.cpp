@@ -5,23 +5,32 @@
 namespace engine::render::opengl
 {
 
-  OpenGLModel::OpenGLModel(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-    const std::vector<math::Vec3> &colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode)
+  OpenGLModel::OpenGLModel(
+    const std::vector<math::Vec3>& vertices,
+    const std::vector<unsigned short>& indices,
+    const std::vector<math::Vec3> &normals,
+    const std::vector<math::Vec3> &colors,
+    const std::vector<math::Vec2>& textureCoords,
+    GLenum renderMode
+  )
     : m_renderMode(renderMode), m_renderOutline{ false }, m_usesIndices{ false }
   {
     glGenVertexArrays(1, &m_vaoID);
     glBindVertexArray(m_vaoID);
 
     storeDataInAttributeList(0, 3, vertices, GL_FALSE);
+
+    if (!normals.empty())
+      storeDataInAttributeList(1, 3, normals, GL_FALSE);
     if (!colors.empty())
-      storeDataInAttributeList(1, 3, colors, GL_TRUE);
+      storeDataInAttributeList(2, 3, colors, GL_TRUE);
     if (!textureCoords.empty())
-      storeDataInAttributeList(2, 2, textureCoords, GL_FALSE);
+      storeDataInAttributeList(3, 2, textureCoords, GL_FALSE);
     else
     { // Default texture is used to prevent special handling in shader
       m_texture.install();
       std::vector<math::Vec2> defaultTextureCoordinates(vertices.size(), { 0.f, 0.f });
-      storeDataInAttributeList(2, 2, defaultTextureCoordinates, GL_FALSE);
+      storeDataInAttributeList(4, 2, defaultTextureCoordinates, GL_FALSE);
     }
 
     if (!indices.empty())

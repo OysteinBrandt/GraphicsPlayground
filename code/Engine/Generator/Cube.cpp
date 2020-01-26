@@ -3,7 +3,7 @@
 
 namespace engine::generator
 {
-  Cube::Cube(float size) : m_size(size)
+  Cube::Cube(float size, const math::Vec3& color) : m_size(size), m_color(color)
   { }
 
   Geometry Cube::generate() const
@@ -59,7 +59,7 @@ namespace engine::generator
     for (int i = 0; i < indices.size(); i++)
       geometry.normals.push_back(normals[i / 6]);
 
-    geometry.colors = std::vector<math::Vec3>(36, math::Vec3{ 1.f, 1.f, 1.f });
+    geometry.colors = std::vector<math::Vec3>(36, m_color);
 
     geometry.textureCoords.reserve(indices.size());
     for (int i = 0; i < indices.size(); i++)

@@ -3,6 +3,7 @@
 #include <Engine/Render/OpenGL/Renderer.h>
 #include <Engine/Render/OpenGL/OpenGLModel.h>
 #include <Engine/Render/Color.h>
+#include <Engine/Assert.h>
 
 using engine::render::opengl::Texture;
 namespace scenes
@@ -19,6 +20,28 @@ namespace scenes
     auto &cube = m_cubes.emplace_back(CubeData{});
     cube.entity->position = { 0.f, 0.f, 0.f };
     cube.entity->add(std::make_shared<entities::component::Positional>(renderable.get()));
+
+    // Render normals
+    std::vector<math::Vec3> normalLines;
+    std::vector<math::Vec3> normalColors;
+    if (geometry.vertices.size() != geometry.normals.size())
+      ENGINE_ASSERT_ERROR("Not equal number of vertices and normals");
+    else
+    {
+      normalLines.reserve(geometry.vertices.size() + geometry.normals.size());
+      normalColors.reserve(geometry.vertices.size() + geometry.normals.size());
+      for (std::size_t i = 0; i < geometry.vertices.size(); ++i)
+      {
+        normalLines.push_back(geometry.vertices[i]);
+        normalColors.emplace_back(color::Red);
+
+        normalLines.push_back(geometry.vertices[i] + (geometry.normals[i] / 10.f));
+        normalColors.emplace_back(color::Green);
+      }
+    }
+
+    auto normalModel = renderer.add(normalLines, {}, {}, normalColors, {}, GL_LINES);
+    renderer.add(*normalModel);
   }
 
   void Cubes::update(float dt)
@@ -37,7 +60,7 @@ namespace scenes
   {
     std::vector<math::Vec3> axisLines{ {}, {1.f, 0.f, 0.f}, {}, {0.f, 1.f, 0.f}, {}, {0.f, 0.f, 1.f} };
     std::vector<math::Vec3> axisColors{ color::Red, color::Red, color::Green, color::Green, color::Blue, color::Blue };
-    auto axisModel = renderer.add(axisLines, {}, axisColors, {}, GL_LINES);
+    auto axisModel = renderer.add(axisLines, {}, {}, axisColors, {}, GL_LINES);
     renderer.add(*axisModel);
   }
 

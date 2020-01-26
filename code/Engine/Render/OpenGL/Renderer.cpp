@@ -23,13 +23,19 @@ namespace engine::render::opengl
 
   const std::shared_ptr<OpenGLModel> Renderer::add(const engine::Geometry& data, GLenum renderMode)
   {
-    return add(data.vertices, data.indices, data.colors, data.textureCoords, renderMode);
+    return add(data.vertices, data.indices, data.normals, data.colors, data.textureCoords, renderMode);
   }
 
-  const std::shared_ptr<OpenGLModel> Renderer::add(const std::vector<math::Vec3>& vertices, const std::vector<unsigned short>& indices,
-                                                   const std::vector<math::Vec3>& colors, const std::vector<math::Vec2>& textureCoords, GLenum renderMode)
+  const std::shared_ptr<OpenGLModel> Renderer::add(
+    const std::vector<math::Vec3>& vertices,
+    const std::vector<unsigned short>& indices,
+    const std::vector<math::Vec3> &normals,
+    const std::vector<math::Vec3>& colors,
+    const std::vector<math::Vec2>& textureCoords,
+    GLenum renderMode
+  )
   {
-    return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, colors, textureCoords, renderMode));
+    return m_models.emplace_back(std::make_shared<OpenGLModel>(vertices, indices, normals, colors, textureCoords, renderMode));
   }
 
   const std::shared_ptr<Renderable> Renderer::add(const OpenGLModel &model, Shader *shader)
@@ -51,8 +57,20 @@ namespace engine::render::opengl
         shader = &m_defaultShader;
 
       shader->bind();
-      const math::Mat4 MVP = m_camera.projectionMatrix() * m_camera.viewMatrix() * renderable->m_matrix;
-      shader->loadMatrix(MVP);
+
+      // TODO(obr): Find a better way to specify uniforms for given shader
+      if (shader->type() == ShaderType::DEFAULT)
+      {
+        shader->loadMVPMatrices(renderable->m_matrix, m_camera.viewMatrix(), m_camera.projectionMatrix());
+      }
+      else if (shader->type() == ShaderType::PHONG)
+      {
+        shader->loadMVPMatrices(renderable->m_matrix, m_camera.viewMatrix(), m_camera.projectionMatrix());
+        shader->loadUniform3fv("lightPos", { 10.f, 0.5f, 0.f });
+        shader->loadUniform3fv("viewPos", m_camera.position());
+        shader->loadUniform3fv("lightColor", math::Vec3{ 238.f, 232.f, 170.f }.normalized()); // Color: pale golden rod
+        //shader->loadUniform3fv("objectColor", { 1.f, 0.1f, 0.1f });
+      }
 
       if (model.usesIndices())
         glDrawElements(model.renderMode(), model.vertexCount(), GL_UNSIGNED_SHORT, 0);
