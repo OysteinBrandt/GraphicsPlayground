@@ -35,7 +35,7 @@ if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
 elseif ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
 	target_compile_options( EngineTest  PRIVATE /W4 )	# TODO: Enable /WX (treat warnings as errors)
 else()
-	message(SEND_ERROR "CMAKE_CXX_COMPILER_ID did not match. Found '" ${CMAKE_CXX_COMPILER_ID} "'")
+	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
 endif()
 
 target_compile_features( EngineTest

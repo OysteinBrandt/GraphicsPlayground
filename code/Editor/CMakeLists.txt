@@ -1,10 +1,16 @@
 if ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
-	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS") # /ENTRY:mainCRTStartup
 endif()
 
 file( GLOB_RECURSE RESOURCE_FILES ${ROOT_DIR}/../Resources/*.*)
 
-add_executable( Editor ${RESOURCE_FILES} )
+if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
+	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
+elseif ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
+	add_executable( Editor WIN32 win32_Editor.cpp )
+else()
+	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
+endif()
 
 set(
 	SOURCE_FILES
@@ -38,7 +44,9 @@ set_target_properties( Editor PROPERTIES RESOURCE "${RESOURCE_FILES}" )
 
 # *********************************************************************************************
 
-set( BIN_RESOURCE_FOLDER_CONFIG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>/Resources/)
+# TODO: Add $<CONFIG> to path if cmake configured for Visual Studio ?
+#       Must figure out how to handle build config properly
+set( BIN_RESOURCE_FOLDER_CONFIG ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Resources/)
 
 # Note: Must trigger a build for this command to take effect
 add_custom_command(TARGET Editor PRE_BUILD
@@ -50,7 +58,9 @@ add_custom_command(TARGET Editor PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${RESOURCE_FILES} ${BIN_RESOURCE_FOLDER_CONFIG}
 )
 
-set_property(TARGET Editor PROPERTY VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>/)
+# TODO: Add $<CONFIG> to path if cmake configured for Visual Studio ?
+#       Must figure out how to handle build config properly
+set_property(TARGET Editor PROPERTY VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 # *********************************************************************************************
 
@@ -65,7 +75,7 @@ if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
 elseif ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
 	target_compile_options( Editor  PRIVATE /W4 )	# TODO: Enable /WX (treat warnings as errors)
 else()
-	message(SEND_ERROR "CMAKE_CXX_COMPILER_ID did not match. Found '" ${CMAKE_CXX_COMPILER_ID} "'")
+	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
 endif()
 
 target_compile_features( Editor

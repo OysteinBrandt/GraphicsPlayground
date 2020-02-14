@@ -73,8 +73,10 @@ target_link_libraries( Engine opengl32 )
 target_link_libraries( Engine ${ROOT_DIR}/../3rdParty/glew/lib/Release/x64/glew32.lib )
 target_include_directories( Engine PUBLIC ${ROOT_DIR}/../3rdParty/glew/include )
 
+# TODO: Add $<CONFIG> to path if cmake configured for Visual Studio ?
+#       Must figure out how to handle build config properly
 add_custom_command(TARGET Engine POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ROOT_DIR}/../3rdParty/glew/bin/Release/x64/glew32.dll ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>/
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${ROOT_DIR}/../3rdParty/glew/bin/Release/x64/glew32.dll ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
 
 target_compile_definitions( Engine PRIVATE ENGINE_DEBUG=1 ENGINE_DLL=1 ENGINE_DLL_EXPORT=1 )
@@ -84,7 +86,7 @@ if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
 elseif ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
 	target_compile_options( Engine  PRIVATE /W4 )	# TODO: Enable /WX (treat warnings as errors)
 else()
-	message(SEND_ERROR "CMAKE_CXX_COMPILER_ID did not match. Found '" ${CMAKE_CXX_COMPILER_ID} "'")
+	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
 endif()
 
 target_compile_features( Engine
