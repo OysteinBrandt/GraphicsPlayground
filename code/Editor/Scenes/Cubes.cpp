@@ -4,6 +4,7 @@
 #include <Engine/Render/OpenGL/OpenGLModel.h>
 #include <Engine/Render/Color.h>
 #include <Engine/Assert.h>
+#include <Engine/Utilities/ResourcePath.h>
 
 using engine::render::opengl::Texture;
 namespace scenes
@@ -14,7 +15,7 @@ namespace scenes
 
     auto geometry = engine::generator::Cube(0.5f).generate();
     auto model = renderer.add(geometry, GL_TRIANGLES);
-    model->apply(Texture{ std::filesystem::u8path(u8"Resources") /= u8"UV-24-bit.bmp", Texture::FileFormat::Bmp });
+    model->apply(Texture{ engine::bad::Resource::instance().path_copy() /= u8"UV-24-bit.bmp", Texture::FileFormat::Bmp });
     auto renderable = renderer.add(*model);
 
     auto &cube = m_cubes.emplace_back(CubeData{});

@@ -4,6 +4,13 @@ endif()
 
 file( GLOB_RECURSE RESOURCE_FILES ${ROOT_DIR}/../Resources/*.*)
 
+# This prevents linkage of resource files (like .obj which is used for 3D models)
+set_source_files_properties(
+    ${RESOURCE_FILES}
+    PROPERTIES
+    HEADER_FILE_ONLY ON
+)
+
 if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang|AppleClang|GNU" )
 	message(SEND_ERROR "'" ${CMAKE_CXX_COMPILER_ID} "' is not a supported compiler!")
 elseif ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
@@ -22,6 +29,7 @@ set(
 		ShapeController.h
 		Scenes/Collision.h
 		Scenes/Cubes.hpp
+		Scenes/Antennas.h
 		Scenes/SimpleGame.h
 		CameraController.cpp
 		ControllerComponent.cpp
@@ -31,6 +39,7 @@ set(
 		win32_Editor.cpp
 		Scenes/Collision.cpp
 		Scenes/Cubes.cpp
+		Scenes/Antennas.cpp
 		Scenes/SimpleGame.cpp
 )
 

@@ -43,6 +43,8 @@ set(
 		Math/Vec2.h
 		Math/Vec3.cpp
 		Math/Vec3.h
+		Model/Loader.h
+		Model/Loader.cpp
 		Render/Camera.cpp
 		Render/Camera.h
 		Render/Color.h
@@ -59,6 +61,7 @@ set(
 		Render/RenderMode.h
 		Utilities/stl_util.h
 		Utilities/TypeTraits.h
+		Utilities/ResourcePath.h
 )
 
 target_sources( Engine PRIVATE ${SOURCE_FILES} )

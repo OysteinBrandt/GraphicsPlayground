@@ -216,6 +216,9 @@ pip-log.txt
 .tox
 code/EngineTest/profiling_result.csv
 
+# Resources that should not be excluded
+!/Resources/**/*.obj
+
 #Translations
 *.mo
 

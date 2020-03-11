@@ -66,7 +66,7 @@ namespace engine::render::opengl
       else if (shader->type() == ShaderType::PHONG)
       {
         shader->loadMVPMatrices(renderable->m_matrix, m_camera.viewMatrix(), m_camera.projectionMatrix());
-        shader->loadUniform3fv("lightPos", { 10.f, 0.5f, 0.f });
+        shader->loadUniform3fv("lightPos", { -20.f, 0.5f, 0.f });
         shader->loadUniform3fv("viewPos", m_camera.position());
         shader->loadUniform3fv("lightColor", math::Vec3{ 238.f, 232.f, 170.f }.normalized()); // Color: pale golden rod
         //shader->loadUniform3fv("objectColor", { 1.f, 0.1f, 0.1f });

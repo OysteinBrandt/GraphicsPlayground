@@ -3,6 +3,7 @@
 #include "IORedirect.h"
 #include "Editor/Editor.h"
 #include <iostream>
+#include <filesystem>
 
 static bool global_running{ true };
 HDC global_deviceContext;
@@ -304,6 +305,30 @@ WinMain(HINSTANCE instance,
   global_applicationParam.window.size.startY = window.top;
   global_applicationParam.window.size.width = window.right - window.left;
   global_applicationParam.window.size.height = window.bottom - window.top;
+
+  CHAR executable_path[MAX_PATH];
+  auto file_name_length = GetModuleFileNameA(NULL, executable_path, sizeof(executable_path));
+  if (file_name_length == sizeof(executable_path))
+  {
+    // path was probably truncated because it did not fit into our buffer
+    // TODO: Logging
+    std::error_code ec;
+    if (!std::filesystem::exists(std::filesystem::u8path(executable_path), ec))
+    {
+      // TODO: Use std::format when we have C++20
+      const std::string error("Failed to get executable path. Path was too long.\nLength is limited to " + std::to_string(MAX_PATH) + " characters.");
+      MessageBoxA(NULL, error.c_str(), "Error", MB_ICONERROR);
+      return 1;
+    }
+  }
+  else if (file_name_length == 0)
+  {
+    // TODO: Logging
+    MessageBoxA(NULL, "Failed to get executable path.\nError: " + GetLastError(), "Error", MB_ICONERROR);
+    return 1;
+  }
+
+  global_applicationParam.executable_folder = std::filesystem::u8path(executable_path).parent_path();
 
   try
   {

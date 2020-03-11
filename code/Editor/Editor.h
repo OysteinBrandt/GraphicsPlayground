@@ -6,6 +6,7 @@
 #include "Scenes/SimpleGame.h"
 #include "Scenes/Cubes.hpp"
 #include "Scenes/Collision.h"
+#include "Scenes/Antennas.h"
 #include <Engine/Render/OpenGL/Renderer.h>
 #include <Engine/Render/Camera.h>
 
@@ -21,7 +22,8 @@ class Editor
 
   std::unique_ptr<engine::render::opengl::Renderer> m_renderer;
   //std::unique_ptr<scenes::SimpleGame> m_gameScene;
-  std::unique_ptr<scenes::Cubes> m_cubeScene;
+  //std::unique_ptr<scenes::Cubes> m_cubeScene;
+  std::unique_ptr<scenes::Antennas> m_antennaScene;
   //std::unique_ptr<scenes::Collision> m_collisionScene;
   int frames;
 

@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "Engine/Assert.h"
+#include "Engine/Utilities/ResourcePath.h"
 #include <filesystem>
 
 #include <fstream>
@@ -102,7 +103,7 @@ namespace engine::render::opengl
 
   std::string Shader::readShaderCode(const std::filesystem::path& shader) const
   {
-	const auto resources = std::filesystem::u8path(u8"Resources");
+    const auto resources = engine::bad::Resource::instance().path_copy();
     std::ifstream stream(resources / shader);
     if (!stream.good())
       ENGINE_ASSERT_WARNING("Failed to load shader: \"" + shader.u8string() + "\" from folder \"" + resources.u8string() + "\"");

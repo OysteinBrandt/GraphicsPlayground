@@ -1,4 +1,5 @@
 #pragma once
+#include <filesystem>
 
 namespace details
 {
@@ -88,4 +89,5 @@ struct ApplicationParam
 {
   details::Input input;
   details::Window window;
+  std::filesystem::path executable_folder;
 };

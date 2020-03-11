@@ -83,6 +83,10 @@ namespace engine::render::opengl
       ENGINE_ASSERT_WARNING("Failed to load texture from: \"" + filePath.u8string() + "\"");
       return;
     }
+    else
+    {
+      //TODO: Logging
+    }
 
     char header[54];
     fileStream.get(header, 54);

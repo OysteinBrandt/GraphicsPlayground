@@ -44,7 +44,7 @@ void CameraController::update(float dt)
   }
 
   const auto& keyboard = m_application.input.keyboard;
-  const auto speed{ 2.0f * dt };
+  const auto speed{ 20.0f * dt };
   if (keyboard.W.isDown)
   {
     m_camera->translate(m_camera->direction() * speed);
